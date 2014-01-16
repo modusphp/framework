@@ -2,16 +2,16 @@
     "name": "tailwindsllc/modus",
     "description": "Modus Framework",
     "type": "library",
-	"require-dev": {
+	"require": {
+	    "php": ">=5.4.0",
     	"aura/session": "1.0.0",
         "aura/cli": "1.1.0",
-        "aura/intl": "1.0.0-beta2",
+        "aura/intl": "1.0.0",
         "aura/di": "1.1.0",
         "aura/sql" : "1.1.0",
         "aura/router": "1.1.0",
         "aura/view": "1.1.2",
         "monolog/monolog": "1.5.0",
-        "pear/log": "dev-master",
         "aura/http": "1.0.1",
         "aura/web": "1.0.1"
 	}
