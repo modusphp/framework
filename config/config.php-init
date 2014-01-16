@@ -1,0 +1,61 @@
+<?php
+
+$rootPath = realpath(__DIR__ . '/..');
+
+return array(
+
+    "directories" => array(
+        "src" => "$rootPath/src",
+    ),
+    
+    "composer" => array(
+        "use_composer" => true,
+        "composer_autoloader" => "$rootPath/vendor/autoload.php",
+    ),
+
+    "database" => array(
+        "master" => array(
+            "adapter" => "mysql",
+            "user" => "",
+            "pass" => "",
+            "host" => "127.0.0.1",
+            "name" => "",
+        ),
+        "slave" => array(
+            "adapter" => "mysql",
+            "user" => "",
+            "pass" => "",
+            "host" => "127.0.0.1",
+            "name" => "",
+        ),
+    ),
+    
+    "autoloaders" => array(
+        "Modus/Autoloader/Psr0.php" => "Modus\Autoloader\Psr0"
+    ),
+    
+    "routing" => array(
+        "router" => "Modus\Router\Standard",
+        "routes" => array(
+            "home" => "/",
+        ),
+    ),
+
+    "views" => array(
+        "view_paths" => array(
+            "$rootPath/views",
+        ),
+        "layout" => "$rootPath/views/layout.php",
+    ),
+    
+    "session_config" => array(
+        "driver" => "Modus\Session\Aura",
+    ),
+    
+    "request" => "Modus\Request\Http",
+    
+    "logging" => array(
+        "log_driver" => "console",
+        "logs" => "$rootPath/logs",
+    ),
+);
