@@ -140,7 +140,6 @@ class Http {
     protected function _setupConfig($config) {
         $this->_config = $config;
         foreach($config['directories'] as $directory) {
-            var_dump($directory);
             if(realpath($directory)) {
                 set_include_path(get_include_path() . ":$directory");
             }
