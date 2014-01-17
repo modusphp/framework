@@ -44,6 +44,7 @@ class Http {
     }
     
     protected function _configureAutoloaders() {
+        return;
         $config = $this->_config;
         
         if($config['composer']['use_composer']) {
