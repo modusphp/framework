@@ -44,20 +44,11 @@ class Http {
     }
     
     protected function _configureAutoloaders() {
-        return;
         $config = $this->_config;
         
-        if($config['composer']['use_composer']) {
-            require_once $config['composer']['composer_autoloader'];
-        }
-        
         $autoloaders = $config['autoloaders'];
-        if(count($autoloaders) > 0) {
-            require_once 'Modus/Autoloader/Base.php';
-        }
         
         foreach($autoloaders as $file => $class) {
-            require_once($file);
             new $class();
         }
     }
@@ -149,6 +140,7 @@ class Http {
     protected function _setupConfig($config) {
         $this->_config = $config;
         foreach($config['directories'] as $directory) {
+            var_dump($directory);
             if(realpath($directory)) {
                 set_include_path(get_include_path() . ":$directory");
             }
