@@ -134,7 +134,10 @@ class Http {
         $session_config = $config['session_config'];
         $driver = $session_config['driver'];
         $this->_session = new $driver();
-        $this->_di->set('session', $this->_session->getInstance());
+        $session = $this->_session->getInstance();
+        $segment = $session->newSegment($session_config['segment']);
+        $this->_di->set('session', $session);
+        $this->_di->set('segment', $segment);
     }
     
     protected function _setupConfig($config) {
