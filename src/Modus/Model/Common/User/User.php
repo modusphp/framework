@@ -38,7 +38,7 @@ class User {
 
     public function configure(array $values = array()) {
         foreach($values as $key => $value) {
-            if(isset($this->$key)) {
+            if(property_exists($this, $key)) {
                 $this->$key = $value;
             }
         }
