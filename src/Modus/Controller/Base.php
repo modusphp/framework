@@ -8,14 +8,14 @@ use Aura\Web\Context;
 
 abstract class Base {
     
-    protected $_di;
-    protected $_context;
-    protected $_response;
+    protected $di;
+    protected $context;
+    protected $response;
     
     public function __construct(Container $di, Context $context, Response $response) {
-        $this->_di = $di;
-        $this->_context = $context;
-        $this->_response = $response;
+        $this->di = $di;
+        $this->context = $context;
+        $this->response = $response;
     }
     
     protected function authRequired() {
@@ -24,8 +24,8 @@ abstract class Base {
     
     protected abstract function checkAuth($action);
     
-    protected function _getResource($resourceName) {
-        return $this->_di->get($resourceName);
+    protected function getResource($resourceName) {
+        return $this->di->get($resourceName);
     }
     
     protected function preExec() {}
