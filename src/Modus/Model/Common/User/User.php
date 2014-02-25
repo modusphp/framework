@@ -1,6 +1,6 @@
 <?php
 
-namespace Modus\Model\Common\User;
+namespace Modus\Model\Common;
 
 class User {
 
