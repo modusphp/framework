@@ -1,4 +1,4 @@
 <IfModule mod_rewrite.c>
 RewriteEngine On
-FallbackResource index.php
+FallbackResource /index.php
 </IfModule>
