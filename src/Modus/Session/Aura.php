@@ -4,10 +4,11 @@ namespace Modus\Session;
 
 class Aura {
     
-    protected $_instance;
-    
-    public function __construct() {
-        $this->_instance = $session = 
+    public $instance;
+    public $segment;
+
+    public function __construct($defaultSegment) {
+        $this->instance = $session =
         new \Aura\Session\Manager(
             new \Aura\Session\SegmentFactory,
             new \Aura\Session\CsrfTokenFactory(
@@ -17,10 +18,16 @@ class Aura {
             ),
             $_COOKIE
         );
+
+        $this->segment = $this->instance->newSegment($defaultSegment);
     }
     
     public function getInstance() {
-        return $this->_instance;
+        return $this->instance;
+    }
+
+    public function getSegment() {
+        return $this->segment;
     }
     
 }

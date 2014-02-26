@@ -12,11 +12,6 @@ return array(
         "Modus/Autoloader/Psr0.php" => "Modus\Autoloader\Psr0"
     ),
 
-    "routing" => array(
-        "router" => "Modus\Router\Standard",
-        "routes" => require('./routes.php'),
-    ),
-
     "services" => array(
 
         "master" => function() {
@@ -53,7 +48,7 @@ return array(
                 );
             },
 
-        "template" => function() {
+        "template" => function() use ($rootPath) {
                 $params = array(
                     "view_paths" => ["$rootPath/views"],
                     "layout" => "$rootPath/views/layout.php",
@@ -73,9 +68,18 @@ return array(
             "params" => [],
         ),
 
+        "router" => array(
+            "driver" => "Modus\Router\Standard",
+            "params" => array(
+                "routes" => require('routes.php'),
+            ),
+        ),
+
         "session" => array(
             "driver" => "Modus\Session\Aura",
-            "params" => [],
+            "params" => array(
+                "defaultSegment" => "SellSimple",
+            )
         ),
     )
 );

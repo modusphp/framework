@@ -93,7 +93,7 @@ class Http {
             $httpResponse->headers->set('Location', $responseObj->getRedirect());
             $httpResponse->setStatusCode($responseObj->getStatusCode());
             $httpResponse->setStatusText($responseObj->getStatustext());
-            return $this->response->send($httpResponse);
+            return $responseFactory->send($httpResponse);
         }
         
         foreach($responseObj->getHeaders() as $header => $value) {
