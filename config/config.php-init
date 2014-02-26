@@ -7,55 +7,75 @@ return array(
     "directories" => array(
         "src" => "$rootPath/src",
     ),
-    
-    "composer" => array(
-        "use_composer" => true,
-        "composer_autoloader" => "$rootPath/vendor/autoload.php",
-    ),
 
-    "database" => array(
-        "master" => array(
-            "adapter" => "mysql",
-            "user" => "",
-            "pass" => "",
-            "host" => "127.0.0.1",
-            "name" => "",
-        ),
-        "slave" => array(
-            "adapter" => "mysql",
-            "user" => "",
-            "pass" => "",
-            "host" => "127.0.0.1",
-            "name" => "",
-        ),
-    ),
-    
     "autoloaders" => array(
         "Modus/Autoloader/Psr0.php" => "Modus\Autoloader\Psr0"
     ),
-    
+
     "routing" => array(
         "router" => "Modus\Router\Standard",
-        "routes" => array(
-            "home" => "/",
-        ),
+        "routes" => require('./routes.php'),
     ),
 
-    "views" => array(
-        "view_paths" => array(
-            "$rootPath/views",
+    "services" => array(
+
+        "master" => function() {
+                $connection_factory = new Aura\Sql\ConnectionFactory;
+                $params = array(
+                    "adapter" => "mysql",
+                    "user" => "",
+                    "pass" => "",
+                    "host" => "127.0.0.1",
+                    "name" => "",
+                );
+                return $connection_factory->newInstance(
+                    $params['adapter'],
+                    ['host' => $params['host'], 'dbname' => $params['name']],
+                    $params['user'],
+                    $params['pass']
+                );
+            },
+
+        "slave" => function() {
+                $connection_factory = new Aura\Sql\ConnectionFactory;
+                $params = array(
+                    "adapter" => "mysql",
+                    "user" => "",
+                    "pass" => "",
+                    "host" => "127.0.0.1",
+                    "name" => "",
+                );
+                return $connection_factory->newInstance(
+                    $params['adapter'],
+                    ['host' => $params['host'], 'dbname' => $params['name']],
+                    $params['user'],
+                    $params['pass']
+                );
+            },
+
+        "template" => function() {
+                $params = array(
+                    "view_paths" => ["$rootPath/views"],
+                    "layout" => "$rootPath/views/layout.php",
+                );
+
+                $view = new Modus\Template\Factory($params['layout'], $params['view_paths']);
+                return $view->getTemplate();
+            },
+
+        "response" => array(
+            "driver" => "Modus\Response\Factory",
+            "params" => [],
         ),
-        "layout" => "$rootPath/views/layout.php",
-    ),
-    
-    "session_config" => array(
-        "driver" => "Modus\Session\Aura",
-    ),
-    
-    "request" => "Modus\Request\Http",
-    
-    "logging" => array(
-        "log_driver" => "console",
-        "logs" => "$rootPath/logs",
-    ),
+
+        "request" => array(
+            "driver" => "Modus\Request\Http",
+            "params" => [],
+        ),
+
+        "session" => array(
+            "driver" => "Modus\Session\Aura",
+            "params" => [],
+        ),
+    )
 );

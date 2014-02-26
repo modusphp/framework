@@ -8,17 +8,17 @@ use Aura\Router\RouteFactory;
 
 class Standard {
     
-    protected $config;
-    protected $_router;
+    protected $routes;
+    protected $router;
     
-    public function __construct(array $config = array()) {
-        $this->config = $config;
+    public function __construct(array $routes = array()) {
+        $this->routes = $routes;
         $this->_configureRouter();
     }
     
     protected function _configureRouter() {
-        $this->_router = new Map(new DefinitionFactory, new RouteFactory);
-        foreach($this->config['routing']['routes'] as $k => $route) {
+        $this->router = new Map(new DefinitionFactory, new RouteFactory);
+        foreach($this->routes as $k => $route) {
             $key = null;
             // Keys can be named routes
             if(!is_int($k)) {
@@ -26,9 +26,9 @@ class Standard {
             }
             
             if(is_array($route)) {
-                $this->_router->add($key, $route['path'], $route['args']);
+                $this->router->add($key, $route['path'], $route['args']);
             } else {
-                $this->_router->add($key, $route);
+                $this->router->add($key, $route);
             }            
         }
     }
@@ -40,7 +40,7 @@ class Standard {
         }
         
         $path = parse_url($serverVars['REQUEST_URI'], PHP_URL_PATH);
-        return $this->_router->match($path, $serverVars);
+        return $this->router->match($path, $serverVars);
     }
     
 }
