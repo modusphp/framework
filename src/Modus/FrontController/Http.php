@@ -31,16 +31,9 @@ class Http {
 
     protected function configureServices() {
         $config = $this->config;
-        $services = $config['services'];
-        foreach($services as $service_key => $service) {
-
-            if(is_callable($service)) {
-                $this->di->set($service_key, $service);
-            } else {
-                $this->di->params[$service['driver']] = $service['params'];
-                $this->di->set($service_key, $this->di->lazyNew($service['driver']));
-            }
-        }
+        $di = $this->di;
+        require($config['root_path'] . '/config/services.php');
+        return $di;
     }
     
     protected function configureAutoloaders() {

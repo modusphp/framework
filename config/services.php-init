@@ -1,0 +1,42 @@
+<?php
+
+$di->set('connection_factory', function() {
+    return $di->newInstance('Aura\Sql\ConnectionFactory');
+});
+
+$di->set('master', function() use ($config, $di) {
+    $params = $config['database']['master'];
+    $factory = $di->get('connection_factory');
+    return $factory->newInstance(
+        $params['adapter'],
+        ['host' => $params['host'], 'dbname' => $params['name']],
+        $params['user'],
+        $params['pass']
+    );
+});
+
+
+$di->set('slave', function() use ($config, $di) {
+    $params = $config['database']['slave'];
+    $factory = $di->get('connection_factory');
+    return $factory->newInstance(
+        $params['adapter'],
+        ['host' => $params['host'], 'dbname' => $params['name']],
+        $params['user'],
+        $params['pass']
+    );
+});
+
+$di->set('template', function() use ($config) {
+    $params = $config['template'];
+    $view = new Modus\Template\Factory($params['layout'], $params['view_paths']);
+    return $view->getTemplate();
+});
+
+/**
+ * Configure simpler services that don't need a closure.
+ */
+foreach($config['services'] as $key => $service) {
+    $di->params[$service['driver']] = $service['params'];
+    $di->set($key, $di->lazyNew($service['driver']));
+}
