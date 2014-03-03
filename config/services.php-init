@@ -1,6 +1,6 @@
 <?php
 
-$di->set('connection_factory', function() {
+$di->set('connection_factory', function() use ($di) {
     return $di->newInstance('Aura\Sql\ConnectionFactory');
 });
 

@@ -4,6 +4,8 @@ $rootPath = realpath(__DIR__ . '/..');
 
 return array(
 
+    "root_path" => $rootPath,
+
     "directories" => array(
         "src" => "$rootPath/src",
     ),
@@ -12,52 +14,34 @@ return array(
         "Modus/Autoloader/Psr0.php" => "Modus\Autoloader\Psr0"
     ),
 
+    "error" => array(
+        "controller" => "Modus\Common\Controller\Error",
+    ),
+
+    'database' => array(
+        'master' => array(
+            "adapter" => "mysql",
+            "user" => "",
+            "pass" => "",
+            "host" => "127.0.0.1",
+            "name" => "",
+        ),
+
+        'slave' => array(
+            "adapter" => "mysql",
+            "user" => "",
+            "pass" => "",
+            "host" => "127.0.0.1",
+            "name" => "",
+        ),
+    ),
+
+    "template" => array(
+        "view_paths" => ["$rootPath/views"],
+        "layout" => "$rootPath/views/layout.php",
+    ),
+
     "services" => array(
-
-        "master" => function() {
-                $connection_factory = new Aura\Sql\ConnectionFactory;
-                $params = array(
-                    "adapter" => "mysql",
-                    "user" => "",
-                    "pass" => "",
-                    "host" => "127.0.0.1",
-                    "name" => "",
-                );
-                return $connection_factory->newInstance(
-                    $params['adapter'],
-                    ['host' => $params['host'], 'dbname' => $params['name']],
-                    $params['user'],
-                    $params['pass']
-                );
-            },
-
-        "slave" => function() {
-                $connection_factory = new Aura\Sql\ConnectionFactory;
-                $params = array(
-                    "adapter" => "mysql",
-                    "user" => "",
-                    "pass" => "",
-                    "host" => "127.0.0.1",
-                    "name" => "",
-                );
-                return $connection_factory->newInstance(
-                    $params['adapter'],
-                    ['host' => $params['host'], 'dbname' => $params['name']],
-                    $params['user'],
-                    $params['pass']
-                );
-            },
-
-        "template" => function() use ($rootPath) {
-                $params = array(
-                    "view_paths" => ["$rootPath/views"],
-                    "layout" => "$rootPath/views/layout.php",
-                );
-
-                $view = new Modus\Template\Factory($params['layout'], $params['view_paths']);
-                return $view->getTemplate();
-            },
-
         "response" => array(
             "driver" => "Modus\Response\Factory",
             "params" => [],
@@ -68,18 +52,16 @@ return array(
             "params" => [],
         ),
 
+        "session" => array(
+            "driver" => "Modus\Session\Aura",
+            "params" => array(),
+        ),
+
         "router" => array(
             "driver" => "Modus\Router\Standard",
             "params" => array(
                 "routes" => require('routes.php'),
             ),
-        ),
-
-        "session" => array(
-            "driver" => "Modus\Session\Aura",
-            "params" => array(
-                "defaultSegment" => "SellSimple",
-            )
         ),
     )
 );

@@ -55,8 +55,9 @@ class Http {
         $routepath = $router->determineRouting($serverVars);
         if(!$routepath) {
             // Do some kind of 404 here.
-            $obj = new \Application\Controller\Error();
-            return $obj->error404();
+            $callable = $this->config['error']['controller'];
+            $obj = new $callable($this->di, new Web\Context($GLOBALS), new Web\Response);
+            return $obj->error();
         }
         
         $route = $routepath->values;
