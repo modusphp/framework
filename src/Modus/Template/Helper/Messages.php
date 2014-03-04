@@ -14,7 +14,7 @@ class Messages extends AbstractHelper {
         $this->segment = $segment;
     }
 
-    public function __invoke($url) {
+    public function __invoke() {
        $messages = $this->getErrors();
        $messages .= $this->getMessages();
        return $messages;
