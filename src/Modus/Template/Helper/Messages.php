@@ -22,12 +22,16 @@ class Messages extends AbstractHelper {
 
     protected function getErrors() {
         $message = $this->segment->getFlash('failure');
-        return '<div class="failure">' . $message . '</div>';
+        if($message) {
+            return '<div class="failure">' . $message . '</div>';
+        }
 
     }
 
     protected function getMessages() {
         $message = $this->segment->getFlash('success');
-        return '<div class="success">' . $message . '</div>';
+        if($message) {
+            return '<div class="success">' . $message . '</div>';
+        }
     }
 }
