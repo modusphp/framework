@@ -57,7 +57,8 @@ class Http {
             // Do some kind of 404 here.
             $callable = $this->config['error']['controller'];
             $obj = new $callable($this->di, new Web\Context($GLOBALS), new Web\Response);
-            return $obj->error();
+            $response = $obj->error();
+            return $this->sendHttpResponse($response);
         }
         
         $route = $routepath->values;
