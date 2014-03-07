@@ -26,10 +26,27 @@ $di->params['Modus\Controller\Base'] = array(
     'session' => $di->lazyGet('session'),
     'context' => $di->lazyGet('context'),
     'response' => $di->lazyGet('context_response'),
+    'factory' => $di->newInstance('Modus\Common\Model\Factory'),
 );
 
 $di->params['Modus\Router\Standard'] = array(
     'routes' => require('routes.php'),
+);
+
+/*
+ * --------------------------------------------------
+ * Model Configuration
+ * --------------------------------------------------
+ */
+$di->params['Modus\Common\Model\Factory'] = array(
+    'map' => array(
+
+    ),
+);
+
+$di->params['Modus\Common\Model\Storage\Database'] = array(
+    'master' => $di->lazyGet('master'),
+    'slave' => $di->lazyGet('slave'),
 );
 
 /*

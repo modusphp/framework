@@ -6,6 +6,7 @@ use Aura\Web\Response;
 use Aura\Web\Context;
 use Aura\View;
 use Modus\Session;
+use Modus\Common\Model;
 
 abstract class Base {
     
@@ -13,17 +14,20 @@ abstract class Base {
     protected $context;
     protected $response;
     protected $template;
+    protected $modelFactory;
     
     public function __construct(
         View\TwoStep $template,
         Session\Aura $session,
         Context $context,
-        Response $response
+        Response $response,
+        Model\Factory $factory
     ) {
         $this->template = $template;
         $this->session = $session;
         $this->context = $context;
         $this->response = $response;
+        $this->modelFactory = $factory;
     }
     
     protected function authRequired() {
@@ -44,9 +48,7 @@ abstract class Base {
         
     protected function preRender() {}
         
-    protected function render() {
-        
-    }
+    protected function render() {}
     
     protected function postRender() {}
         
@@ -71,5 +73,9 @@ abstract class Base {
         $this->postRender();
         $this->postExec();
         return $result;
+    }
+
+    protected function getModel($model) {
+        return $this->modelFactory->newInstance($model);
     }
 }
