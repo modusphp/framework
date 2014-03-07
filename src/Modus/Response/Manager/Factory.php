@@ -1,6 +1,6 @@
 <?php
 
-namespace Modus\Response;
+namespace Modus\Response\Manager;
 
 use Aura\Http\Adapter\Curl as AdapterCurl;
 use Aura\Http\Adapter\Stream as AdapterStream;
@@ -30,9 +30,10 @@ class Factory {
                 )
             )
         );
+
     }
     
-    public function getResponse() {
+    public function getResponseMessage() {
         return $this->response->newResponse();
     }
     

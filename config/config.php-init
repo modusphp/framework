@@ -4,20 +4,45 @@ $rootPath = realpath(__DIR__ . '/..');
 
 return array(
 
+    /*
+     * --------------------------------------------------
+     * Default Root Path
+     * --------------------------------------------------
+     */
     "root_path" => $rootPath,
 
+    /*
+     * --------------------------------------------------
+     * Include Path Directories
+     * --------------------------------------------------
+     */
     "directories" => array(
         "src" => "$rootPath/src",
     ),
 
+    /*
+     * --------------------------------------------------
+     * Autoloaders to Create and Configure
+     * --------------------------------------------------
+     */
     "autoloaders" => array(
-        "Modus/Autoloader/Psr0.php" => "Modus\Autoloader\Psr0"
+        "Modus\Autoloader\Psr0",
     ),
 
+    /*
+     * --------------------------------------------------
+     * Error Controller Handling
+     * --------------------------------------------------
+     */
     "error" => array(
         "controller" => "Modus\Common\Controller\Error",
     ),
 
+    /*
+     * --------------------------------------------------
+     * Database Configuration
+     * --------------------------------------------------
+     */
     'database' => array(
         'master' => array(
             "adapter" => "mysql",
@@ -36,32 +61,13 @@ return array(
         ),
     ),
 
+    /*
+     * --------------------------------------------------
+     * Template Directory and Layout
+     * --------------------------------------------------
+     */
     "template" => array(
-        "view_paths" => ["$rootPath/views"],
+        "view_paths" => ["$rootPath/src/Modus/Common/views", "$rootPath/views",],
         "layout" => "$rootPath/views/layout.php",
     ),
-
-    "services" => array(
-        "response" => array(
-            "driver" => "Modus\Response\Factory",
-            "params" => [],
-        ),
-
-        "request" => array(
-            "driver" => "Modus\Request\Http",
-            "params" => [],
-        ),
-
-        "session" => array(
-            "driver" => "Modus\Session\Aura",
-            "params" => array(),
-        ),
-
-        "router" => array(
-            "driver" => "Modus\Router\Standard",
-            "params" => array(
-                "routes" => require('routes.php'),
-            ),
-        ),
-    )
 );

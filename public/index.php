@@ -1,7 +1,9 @@
 <?php
 
-$config = require_once('../config/config.php');
 require_once('../vendor/autoload.php');
 
-$framework = new Modus\FrontController\Http($config);
+$config = require_once('../config/config.php');
+require_once('../config/services.php');
+
+$framework = $di->newInstance('Modus\FrontController\Http');
 $framework->execute($_SERVER);

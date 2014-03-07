@@ -2,22 +2,26 @@
 
 namespace Modus\FrontController;
 
-use Aura\Di\Container;
-use Aura\Di\Forge;
-use Aura\Di\Config;
+use Aura\Di;
 use Aura\Web;
+
+use Modus\Router;
+use Modus\Response\Manager as RespMgr;
 
 class Http {
     
     protected $config;
     protected $di;
+    protected $router;
+    protected $responseMgr;
 
-    public function __construct($config) {
+    public function __construct($config, Di\Container $di, Router\Standard $router, RespMgr\Factory $responseMgr) {
+        $this->di = $di;
+        $this->router = $router;
+        $this->responseMgr = $responseMgr;
+
         $this->setupConfig($config);
         $this->configureAutoloaders();
-        $this->di = $this->getDIContainer();
-
-        $this->configureServices();
     }
 
     protected function setupConfig($config) {
@@ -28,37 +32,20 @@ class Http {
             }
         }
     }
-
-    protected function configureServices() {
-        $config = $this->config;
-        $di = $this->di;
-        require($config['root_path'] . '/config/services.php');
-        return $di;
-    }
     
     protected function configureAutoloaders() {
         $config = $this->config;
-        
         $autoloaders = $config['autoloaders'];
-        
-        foreach($autoloaders as $file => $class) {
+        foreach($autoloaders as $class) {
             new $class();
         }
     }
     
-    public function getDIContainer() {
-        return new Container(new Forge(new Config));
-    }
-    
     public function execute(array $serverVars = array()) {
-        $router = $this->di->get('router');
+        $router = $this->router;
         $routepath = $router->determineRouting($serverVars);
         if(!$routepath) {
-            // Do some kind of 404 here.
-            $callable = $this->config['error']['controller'];
-            $obj = new $callable($this->di, new Web\Context($GLOBALS), new Web\Response);
-            $response = $obj->error();
-            return $this->sendHttpResponse($response);
+            return $this->handleError();
         }
         
         $route = $routepath->values;
@@ -74,30 +61,38 @@ class Http {
         unset($params['module']);
         unset($params['action']);
 
-        $object = new $callable($this->di, new Web\Context($GLOBALS), new Web\Response);
+        $object = $this->di->newInstance($callable);
         $response = $object->exec($action, $params);
         return $this->sendHttpResponse($response);
     }
+
+    public function handleError() {
+        // Do some kind of 404 here.
+        $callable = $this->config['error']['controller'];
+        $obj = new $callable($this->di, new Web\Context($GLOBALS), new Web\Response);
+        $response = $obj->error();
+        return $this->sendHttpResponse($response);
+    }
     
-    protected function sendHttpResponse($responseObj) {
-        $responseFactory = $this->di->get('response');
-        $httpResponse = $responseFactory->getResponse();
-        
+    protected function sendHttpResponse($controllerResponse) {
+        $httpManager = $this->responseMgr;
+        $responseMsg = $httpManager->getResponseMessage();
+
         // If this is a redirect, let's do the redirect.
-        if($responseObj->isRedirect()) {
-            $httpResponse->headers->set('Location', $responseObj->getRedirect());
-            $httpResponse->setStatusCode($responseObj->getStatusCode());
-            $httpResponse->setStatusText($responseObj->getStatustext());
-            return $responseFactory->send($httpResponse);
+        if($controllerResponse->isRedirect()) {
+            $responseMsg->headers->set('Location', $controllerResponse->getRedirect());
+            $responseMsg->setStatusCode($controllerResponse->getStatusCode());
+            $responseMsg->setStatusText($controllerResponse->getStatustext());
+            return $httpManager->send($responseMsg);
         }
         
-        foreach($responseObj->getHeaders() as $header => $value) {
-            $httpResponse->headers->set($header, $value);
+        foreach($controllerResponse->getHeaders() as $header => $value) {
+            $responseMsg->headers->set($header, $value);
         }
         
-        $httpResponse->setStatusCode($responseObj->getStatusCode());
-        $httpResponse->setStatusText($responseObj->getStatusText());
-        $httpResponse->setContent($responseObj->getContent());
-        $responseFactory->send($httpResponse);
+        $responseMsg->setStatusCode($controllerResponse->getStatusCode());
+        $responseMsg->setStatusText($controllerResponse->getStatusText());
+        $responseMsg->setContent($controllerResponse->getContent());
+        $httpManager->send($responseMsg);
     }
 }

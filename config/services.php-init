@@ -1,9 +1,54 @@
 <?php
 
-$di->set('connection_factory', function() use ($di) {
-    return $di->newInstance('Aura\Sql\ConnectionFactory');
-});
+use Aura\Di;
 
+$di = new Di\Container(new Di\Forge(new Di\Config));
+
+
+/*
+ * --------------------------------------------------
+ * DI Parameter Configuration
+ * --------------------------------------------------
+ */
+$di->params['Modus\FrontController\Http'] = array(
+    'config' => $config,
+    'di' => $di,
+    'router' => $di->lazyGet('router'),
+    'responseMgr' => $di->lazyGet('response'),
+);
+
+$di->params['Aura\Web\Context'] = array(
+    'globals' => $GLOBALS,
+);
+
+$di->params['Modus\Controller\Base'] = array(
+    'template' => $di->lazyGet('template'),
+    'session' => $di->lazyGet('session'),
+    'context' => $di->lazyGet('context'),
+    'response' => $di->lazyGet('context_response'),
+);
+
+$di->params['Modus\Router\Standard'] = array(
+    'routes' => require('routes.php'),
+);
+
+/*
+ * --------------------------------------------------
+ * Simple DI Settings
+ * --------------------------------------------------
+ */
+$di->set('context', $di->lazyNew('Aura\Web\Context'));
+$di->set('context_response', $di->lazyNew('Aura\Web\Response'));
+$di->set('response', $di->lazyNew('Modus\Response\Manager\Factory'));
+$di->set('session', $di->lazyNew('Modus\Session\Aura'));
+$di->set('router', $di->lazyNew('Modus\Router\Standard'));
+$di->set('connection_factory', $di->lazyNew('Aura\Sql\ConnectionFactory'));
+
+/*
+ * --------------------------------------------------
+ * Database Configuration
+ * --------------------------------------------------
+ */
 $di->set('master', function() use ($config, $di) {
     $params = $config['database']['master'];
     $factory = $di->get('connection_factory');
@@ -14,7 +59,6 @@ $di->set('master', function() use ($config, $di) {
         $params['pass']
     );
 });
-
 
 $di->set('slave', function() use ($config, $di) {
     $params = $config['database']['slave'];
@@ -27,16 +71,16 @@ $di->set('slave', function() use ($config, $di) {
     );
 });
 
+/*
+ * --------------------------------------------------
+ * Template Setup
+ * --------------------------------------------------
+ */
 $di->set('template', function() use ($config) {
     $params = $config['template'];
     $view = new Modus\Template\Factory($params['layout'], $params['view_paths']);
     return $view->getTemplate();
 });
 
-/**
- * Configure simpler services that don't need a closure.
- */
-foreach($config['services'] as $key => $service) {
-    $di->params[$service['driver']] = $service['params'];
-    $di->set($key, $di->lazyNew($service['driver']));
-}
+
+

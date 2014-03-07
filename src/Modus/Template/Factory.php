@@ -11,13 +11,17 @@ use Aura\View\FormatTypes;
 
 class Factory {
     
-    protected $_template;
-    
+    protected $template;
+    protected $layout;
+    protected $viewPaths = array();
+
     public function __construct($layout, array $viewPaths = array()) {
-        $this->_init($layout, $viewPaths);
+        $this->layout = $layout;
+        $this->viewPaths = $viewPaths;
+        $this->init($layout, $viewPaths);
     }
     
-    protected function _init($layout, array $viewPaths = array()) {
+    protected function init($layout, array $viewPaths = array()) {
         
         $input = [
             'button'         => function () { return new Helper\Form\Input\Generic; },
@@ -44,20 +48,16 @@ class Factory {
             'url'            => function () { return new Helper\Form\Input\Value; },
             'week'           => function () { return new Helper\Form\Input\Value; },
         ];
-        
-        $field = array_merge($input, [
+
+
+        $fields = array_merge($input, [
             'radios'     => function () { return new Helper\Form\Radios(new Helper\Form\Input\Checked); },
             'select'     => function () { return new Helper\Form\Select; },
             'textarea'   => function () { return new Helper\Form\Textarea; },
         ]);
         
-        $repeat = array_merge($field, [
-            'repeat'   => function () { return new Helper\Form\Repeat(require __DIR__ . '/field_registry.php'); },
-        ]);
-        
         $inputObj = function() use ($input) { return new Helper\Form\Input($input); };
-        $fieldObj = function () use ($field) { return new Helper\Form\Field($field); };
-        $repeatObj = function () use ($repeat) { return new Helper\Form\Repeat($repeat); };
+        $fieldObj = function () use ($fields) { return new Helper\Form\Field($fields); };
 
         $template = new Template(new EscaperFactory, new TemplateFinder, new HelperLocator([
             'anchor'        => function () { return new Helper\Anchor; },
@@ -72,7 +72,6 @@ class Factory {
             'metas'         => function () { return new Helper\Metas; },
             'ol'            => function () { return new Helper\Ol; },
             'radios'        => function () { return new Helper\Form\Radios(new Helper\Form\Input\Checked); },
-            'repeat'        => $repeatObj,
             'scripts'       => function () { return new Helper\Scripts; },
             'scriptsFoot'   => function () { return new Helper\Scripts; },
             'select'        => function () { return new Helper\Form\Select; },
@@ -81,22 +80,22 @@ class Factory {
             'title'         => function () { return new Helper\Title; },
             'textarea'      => function () { return new Helper\Form\Textarea; },
             'ul'            => function () { return new Helper\Ul; },
-            'redirect'      => function () { return new Modus\Template\Helper\Redirect(); },
+            'redirect'      => function () { return new \Modus\Template\Helper\Redirect(); },
         ]));
         
         $twostep = new TwoStep($template, new FormatTypes());
         $twostep->setInnerPaths($viewPaths);
         $twostep->setOuterView($layout);
-        $this->_template = $twostep;
+        $this->template = $twostep;
         
     }
     
     public function getTemplate() {
-        return $this->_template;
+        return $this->template;
     }
     
     public function generateNewTemplate() {
-        $this->_init();
-        return $this->_template;
+        $this->init($this->layout, $this->viewPaths);
+        return $this->template;
     }
 }

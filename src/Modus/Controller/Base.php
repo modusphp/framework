@@ -2,18 +2,26 @@
 
 namespace Modus\Controller;
 
-use Aura\Di\Container;
 use Aura\Web\Response;
 use Aura\Web\Context;
+use Aura\View;
+use Modus\Session;
 
 abstract class Base {
     
-    protected $di;
+    protected $session;
     protected $context;
     protected $response;
+    protected $template;
     
-    public function __construct(Container $di, Context $context, Response $response) {
-        $this->di = $di;
+    public function __construct(
+        View\TwoStep $template,
+        Session\Aura $session,
+        Context $context,
+        Response $response
+    ) {
+        $this->template = $template;
+        $this->session = $session;
         $this->context = $context;
         $this->response = $response;
     }
