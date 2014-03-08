@@ -12,7 +12,7 @@ class Error extends Controller\Base {
 
     public function error() {
 
-        $template = $this->getResource('template');
+        $template = $this->template;
         $template->setInnerView('error.php');
 
         $this->response->setContent($template->render());
