@@ -69,8 +69,8 @@ class Http {
     public function handleError() {
         // Do some kind of 404 here.
         $callable = $this->config['error']['controller'];
-        $obj = new $callable($this->di, new Web\Context($GLOBALS), new Web\Response);
-        $response = $obj->error();
+        $object = $this->di->newInstance($callable);
+        $response = $object->error();
         return $this->sendHttpResponse($response);
     }
     
