@@ -3,8 +3,10 @@ namespace Modus\Common\Model;
 
 class Factory {
 
-    public function __construct(array $map = []) {
+    protected $map = array();
 
+    public function __construct(array $map = []) {
+        $this->map = $map;
     }
 
     public function newInstance($modelName) {
