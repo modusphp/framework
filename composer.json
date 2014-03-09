@@ -14,7 +14,8 @@
         "aura/http": "1.0.1",
         "aura/web": "1.0.1",
         "aura/cli": "1.1.1",
-        "zendframework/zend-escaper" : "2.2.*"
+        "zendframework/zend-escaper" : "2.2.*",
+        "pagerfanta/pagerfanta": "v1.0.1"
 	},
 	"autoload": {
         "psr-0": {
