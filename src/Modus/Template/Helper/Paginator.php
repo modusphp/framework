@@ -6,7 +6,7 @@ use Aura\View\Helper\AbstractHelper;
 use Pagerfanta\View;
 use Pagerfanta;
 
-class Messages extends AbstractHelper {
+class Paginator extends AbstractHelper {
 
     protected $defaultView;
 

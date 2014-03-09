@@ -81,7 +81,7 @@ class Factory {
             'textarea'      => function () { return new Helper\Form\Textarea; },
             'ul'            => function () { return new Helper\Ul; },
             'redirect'      => function () { return new \Modus\Template\Helper\Redirect(); },
-            'paginator'     => function () { return new \Modus\Template\Helper\Paginator(\Pagerfanta\View\DefaultView()); },
+            'paginator'     => function () { return new \Modus\Template\Helper\Paginator(new \Pagerfanta\View\DefaultView()); },
         ]));
         
         $twostep = new TwoStep($template, new FormatTypes());
