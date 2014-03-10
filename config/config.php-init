@@ -6,6 +6,13 @@ return array(
 
     /*
      * --------------------------------------------------
+     * Are we in production?
+     * --------------------------------------------------
+     */
+    "production" => false,
+
+    /*
+     * --------------------------------------------------
      * Default Root Path
      * --------------------------------------------------
      */
@@ -67,8 +74,9 @@ return array(
      * --------------------------------------------------
      */
     "template" => array(
-        "view_paths" => ["$rootPath/src/Modus/Common/views", "$rootPath/views",],
+        "view_paths" => ["$rootPath/views", "$rootPath/src/Modus/Common/views",],
         "layout" => "$rootPath/views/layout.php",
+        "error_view" => 'error.php',
     ),
 
     /*
@@ -77,4 +85,16 @@ return array(
      * --------------------------------------------------
      */
     'default_session_segment' => '',
+
+    'error_logging' => [
+        'exception' => [
+            'Monolog\Handler\StreamHandler' => [$rootPath . '/logs/application_error.log'],
+        ],
+        'application' => [
+            'Monolog\Handler\StreamHandler' => [$rootPath . '/logs/application.log'],
+        ],
+        'event' => [
+            'Monolog\Handler\StreamHandler' => [$rootPath . '/logs/event.log'],
+        ]
+    ],
 );
