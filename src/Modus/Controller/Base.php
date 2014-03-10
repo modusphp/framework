@@ -7,6 +7,7 @@ use Aura\Web\Context;
 use Aura\View;
 use Modus\Session;
 use Modus\Common\Model;
+use Monolog;
 
 abstract class Base {
     
@@ -15,19 +16,38 @@ abstract class Base {
     protected $response;
     protected $template;
     protected $modelFactory;
-    
+
+    /**
+     * @var Monolog/Logger
+     */
+    protected $eventlog;
+
+    /**
+     * @var Monolog/Logger
+     */
+    protected $applog;
+
+    /**
+     * @var Monolog\Logger
+     */
+    protected $logger;
+
     public function __construct(
         View\TwoStep $template,
         Session\Aura $session,
         Context $context,
         Response $response,
-        Model\Factory $factory
+        Model\Factory $factory,
+        Monolog\Logger $eventlog,
+        Monolog\Logger $applog
     ) {
         $this->template = $template;
         $this->session = $session;
         $this->context = $context;
         $this->response = $response;
         $this->modelFactory = $factory;
+        $this->eventlog = $eventlog;
+        $this->applog = $applog;
     }
     
     protected function authRequired() {

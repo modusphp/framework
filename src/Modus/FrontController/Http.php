@@ -7,6 +7,8 @@ use Aura\Web;
 
 use Modus\Router;
 use Modus\Response\Manager as RespMgr;
+use Modus\ErrorLogging as Log;
+use Modus\Common\Controller\Exception;
 
 class Http {
     
@@ -14,11 +16,13 @@ class Http {
     protected $di;
     protected $router;
     protected $responseMgr;
+    protected $errorHandler;
 
-    public function __construct($config, Di\Container $di, Router\Standard $router, RespMgr\Factory $responseMgr) {
+    public function __construct($config, Di\Container $di, Router\Standard $router, RespMgr\Factory $responseMgr, Log\Manager $handler) {
         $this->di = $di;
         $this->router = $router;
         $this->responseMgr = $responseMgr;
+        $this->errorHandler = $handler;
 
         $this->setupConfig($config);
         $this->configureAutoloaders();
@@ -45,7 +49,7 @@ class Http {
         $router = $this->router;
         $routepath = $router->determineRouting($serverVars);
         if(!$routepath) {
-            return $this->handleError();
+            throw new Exception\NotFound('The route "' . $router->getLastRoute() . '" was not found');
         }
         
         $route = $routepath->values;
@@ -63,14 +67,6 @@ class Http {
 
         $object = $this->di->newInstance($callable);
         $response = $object->exec($action, $params);
-        return $this->sendHttpResponse($response);
-    }
-
-    public function handleError() {
-        // Do some kind of 404 here.
-        $callable = $this->config['error']['controller'];
-        $object = $this->di->newInstance($callable);
-        $response = $object->error();
         return $this->sendHttpResponse($response);
     }
     

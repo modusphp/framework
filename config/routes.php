@@ -2,8 +2,8 @@
 
 return array(
     "auth" => [
-        "path" => "/user/login",
-        "args" => ["values" => ['controller' => 'user', 'action' => 'login']]
+        "path" => "/modus/public/",
+        "args" => ["values" => ['controller' => 'index', 'action' => 'index']]
     ],
 
     "login" => [

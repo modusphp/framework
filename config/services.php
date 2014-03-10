@@ -8,6 +8,8 @@ $di = new Di\Container(new Di\Forge(new Di\Config));
 require ('views.php');
 require ('session.php');
 require ('router.php');
+require ('error.php');
+require ('models.php');
 
 /*
  * --------------------------------------------------
@@ -19,6 +21,7 @@ $di->params['Modus\FrontController\Http'] = array(
     'di' => $di,
     'router' => $di->lazyNew('Modus\Router\Standard'),
     'responseMgr' => $di->lazyGet('response'),
+    'handler' => $di->lazyNew('Modus\ErrorLogging\Manager'),
 );
 
 $di->params['Aura\Web\Context'] = array(
@@ -28,24 +31,11 @@ $di->params['Aura\Web\Context'] = array(
 $di->params['Modus\Controller\Base'] = array(
     'template' => $di->lazyNew('Aura\View\TwoStep'),
     'session' => $di->lazyNew('Modus\Session\Aura'),
-    'context' => $di->lazyGet('context'),
-    'response' => $di->lazyGet('context_response'),
-    'factory' => $di->newInstance('Modus\Common\Model\Factory'),
-);
-/*
- * --------------------------------------------------
- * Model Configuration
- * --------------------------------------------------
- */
-$di->params['Modus\Common\Model\Factory'] = array(
-    'map' => array(
-
-    ),
-);
-
-$di->params['Modus\Common\Model\Storage\Database'] = array(
-    'master' => $di->lazyGet('master'),
-    'slave' => $di->lazyGet('slave'),
+    'context' => $di->lazyNew('Aura\Web\Context'),
+    'response' => $di->lazyNew('Aura\Web\Response'),
+    'factory' => $di->lazyNew('Modus\Common\Model\Factory'),
+    'eventlog' => $di->get('event_logger'),
+    'applog' => $di->get('app_logger'),
 );
 
 /*
@@ -53,8 +43,6 @@ $di->params['Modus\Common\Model\Storage\Database'] = array(
  * Simple DI Settings
  * --------------------------------------------------
  */
-$di->set('context', $di->lazyNew('Aura\Web\Context'));
-$di->set('context_response', $di->lazyNew('Aura\Web\Response'));
 $di->set('response', $di->lazyNew('Modus\Response\Manager\Factory'));
 $di->set('session', $di->lazyNew('Modus\Session\Aura'));
 $di->set('router', $di->lazyNew('Modus\Router\Standard'));
@@ -86,6 +74,3 @@ $di->set('slave', function() use ($config, $di) {
         $params['pass']
     );
 });
-
-
-
