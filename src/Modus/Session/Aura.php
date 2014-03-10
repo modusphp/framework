@@ -2,23 +2,15 @@
 
 namespace Modus\Session;
 
+use Aura\Session;
+
 class Aura {
     
     public $instance;
     public $segment;
 
-    public function __construct($defaultSegment) {
-        $this->instance = $session =
-        new \Aura\Session\Manager(
-            new \Aura\Session\SegmentFactory,
-            new \Aura\Session\CsrfTokenFactory(
-                new \Aura\Session\Randval(
-                    new \Aura\Session\Phpfunc
-                )
-            ),
-            $_COOKIE
-        );
-
+    public function __construct(Session\Manager $manager, $defaultSegment) {
+        $this->instance = $manager;
         $this->segment = $this->instance->newSegment($defaultSegment);
     }
     

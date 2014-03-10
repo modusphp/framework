@@ -70,4 +70,11 @@ return array(
         "view_paths" => ["$rootPath/src/Modus/Common/views", "$rootPath/views",],
         "layout" => "$rootPath/views/layout.php",
     ),
+
+    /*
+     * --------------------------------------------------
+     * Default Session Configuration
+     * --------------------------------------------------
+     */
+    'default_session_segment' => '',
 );

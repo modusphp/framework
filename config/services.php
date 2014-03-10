@@ -2,8 +2,12 @@
 
 use Aura\Di;
 
+
 $di = new Di\Container(new Di\Forge(new Di\Config));
 
+require ('views.php');
+require ('session.php');
+require ('router.php');
 
 /*
  * --------------------------------------------------
@@ -13,7 +17,7 @@ $di = new Di\Container(new Di\Forge(new Di\Config));
 $di->params['Modus\FrontController\Http'] = array(
     'config' => $config,
     'di' => $di,
-    'router' => $di->lazyGet('router'),
+    'router' => $di->lazyNew('Modus\Router\Standard'),
     'responseMgr' => $di->lazyGet('response'),
 );
 
@@ -22,17 +26,12 @@ $di->params['Aura\Web\Context'] = array(
 );
 
 $di->params['Modus\Controller\Base'] = array(
-    'template' => $di->lazyGet('template'),
-    'session' => $di->lazyGet('session'),
+    'template' => $di->lazyNew('Aura\View\TwoStep'),
+    'session' => $di->lazyNew('Modus\Session\Aura'),
     'context' => $di->lazyGet('context'),
     'response' => $di->lazyGet('context_response'),
     'factory' => $di->newInstance('Modus\Common\Model\Factory'),
 );
-
-$di->params['Modus\Router\Standard'] = array(
-    'routes' => require('routes.php'),
-);
-
 /*
  * --------------------------------------------------
  * Model Configuration
@@ -86,17 +85,6 @@ $di->set('slave', function() use ($config, $di) {
         $params['user'],
         $params['pass']
     );
-});
-
-/*
- * --------------------------------------------------
- * Template Setup
- * --------------------------------------------------
- */
-$di->set('template', function() use ($config) {
-    $params = $config['template'];
-    $view = new Modus\Template\Factory($params['layout'], $params['view_paths']);
-    return $view->getTemplate();
 });
 
 

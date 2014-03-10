@@ -11,13 +11,13 @@ class Standard {
     protected $routes;
     protected $router;
     
-    public function __construct(array $routes = array()) {
+    public function __construct(Map $router, array $routes = array()) {
+        $this->router = $router;
         $this->routes = $routes;
-        $this->_configureRouter();
+        $this->configureRouter();
     }
     
-    protected function _configureRouter() {
-        $this->router = new Map(new DefinitionFactory, new RouteFactory);
+    protected function configureRouter() {
         foreach($this->routes as $k => $route) {
             $key = null;
             // Keys can be named routes
