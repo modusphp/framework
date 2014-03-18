@@ -13,7 +13,7 @@
         "monolog/monolog": "1.5.0",
         "aura/http": "1.0.1",
         "aura/web": "1.0.1",
-        "aura/cli": "1.1.1",
+        "aura/cli": "dev-master",
         "zendframework/zend-escaper" : "2.2.*",
         "pagerfanta/pagerfanta": "v1.0.1",
         "filp/whoops": "1.0.10",
