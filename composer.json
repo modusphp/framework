@@ -16,7 +16,8 @@
         "aura/cli": "1.1.1",
         "zendframework/zend-escaper" : "2.2.*",
         "pagerfanta/pagerfanta": "v1.0.1",
-        "filp/whoops": "1.0.10"
+        "filp/whoops": "1.0.10",
+        "thephpleague/flysystem" : "dev-master"
 	},
 	"autoload": {
         "psr-0": {
