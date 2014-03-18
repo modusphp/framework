@@ -2,6 +2,7 @@
     "name": "tailwindsllc/modus",
     "description": "Modus Framework",
     "type": "library",
+    "minimum-stability": "dev",
 	"require": {
 	    "php": ">=5.4.0",
     	"aura/session": "1.0.1",
