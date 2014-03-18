@@ -18,7 +18,7 @@
         "zendframework/zend-escaper" : "2.2.*",
         "pagerfanta/pagerfanta": "v1.0.1",
         "filp/whoops": "1.0.10",
-        "league/flysystem": "0.2.14"
+        "league/flysystem": "dev-master"
 	},
 	"autoload": {
         "psr-0": {
