@@ -1,8 +1,8 @@
 { 
     "name": "tailwindsllc/modus",
-    "description": "Modus Framework",
+    "description": "The Modus framework, providing basic support for many components of Aura and other libraries.",
     "type": "library",
-    "minimum-stability": "dev",
+    "license": "MIT",
 	"require": {
 	    "php": ">=5.4.0",
     	"aura/session": "1.0.1",
