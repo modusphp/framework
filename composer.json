@@ -21,8 +21,8 @@
         "league/flysystem": "dev-master"
 	},
 	"autoload": {
-        "psr-0": {
-            "Modus": "src/"
+        "psr-4": {
+            "Modus\\": "src"
         }
     },
     "bin": [

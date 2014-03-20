@@ -16,11 +16,12 @@ require ('models.php');
  * DI Parameter Configuration
  * --------------------------------------------------
  */
-$di->params['Modus\FrontController\Http'] = array(
+$di->params['Modus\Application\Bootstrap'] = array(
     'config' => $config,
     'di' => $di,
+    'context' => $di->lazyNew('Aura\Web\Context'),
     'router' => $di->lazyNew('Modus\Router\Standard'),
-    'responseMgr' => $di->lazyGet('response'),
+    'responseMgr' => $di->lazyNew('Modus\Response\Manager\Factory'),
     'handler' => $di->lazyNew('Modus\ErrorLogging\Manager'),
 );
 
@@ -43,7 +44,6 @@ $di->params['Modus\Controller\Base'] = array(
  * Simple DI Settings
  * --------------------------------------------------
  */
-$di->set('response', $di->lazyNew('Modus\Response\Manager\Factory'));
 $di->set('session', $di->lazyNew('Modus\Session\Aura'));
 $di->set('router', $di->lazyNew('Modus\Router\Standard'));
 $di->set('connection_factory', $di->lazyNew('Aura\Sql\ConnectionFactory'));

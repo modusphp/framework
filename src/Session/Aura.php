@@ -9,7 +9,7 @@ class Aura {
     public $instance;
     public $segment;
 
-    public function __construct(Session\Manager $manager, $defaultSegment) {
+    public function __construct(Session\Manager $manager, $defaultSegment = null) {
         $this->instance = $manager;
         $this->segment = $this->instance->newSegment($defaultSegment);
     }
