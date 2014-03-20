@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-$rootPath = realpath(__DIR__ . '/..');
+$rootPath = realpath(__DIR__ . '/../../..');
 
 require_once($rootPath . '/autoload.php');
 
