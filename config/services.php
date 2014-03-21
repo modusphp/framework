@@ -10,6 +10,7 @@ require ('session.php');
 require ('router.php');
 require ('error.php');
 require ('models.php');
+require ('response.php');
 
 /*
  * --------------------------------------------------
@@ -21,7 +22,7 @@ $di->params['Modus\Application\Bootstrap'] = array(
     'di' => $di,
     'context' => $di->lazyNew('Aura\Web\Context'),
     'router' => $di->lazyNew('Modus\Router\Standard'),
-    'responseMgr' => $di->lazyNew('Modus\Response\Manager\Factory'),
+    'responseMgr' => $di->lazyNew('Aura\Http\Manager'),
     'handler' => $di->lazyNew('Modus\ErrorLogging\Manager'),
 );
 

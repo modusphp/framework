@@ -9,6 +9,7 @@ foreach($config['error_logging'] as $log_name => $log_handler) {
     }
 }
 
+
 if($config['production']) {
     $handlers[] = $di->newFactory('Modus\ErrorLogging\TemplateHandler', ['template' => $di->lazyNew('Aura\View\TwoStep'), 'view' => $config['template']['error_view']]);
 } else {
@@ -18,8 +19,8 @@ if($config['production']) {
 $di->setter['Monolog\Handler\AbstractHandler']['setFormatter'] = $di->lazyNew('Monolog\Formatter\LineFormatter', ['format' => "%datetime% > %level_name% > %message% %context% %extra%\n", 'dateFormat' => 'c']);
 
 $di->set('logger', $di->lazyNew('Monolog\Logger', ['name' => 'exception']));
-$di->set('app_logger', $di->lazyNew('Monolog\Logger'), ['name' => 'application', 'handlers' => $loggers['application']]);
-$di->set('event_logger', $di->lazyNew('Monolog\Logger'), ['name' => 'event', 'handlers' => $loggers['event']]);
+$di->set('app_logger', $di->lazyNew('Monolog\Logger', ['name' => 'application', 'handlers' => $loggers['application']]));
+$di->set('event_logger', $di->lazyNew('Monolog\Logger', ['name' => 'event', 'handlers' => $loggers['event']]));
 
 $handlers[] = $di->newFactory('Modus\ErrorLogging\MonologHandler', ['logger' => $di->get('logger')]);
 

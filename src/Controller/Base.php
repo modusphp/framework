@@ -17,6 +17,9 @@ abstract class Base {
     protected $template;
     protected $modelFactory;
 
+    protected $action;
+    protected $params;
+
     /**
      * @var Monolog/Logger
      */
@@ -26,11 +29,6 @@ abstract class Base {
      * @var Monolog/Logger
      */
     protected $applog;
-
-    /**
-     * @var Monolog\Logger
-     */
-    protected $logger;
 
     public function __construct(
         View\TwoStep $template,
@@ -50,49 +48,31 @@ abstract class Base {
         $this->applog = $applog;
     }
     
-    protected function authRequired() {
-        return [];
-    }
-    
-    protected abstract function checkAuth($action);
-    
     protected function getResource($resourceName) {
         return $this->di->get($resourceName);
     }
-    
-    protected function preExec() {}
-        
+
     protected function preAction() {}
     
     protected function postAction() {}
-        
-    protected function preRender() {}
-        
-    protected function render() {}
-    
-    protected function postRender() {}
-        
-    protected function postExec() {}
     
     public function exec($action, array $params = [])
     {
-        $this->preExec();
-        $this->preAction();
-        $badAuth = $this->checkAuth($action);
-        
-        // If auth required but not provided, return a response object.
-        // That object should be configured with a redirect to login.
-        if($badAuth) {
-            return $badAuth;
+        $this->action = $action;
+        $this->params = $params;
+
+        try {
+            $this->preAction();
+            $result = call_user_func_array([$this, $action], $params);
+            if(!$result) {
+                $result = $this->response;
+            }
+            $this->postAction();
+            return $result;
+        } catch (Exception\AuthRequired $authRequired) {
+            $this->eventlog->info($authRequired->getMessage());
+            return $this->response;
         }
-        
-        $result = call_user_func_array([$this, $action], $params);
-        $this->postAction();
-        $this->preRender();
-        $this->render();
-        $this->postRender();
-        $this->postExec();
-        return $result;
     }
 
     protected function getModel($model) {
