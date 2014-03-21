@@ -9,6 +9,7 @@ foreach($config['error_logging'] as $log_name => $log_handler) {
     }
 }
 
+
 if($config['production']) {
     $handlers[] = $di->newFactory('Modus\ErrorLogging\TemplateHandler', ['template' => $di->lazyNew('Aura\View\TwoStep'), 'view' => $config['template']['error_view']]);
 } else {

@@ -3,10 +3,10 @@
 namespace Modus\Application;
 
 use Aura\Di;
+use Aura\Http;
 use Aura\Web;
 
 use Modus\Router;
-use Modus\Response\Manager as RespMgr;
 use Modus\ErrorLogging as Log;
 use Modus\Common\Controller\Exception;
 
@@ -24,7 +24,7 @@ class Bootstrap {
         Di\Container $di,
         Web\Context $context,
         Router\Standard $router,
-        RespMgr\Factory $responseMgr,
+        Http\Manager $responseMgr,
         Log\Manager $handler
     ) {
         $this->di = $di;
@@ -63,7 +63,7 @@ class Bootstrap {
     
     protected function sendHttpResponse($controllerResponse) {
         $httpManager = $this->responseMgr;
-        $responseMsg = $httpManager->getResponseMessage();
+        $responseMsg = $httpManager->newResponse();
 
         // If this is a redirect, let's do the redirect.
         if($controllerResponse->isRedirect()) {
