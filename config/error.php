@@ -18,8 +18,8 @@ if($config['production']) {
 $di->setter['Monolog\Handler\AbstractHandler']['setFormatter'] = $di->lazyNew('Monolog\Formatter\LineFormatter', ['format' => "%datetime% > %level_name% > %message% %context% %extra%\n", 'dateFormat' => 'c']);
 
 $di->set('logger', $di->lazyNew('Monolog\Logger', ['name' => 'exception']));
-$di->set('app_logger', $di->lazyNew('Monolog\Logger'), ['name' => 'application', 'handlers' => $loggers['application']]);
-$di->set('event_logger', $di->lazyNew('Monolog\Logger'), ['name' => 'event', 'handlers' => $loggers['event']]);
+$di->set('app_logger', $di->lazyNew('Monolog\Logger', ['name' => 'application', 'handlers' => $loggers['application']]));
+$di->set('event_logger', $di->lazyNew('Monolog\Logger', ['name' => 'event', 'handlers' => $loggers['event']]));
 
 $handlers[] = $di->newFactory('Modus\ErrorLogging\MonologHandler', ['logger' => $di->get('logger')]);
 

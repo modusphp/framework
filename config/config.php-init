@@ -20,64 +20,49 @@ return array(
 
     /*
      * --------------------------------------------------
-     * Include Path Directories
-     * --------------------------------------------------
-     */
-    "directories" => array(
-        "src" => "$rootPath/src",
-    ),
-
-    /*
-     * --------------------------------------------------
-     * Autoloaders to Create and Configure
-     * --------------------------------------------------
-     */
-    "autoloaders" => array(
-        "Modus\Autoloader\Psr0",
-    ),
-
-    /*
-     * --------------------------------------------------
      * Error Controller Handling
      * --------------------------------------------------
      */
-    "error" => array(
+    "error" => [
         "controller" => "Modus\Common\Controller\Error",
-    ),
+    ],
 
     /*
      * --------------------------------------------------
      * Database Configuration
      * --------------------------------------------------
      */
-    'database' => array(
-        'master' => array(
+    'database' => [
+        'master' => [
             "adapter" => "mysql",
             "user" => "",
             "pass" => "",
             "host" => "127.0.0.1",
             "name" => "",
-        ),
+        ],
 
-        'slave' => array(
+        'slave' => [
             "adapter" => "mysql",
             "user" => "",
             "pass" => "",
             "host" => "127.0.0.1",
             "name" => "",
-        ),
-    ),
+        ],
+    ],
 
     /*
      * --------------------------------------------------
      * Template Directory and Layout
      * --------------------------------------------------
      */
-    "template" => array(
-        "view_paths" => ["$rootPath/views", "$rootPath/src/Modus/Common/views",],
+    "template" => [
+        "view_paths" => [
+            "$rootPath/views",
+            "$rootPath/src/Modus/Common/views",
+        ],
         "layout" => "$rootPath/views/layout.php",
         "error_view" => 'error.php',
-    ),
+    ],
 
     /*
      * --------------------------------------------------
@@ -86,6 +71,11 @@ return array(
      */
     'default_session_segment' => '',
 
+    /*
+      * --------------------------------------------------
+      * Default Error Configuration
+      * --------------------------------------------------
+      */
     'error_logging' => [
         'exception' => [
             'Monolog\Handler\StreamHandler' => [$rootPath . '/logs/application_error.log'],
