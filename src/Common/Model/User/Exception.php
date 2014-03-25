@@ -1,5 +1,5 @@
 <?php
 
-namespace Modus\Model\Common\User;
+namespace Modus\Common\Model\User;
 
 class Exception extends \Exception {}

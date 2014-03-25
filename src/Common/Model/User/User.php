@@ -11,17 +11,6 @@ class User {
 
     protected $changed = false;
 
-    public function setEmail($email) {
-
-        if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $this->email = $email;
-            return $this->email;
-        }
-
-        throw new Exception('Invalid email address provided');
-
-    }
-
     public function getEmail() {
         return $this->email;
     }
