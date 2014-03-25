@@ -11,6 +11,7 @@ require ('router.php');
 require ('error.php');
 require ('models.php');
 require ('response.php');
+require ('filter.php');
 
 /*
  * --------------------------------------------------
