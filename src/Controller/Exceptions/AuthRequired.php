@@ -1,5 +1,5 @@
 <?php
 
-namespace Modus\Controller\Exception;
+namespace Modus\Controller\Exceptions;
 
 class AuthRequired extends \Exception {}

@@ -29,6 +29,9 @@
 	"autoload": {
         "psr-4": {
             "Modus\\": "src"
+        },
+        "psr-0": {
+            "Application": "local-src/"
         }
     },
     "bin": [
