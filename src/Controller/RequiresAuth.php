@@ -9,8 +9,8 @@ abstract class RequiresAuth extends Base {
     }
 
     protected function preAction() {
-        $badAuth = $this->authValid($this->action);
-        if($badAuth) {
+        $authValid = $this->authValid($this->action);
+        if(!$authValid) {
             throw new Exceptions\AuthRequired('Auth is required for ' . __CLASS__ . '::' . $this->action . '()');
         }
     }

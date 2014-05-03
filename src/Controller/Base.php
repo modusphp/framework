@@ -69,7 +69,7 @@ abstract class Base {
             }
             $this->postAction();
             return $result;
-        } catch (Exception\AuthRequired $authRequired) {
+        } catch (Exceptions\AuthRequired $authRequired) {
             $this->eventlog->info($authRequired->getMessage());
             return $this->response;
         }
