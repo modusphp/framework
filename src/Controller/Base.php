@@ -15,7 +15,6 @@ abstract class Base {
     protected $context;
     protected $response;
     protected $template;
-    protected $modelFactory;
 
     protected $action;
     protected $params;
@@ -35,7 +34,6 @@ abstract class Base {
         Session\Aura $session,
         Context $context,
         Response $response,
-        Model\Factory $factory,
         Monolog\Logger $eventlog,
         Monolog\Logger $applog
     ) {
@@ -43,7 +41,6 @@ abstract class Base {
         $this->session = $session;
         $this->context = $context;
         $this->response = $response;
-        $this->modelFactory = $factory;
         $this->eventlog = $eventlog;
         $this->applog = $applog;
     }
