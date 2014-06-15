@@ -45,16 +45,22 @@ class Bootstrap {
 
         $route = $routepath->values;
 
-        $module = (isset($route['module'])) ? ucfirst($route['module']) : 'Application';
-        $controller = (isset($route['controller'])) ? ucfirst($route['controller']) : 'Index';
-        $action = (isset($route['action'])) ? $route['action'] : 'index';
+        if(isset($route['controller'])) {
+            $callable = $route['controller'];
+            $params = $route;
+            unset($params['controller']);
+        } else {
+            $module = (isset($route['module'])) ? ucfirst($route['module']) : 'Application';
+            $controller = (isset($route['controller'])) ? ucfirst($route['controller']) : 'Index';
+            $action = (isset($route['action'])) ? $route['action'] : 'index';
 
-        $callable = "{$module}\\Controller\\{$controller}";
+            $callable = "{$module}\\Controller\\{$controller}";
 
-        $params = $route;
-        unset($params['controller']);
-        unset($params['module']);
-        unset($params['action']);
+            $params = $route;
+            unset($params['controller']);
+            unset($params['module']);
+            unset($params['action']);
+        }
 
         $object = $this->di->newInstance($callable);
         $response = $object->exec($action, $params);
