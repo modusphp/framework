@@ -47,8 +47,10 @@ class Bootstrap {
 
         if(isset($route['controller'])) {
             $callable = $route['controller'];
+            $action = (isset($route['action'])) ? $route['action'] : 'index';
             $params = $route;
             unset($params['controller']);
+            unset($params['action']);
         } else {
             $module = (isset($route['module'])) ? ucfirst($route['module']) : 'Application';
             $controller = (isset($route['controller'])) ? ucfirst($route['controller']) : 'Index';
