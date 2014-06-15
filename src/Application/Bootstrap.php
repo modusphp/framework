@@ -45,8 +45,8 @@ class Bootstrap {
 
         $route = $routepath->values;
 
-        if(isset($route['controller'])) {
-            $callable = $route['controller'];
+        if(isset($route['controllerns'])) {
+            $callable = $route['controllerns'];
             $action = (isset($route['action'])) ? $route['action'] : 'index';
             $params = $route;
             unset($params['controller']);
