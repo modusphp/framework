@@ -7,8 +7,8 @@ return array(
     ],
 
     "login" => [
-        "path" => "/user/authenticate",
-        "args" => ["values" => ['controller' => 'user', 'action' => 'authenticate']]
+        "path" => "/user/authenticate/{:test}",
+        "args" => ["values" => ['controller' => 'user', 'action' => 'authenticate'], 'params' => ['test' => '(\w+)']]
     ],
 
     "dashboard" => [

@@ -1,21 +1,26 @@
 <?php
 
-namespace Modus\Router;
+namespace Modus\Template\Helper;
 
+use Aura\View\Helper\AbstractHelper;
 use Aura\Router\Map;
 
-class Standard {
-    
+class LinkGenerator extends AbstractHelper {
+
     protected $routes;
     protected $router;
     protected $lastRoute;
-    
+
     public function __construct(Map $router, array $routes = array()) {
         $this->router = $router;
         $this->routes = $routes;
         $this->configureRouter();
     }
-    
+
+    public function __invoke($routeName, array $arguments = array()) {
+        return $this->router->generate($routeName, $arguments);
+    }
+
     protected function configureRouter() {
         foreach($this->routes as $k => $route) {
             $key = null;
@@ -23,28 +28,12 @@ class Standard {
             if(!is_int($k)) {
                 $key = $k;
             }
-            
+
             if(is_array($route)) {
                 $this->router->add($key, $route['path'], $route['args']);
             } else {
                 $this->router->add($key, $route);
-            }            
+            }
         }
     }
-    
-    public function determineRouting(array $serverVars = array())
-    {
-        if(!isset($serverVars['REQUEST_URI'])) {
-            return false;
-        }
-
-        $path = parse_url($serverVars['REQUEST_URI'], PHP_URL_PATH);
-        $this->lastRoute = $path;
-        return $this->router->match($path, $serverVars);
-    }
-
-    public function getLastRoute() {
-        return $this->lastRoute;
-    }
-    
 }

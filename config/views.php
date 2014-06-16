@@ -172,6 +172,7 @@ $di->params['Aura\View\HelperLocator']['registry'] = [
     'ul' => $di->lazyNew('Aura\View\Helper\Ul'),
     'messages' => $di->lazyNew('Modus\Template\Helper\Messages'),
     'paginator' => $di->lazyNew('Modus\Template\Helper\Paginator'),
+    'linkgenerator' => $di->lazyNew('Modus\Template\Helper\LinkGenerator'),
 ];
 
 /**
