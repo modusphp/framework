@@ -50,3 +50,48 @@ In addition, there are some files you'll want to modify on your own for your set
 * config.php - This contains configuration options for your application.
 * routes.php - This contains route information. There are a few example routes already provided, which you can copy and reuse.
 
+Configuring Routes
+==================
+
+Routes are often the most complex part of an application, but the goal is to make them as simple as possible. 
+
+At their most basic, a route has a key which names the route, and the value is an array containing two keys: the route itself and the parameters for the route.
+
+```
+<?php
+
+array(
+    "dashboard" => [
+        "path" => "/dashboard",
+        "args" => ["values" => ['controller' => 'dashboard', 'action' => 'index']]
+    ],
+);
+```
+
+Of course, some routes are more complex than this and require additional options. For example, to specify a ID value on the end of a route, you add a params key to the args array, like so:
+
+```
+<?php
+
+array(
+    "dashboard" => [
+        "path" => "/dashboard/{:id}",
+        "args" => ["values" => ['controller' => 'dashboard', 'action' => 'index'], 'params' => ['id' => '(/d+)']]
+    ],
+);
+```
+
+Note that all parameter rules of the Aura.Router package are followed. Check the documentation for more.
+
+If you have complex namespace requirements, you can also specify a fully-qualified namespace path to the controller:
+
+```
+<?php
+
+array(
+    "dashboard" => [
+        "path" => "/dashboard",
+        "args" => ["values" => ['controllerns' => 'Full\Namespace\Goes\Here', 'action' => 'index']]
+    ],
+);
+```
