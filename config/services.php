@@ -11,7 +11,7 @@ require ('router.php');
 require ('error.php');
 require ('models.php');
 require ('response.php');
-
+require ('responder.php');
 /*
  * --------------------------------------------------
  * DI Parameter Configuration
@@ -22,7 +22,6 @@ $di->params['Modus\Application\Bootstrap'] = array(
     'di' => $di,
     'context' => $di->lazyNew('Aura\Web\WebFactory'),
     'router' => $di->lazyNew('Modus\Router\Standard'),
-    'responseMgr' => $di->lazyNew('Aura\Http\Manager'),
     'handler' => $di->lazyNew('Modus\ErrorLogging\Manager'),
 );
 
