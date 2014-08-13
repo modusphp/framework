@@ -3,7 +3,6 @@
 namespace Modus\Application;
 
 use Aura\Di;
-use Aura\Http;
 use Aura\Web;
 
 use Modus\Router;
@@ -24,13 +23,11 @@ class Bootstrap {
         Di\Container $di,
         Web\WebFactory $context,
         Router\Standard $router,
-        Http\Manager $responseMgr,
         Log\Manager $handler
     ) {
         $this->di = $di;
         $this->context = $context->newRequest();
         $this->router = $router;
-        $this->responseMgr = $responseMgr;
         $this->errorHandler = $handler;
 
         $this->config = $config;
