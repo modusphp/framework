@@ -2,7 +2,7 @@
 
 namespace Modus\Router;
 
-use Aura\Router\Map;
+use Aura\Router\Router;
 
 class Standard {
     
@@ -10,7 +10,7 @@ class Standard {
     protected $router;
     protected $lastRoute;
     
-    public function __construct(Map $router, array $routes = array()) {
+    public function __construct(Router $router, array $routes = array()) {
         $this->router = $router;
         $this->routes = $routes;
         $this->configureRouter();
@@ -25,7 +25,16 @@ class Standard {
             }
             
             if(is_array($route)) {
-                $this->router->add($key, $route['path'], $route['args']);
+                $result = $this->router->add($key, $route['path']);
+
+                if(isset($route['args']['values'])) {
+                    $result->addValues($route['args']['values']);
+                }
+
+                if(isset($route['args']['params'])) {
+                    $result->addTokens($route['args']['params']);
+                }
+
             } else {
                 $this->router->add($key, $route);
             }            
@@ -40,11 +49,15 @@ class Standard {
 
         $path = parse_url($serverVars['REQUEST_URI'], PHP_URL_PATH);
         $this->lastRoute = $path;
-        return $this->router->match($path, $serverVars);
+        $result = $this->router->match($path, $serverVars);
+        return $result;
     }
 
     public function getLastRoute() {
         return $this->lastRoute;
     }
-    
+
+    public function getRouter() {
+        return $this->router;
+    }
 }

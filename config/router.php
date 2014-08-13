@@ -3,17 +3,20 @@
 /**
 * Aura\Router\Map
 */
-$di->params['Aura\Router\Map'] = [
-'definition_factory' => $di->lazyNew('Aura\Router\DefinitionFactory'),
-'route_factory' => $di->lazyNew('Aura\Router\RouteFactory'),
+$di->params['Aura\Router\Router'] = [
+'routes' => $di->lazyNew('Aura\Router\RouteCollection'),
+'generator' => $di->lazyNew('Aura\Router\Generator'),
+];
+
+$di->params['Aura\Router\RouteCollection'] = [
+    'route_factory' => $di->lazyNew('Aura\Router\RouteFactory'),
 ];
 
 $di->params['Modus\Router\Standard'] = [
-    'router' => $di->lazyNew('Aura\Router\Map'),
+    'router' => $di->lazyNew('Aura\Router\Router'),
     'routes' => require('routes.php'),
 ];
 
 $di->params['Modus\Template\Helper\LinkGenerator'] = [
-    'router' => $di->lazyNew('Aura\Router\Map'),
-    'routes' => require('routes.php'),
+    'standardRouter' => $di->lazyNew('Modus\Router\Standard'),
 ];
