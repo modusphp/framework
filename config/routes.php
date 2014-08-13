@@ -2,22 +2,12 @@
 
 return array(
     "auth" => [
-        "path" => "/modus/public/",
-        "args" => ["values" => ['controller' => 'index', 'action' => 'index']]
+        "path" => "/",
+        "args" => ["values" => ['action' => 'Application\Controller\Index', 'responder' => 'Application\Responder\Index', 'method' => 'index']]
     ],
 
-    "login" => [
-        "path" => "/user/authenticate/{:test}",
-        "args" => ["values" => ['controller' => 'user', 'action' => 'authenticate'], 'params' => ['test' => '(\w+)']]
-    ],
-
-    "dashboard" => [
-        "path" => "/dashboard",
-        "args" => ["values" => ['controller' => 'dashboard', 'action' => 'index']]
-    ],
-
-    "logout" => [
-        "path" => "/user/logout",
-        "args" => ["values" => ['controller' => 'user', 'action' => 'logout']]
+    "auth2" => [
+        "path" => "/a/b/c",
+        "args" => ["values" => ['action' => 'Application\Controller\Index', 'responder' => 'Application\Responder\Index', 'method' => 'index']]
     ],
 );

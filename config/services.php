@@ -1,9 +1,9 @@
 <?php
 
-use Aura\Di;
+use Aura\Di\Container;
+use Aura\Di\Factory;
 
-
-$di = new Di\Container(new Di\Forge(new Di\Config));
+$di = new Container(new Factory);
 
 require ('views.php');
 require ('session.php');
@@ -11,7 +11,6 @@ require ('router.php');
 require ('error.php');
 require ('models.php');
 require ('response.php');
-require ('filter.php');
 
 /*
  * --------------------------------------------------
@@ -21,13 +20,13 @@ require ('filter.php');
 $di->params['Modus\Application\Bootstrap'] = array(
     'config' => $config,
     'di' => $di,
-    'context' => $di->lazyNew('Aura\Web\Context'),
+    'context' => $di->lazyNew('Aura\Web\WebFactory'),
     'router' => $di->lazyNew('Modus\Router\Standard'),
     'responseMgr' => $di->lazyNew('Aura\Http\Manager'),
     'handler' => $di->lazyNew('Modus\ErrorLogging\Manager'),
 );
 
-$di->params['Aura\Web\Context'] = array(
+$di->params['Aura\Web\WebFactory'] = array(
     'globals' => $GLOBALS,
 );
 
@@ -55,24 +54,12 @@ $di->set('connection_factory', $di->lazyNew('Aura\Sql\ConnectionFactory'));
  * Database Configuration
  * --------------------------------------------------
  */
-$di->set('master', function() use ($config, $di) {
-    $params = $config['database']['master'];
-    $factory = $di->get('connection_factory');
-    return $factory->newInstance(
-        $params['adapter'],
-        ['host' => $params['host'], 'dbname' => $params['name']],
-        $params['user'],
-        $params['pass']
-    );
-});
+$di->params['Aura\Sql\ConnectionLocator'] = [
+    'default' => null,
+    'read' => null,
+    'write' => null,
+];
 
-$di->set('slave', function() use ($config, $di) {
-    $params = $config['database']['slave'];
-    $factory = $di->get('connection_factory');
-    return $factory->newInstance(
-        $params['adapter'],
-        ['host' => $params['host'], 'dbname' => $params['name']],
-        $params['user'],
-        $params['pass']
-    );
-});
+$di->params['Aura\SqlQuery\QueryFactory'] = [
+    'db' => $config['database']['master']['adapter']
+];
