@@ -29,16 +29,6 @@ $di->params['Aura\Web\WebFactory'] = array(
     'globals' => $GLOBALS,
 );
 
-$di->params['Modus\Controller\Base'] = array(
-    'template' => $di->lazyNew('Aura\View\TwoStep'),
-    'session' => $di->lazyNew('Modus\Session\Aura'),
-    'context' => $di->lazyNew('Aura\Web\Context'),
-    'response' => $di->lazyNew('Aura\Web\Response'),
-    'factory' => $di->lazyNew('Modus\Common\Model\Factory'),
-    'eventlog' => $di->get('event_logger'),
-    'applog' => $di->get('app_logger'),
-);
-
 /*
  * --------------------------------------------------
  * Simple DI Settings
@@ -46,7 +36,6 @@ $di->params['Modus\Controller\Base'] = array(
  */
 $di->set('session', $di->lazyNew('Modus\Session\Aura'));
 $di->set('router', $di->lazyNew('Modus\Router\Standard'));
-$di->set('connection_factory', $di->lazyNew('Aura\Sql\ConnectionFactory'));
 
 /*
  * --------------------------------------------------
