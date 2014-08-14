@@ -10,8 +10,8 @@ require ('session.php');
 require ('router.php');
 require ('error.php');
 require ('models.php');
-require ('response.php');
 require ('responder.php');
+require ('request_response.php');
 /*
  * --------------------------------------------------
  * DI Parameter Configuration
@@ -20,7 +20,7 @@ require ('responder.php');
 $di->params['Modus\Application\Bootstrap'] = array(
     'config' => $config,
     'di' => $di,
-    'context' => $di->lazyNew('Aura\Web\WebFactory'),
+    'request' => $di->lazyNew('Aura\Web\Request'),
     'router' => $di->lazyNew('Modus\Router\Standard'),
     'handler' => $di->lazyNew('Modus\ErrorLogging\Manager'),
 );
