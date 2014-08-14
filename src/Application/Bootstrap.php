@@ -16,17 +16,17 @@ class Bootstrap {
     protected $router;
     protected $responseMgr;
     protected $errorHandler;
-    protected $context;
+    protected $request;
 
     public function __construct(
         $config,
         Di\Container $di,
-        Web\WebFactory $context,
+        Web\Request $request,
         Router\Standard $router,
         Log\Manager $handler
     ) {
         $this->di = $di;
-        $this->context = $context->newRequest();
+        $this->request = $request;
         $this->router = $router;
         $this->errorHandler = $handler;
 
@@ -35,7 +35,7 @@ class Bootstrap {
     
     public function execute() {
         $router = $this->router;
-        $routepath = $router->determineRouting($this->context->server->get());
+        $routepath = $router->determineRouting($this->request->server->get());
         if(!$routepath) {
             throw new Exception\NotFound('The route "' . $router->getLastRoute() . '" was not found');
         }

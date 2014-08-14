@@ -1,6 +1,6 @@
 <?php
 
 $di->params['Modus\Responder\WebBase'] = [
-    'factory' => $di->lazyNew('Aura\Web\WebFactory'),
+    'response' => $di->lazyNew('Aura\Web\Response'),
     'template' => $di->lazyNew('Modus\Template\TwoStep'),
 ];

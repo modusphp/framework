@@ -10,8 +10,8 @@ abstract class WebBase {
     protected $response;
     protected $template;
 
-    public function __construct(Web\WebFactory $factory, View\TwoStep $template) {
-        $this->response = $factory->newResponse();
+    public function __construct(Web\Response $response, View\TwoStep $template) {
+        $this->response = $response;
         $this->template = $template;
     }
 
