@@ -2,7 +2,7 @@
 
 namespace Modus\Template\Helper;
 
-use Aura\View\Helper\AbstractHelper;
+use Aura\Html\Helper\AbstractHelper;
 use Pagerfanta\View;
 use Pagerfanta;
 

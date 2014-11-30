@@ -16,7 +16,3 @@ $di->params['Modus\Router\Standard'] = [
     'router' => $di->lazyNew('Aura\Router\Router'),
     'routes' => require('routes.php'),
 ];
-
-$di->params['Modus\Template\Helper\LinkGenerator'] = [
-    'standardRouter' => $di->lazyNew('Modus\Router\Standard'),
-];

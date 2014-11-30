@@ -2,7 +2,7 @@
 
 namespace Modus\Template\Helper;
 
-use Aura\View\Helper\AbstractHelper;
+use Aura\Html\Helper\AbstractHelper;
 use Modus\Router\Standard;
 
 class LinkGenerator extends AbstractHelper {

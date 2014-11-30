@@ -5,13 +5,14 @@ use Aura\Di\Factory;
 
 $di = new Container(new Factory);
 
-require ('views.php');
 require ('session.php');
 require ('router.php');
 require ('error.php');
 require ('models.php');
 require ('responder.php');
 require ('request_response.php');
+require ('views.php');
+
 /*
  * --------------------------------------------------
  * DI Parameter Configuration
