@@ -11,8 +11,6 @@ $config = new Modus\Config\Config($_SERVER['MY_ENV'], realpath('../config'), $di
 
 $di->set('config', $config);
 
-var_dump($config->getConfig()); die;
-
 $framework = $di->newInstance('Modus\Application\Bootstrap');
 $framework->execute();
 
