@@ -1,26 +1,13 @@
 <?php
 
-use Aura\Di\Container;
-use Aura\Di\Factory;
-
-$di = new Container(new Factory);
-
-require ('session.php');
-require ('router.php');
-require ('error.php');
-require ('models.php');
-require ('responder.php');
-require ('request_response.php');
-require ('views.php');
-
 /*
  * --------------------------------------------------
  * DI Parameter Configuration
  * --------------------------------------------------
  */
 $di->params['Modus\Application\Bootstrap'] = array(
-    'config' => $config,
-    'di' => $di,
+    'config' => $di->lazyGet('config'),
+    'authService' => $di->lazyNew('Modus\Auth\Service'),
     'request' => $di->lazyNew('Aura\Web\Request'),
     'router' => $di->lazyNew('Modus\Router\Standard'),
     'handler' => $di->lazyNew('Modus\ErrorLogging\Manager'),

@@ -17,27 +17,35 @@ class Standard {
     }
     
     protected function configureRouter() {
-        foreach($this->routes as $k => $route) {
-            $key = null;
-            // Keys can be named routes
-            if(!is_int($k)) {
-                $key = $k;
+        foreach($this->routes as $routeName => $route) {
+
+            // defaults
+            $params = [];
+            $secure = false;
+            $request = 'HEAD|GET|DELETE|OPTIONS|PATCH|POST|PUT';
+
+            $path = $route['path'];
+
+            $values = $route['values'];
+
+            if (isset($route['params'])) {
+                $params = $route['params'];
             }
-            
-            if(is_array($route)) {
-                $result = $this->router->add($key, $route['path']);
 
-                if(isset($route['args']['values'])) {
-                    $result->addValues($route['args']['values']);
-                }
+            if (isset($route['secure'])) {
+                $secure = $route['secure'];
+            }
 
-                if(isset($route['args']['params'])) {
-                    $result->addTokens($route['args']['params']);
-                }
+            if (isset($route['request'])) {
+                $request = $route['request'];
+            }
 
-            } else {
-                $this->router->add($key, $route);
-            }            
+            $router = $this->router;
+            $router->add($routeName, $path)
+                   ->addValues($values)
+                   ->addTokens($params)
+                   ->setSecure($secure)
+                   ->addServer(['REQUEST_METHOD' => $request]);
         }
     }
     

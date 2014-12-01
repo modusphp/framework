@@ -8,32 +8,36 @@ use Aura\Web;
 use Modus\Router;
 use Modus\ErrorLogging as Log;
 use Modus\Common\Controller\Exception;
+use Modus\Auth;
+use Modus\Config\Config;
 
 class Bootstrap {
     
     protected $config;
-    protected $di;
     protected $router;
     protected $responseMgr;
     protected $errorHandler;
     protected $request;
+    protected $authService;
 
     public function __construct(
-        $config,
-        Di\Container $di,
+        Config $config,
         Web\Request $request,
         Router\Standard $router,
+        Auth\Service $authService,
         Log\Manager $handler
     ) {
-        $this->di = $di;
+        $this->config = $config;
+        $this->di = $config->getDI();
         $this->request = $request;
         $this->router = $router;
+        $this->authService = $authService;
         $this->errorHandler = $handler;
-
-        $this->config = $config;
     }
     
     public function execute() {
+        $this->authService->resume();
+
         $router = $this->router;
         $routepath = $router->determineRouting($this->request->server->get());
         if(!$routepath) {
@@ -57,5 +61,10 @@ class Bootstrap {
         $responder = $this->di->newInstance($responder);
         $responder->processResponse($result);
         $responder->sendResponse();
+    }
+
+    protected function checkUserAuthenticated() {
+        $auth = $this->authService->getUser();
+        return $auth->isValid();
     }
 }
