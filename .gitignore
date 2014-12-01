@@ -5,5 +5,4 @@ logs
 *.phar
 vendor/
 keys/
-config.php
 .htaccess
