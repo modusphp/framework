@@ -1,18 +1,5 @@
 <?php
 
-use Aura\Di;
-
-
-$di = new Di\Container(new Di\Forge(new Di\Config));
-
-require ('views.php');
-require ('session.php');
-require ('router.php');
-require ('error.php');
-require ('models.php');
-require ('response.php');
-require ('filter.php');
-
 /*
  * --------------------------------------------------
  * DI Parameter Configuration
