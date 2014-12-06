@@ -34,7 +34,7 @@ class Manager
 
     public function registerErrorHandler($bool)
     {
-        if($bool) {
+        if ($bool) {
             $this->errorHandler->register();
         } else {
             $this->errorHandler->deregister();
