@@ -49,3 +49,7 @@ $di->params['Modus\ErrorLogging\Manager'] = [
     'runner' => $di->lazyNew('Savage\BooBoo\Runner'),
     'loggers' => ['error' => $di->get('logger'), 'event' => $di->get('event_logger')]
 ];
+
+if($config['use_booboo']) {
+    $di->setter['Modus\ErrorLogging\Manager']['registerErrorHandler'] = true;
+}

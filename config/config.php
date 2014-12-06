@@ -88,4 +88,6 @@ return array(
             'Monolog\Handler\StreamHandler' => [$rootPath . '/logs/event.log'],
         ],
     ],
+
+    'use_booboo' => false,
 );

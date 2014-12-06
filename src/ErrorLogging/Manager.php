@@ -28,10 +28,17 @@ class Manager
         Runner $runner,
         array $loggers = array()
     ) {
-        $runner->register();
-
         $this->errorHandler = $runner;
         $this->loggers = $loggers;
+    }
+
+    public function registerErrorHandler($bool)
+    {
+        if($bool) {
+            $this->errorHandler->register();
+        } else {
+            $this->errorHandler->deregister();
+        }
     }
 
     /**
