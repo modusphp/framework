@@ -19,6 +19,7 @@ class Bootstrap {
     protected $errorHandler;
     protected $request;
     protected $authService;
+    protected $depInj;
 
     public function __construct(
         Config $config,
@@ -28,7 +29,7 @@ class Bootstrap {
         Log\Manager $handler
     ) {
         $this->config = $config;
-        $this->di = $config->getDI();
+        $this->depInj = $config->getDI();
         $this->request = $request;
         $this->router = $router;
         $this->authService = $authService;
@@ -55,16 +56,11 @@ class Bootstrap {
         unset($params['responder']);
         unset($params['method']);
 
-        $object = $this->di->newInstance($action);
+        $object = $this->depInj->newInstance($action);
         $result = call_user_func_array([$object, $method], $params);
 
-        $responder = $this->di->newInstance($responder);
+        $responder = $this->depInj->newInstance($responder);
         $responder->processResponse($result);
         $responder->sendResponse();
-    }
-
-    protected function checkUserAuthenticated() {
-        $auth = $this->authService->getUser();
-        return $auth->isValid();
     }
 }

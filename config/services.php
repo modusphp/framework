@@ -24,18 +24,3 @@ $di->params['Aura\Web\WebFactory'] = array(
  */
 $di->set('session', $di->lazyNew('Modus\Session\Aura'));
 $di->set('router', $di->lazyNew('Modus\Router\Standard'));
-
-/*
- * --------------------------------------------------
- * Database Configuration
- * --------------------------------------------------
- */
-$di->params['Aura\Sql\ConnectionLocator'] = [
-    'default' => null,
-    'read' => null,
-    'write' => null,
-];
-
-$di->params['Aura\SqlQuery\QueryFactory'] = [
-    'db' => $config['database']['master']['adapter']
-];
