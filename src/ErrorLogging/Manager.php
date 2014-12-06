@@ -3,40 +3,39 @@
 namespace Modus\ErrorLogging;
 
 use Monolog;
-use Whoops;
+use Savage\BooBoo\Runner;
 
 class Manager {
 
-    protected $logger;
-    protected $whoops;
+    protected $loggers;
+    protected $errorHandler;
 
 
     public function __construct(
-        Monolog\Logger $logger,
-        Whoops\Run $whoops,
-        array $loggers = array(),
-        array $handlers = array()
-    ) {
+        Runner $runner,
+        array $loggers = array()
+    )
+    {
+        $runner->register();
 
-        foreach($loggers as $log_handler) {
-            $logger->pushHandler($log_handler);
-        }
-
-        foreach($handlers as $handler) {
-            $whoops->pushHandler($handler());
-        }
-
-        $whoops->register();
-
-        $this->whoops = $whoops;
-        $this->logger = $logger;
+        $this->errorHandler = $runner;
+        $this->loggers = $loggers;
     }
 
     public function getErrorHandler() {
-        return $this->whoops;
+        return $this->errorHandler;
     }
 
-    public function getLogger() {
-        return $this->logger;
+    public function getLogger($loggerName = null) {
+
+        if(empty($loggerName)) {
+            return $this->loggers;
+        }
+
+        if (isset($this->loggers[$loggerName])) {
+            return $this->loggers[$loggerName];
+        }
+
+        throw new \Exception(sprintf('Logger %s is not registered', $loggerName));
     }
 }

@@ -9,10 +9,12 @@ class Config {
     const ENV_DEV = 'dev';
     const ENV_STAGING = 'staging';
     const ENV_PRODUCTION = 'production';
+    const ENV_TESTING = 'testing';
 
     protected $environments = [
         self::ENV_DEV,
         self::ENV_STAGING,
+        self::ENV_TESTING,
         self::ENV_PRODUCTION,
     ];
 
@@ -25,6 +27,8 @@ class Config {
         'staging.php',
         'production.php',
         'local.php',
+        'testing.php',
+        'migrations.php',
     ];
 
     protected $fileList = [];
