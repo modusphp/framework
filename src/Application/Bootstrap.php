@@ -11,7 +11,8 @@ use Modus\Common\Route\Exception\NotFoundException;
 use Modus\Auth;
 use Modus\Config\Config;
 
-class Bootstrap {
+class Bootstrap
+{
     
     protected $config;
     protected $router;
@@ -40,7 +41,8 @@ class Bootstrap {
         $this->authService->resume();
     }
     
-    public function execute() {
+    public function execute()
+    {
 
         try {
             $routepath = $this->evaluateRoute();
@@ -56,7 +58,7 @@ class Bootstrap {
             unset($params['method']);
         } catch (NotFoundException $e) {
             $config = $this->config->getConfig();
-            if(isset($config['error_page']['404'])) {
+            if (isset($config['error_page']['404'])) {
                 $lastRoute = $this->router->getLastRoute();
                 $this->eventLog->info(sprintf("No route was found that matches '%s'", $lastRoute));
 
@@ -78,10 +80,11 @@ class Bootstrap {
         $responder->sendResponse();
     }
 
-    public function evaluateRoute() {
+    public function evaluateRoute()
+    {
         $router = $this->router;
         $routepath = $router->determineRouting();
-        if(!$routepath) {
+        if (!$routepath) {
             throw new NotFoundException('The route "' . $router->getLastRoute() . '" was not found');
         }
         return $routepath;

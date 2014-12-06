@@ -5,17 +5,20 @@ namespace Modus\Responder;
 use Aura\Web;
 use Aura\View;
 
-abstract class WebBase {
+abstract class WebBase
+{
 
     protected $response;
     protected $template;
 
-    public function __construct(Web\Response $response, View\View $template) {
+    public function __construct(Web\Response $response, View\View $template)
+    {
         $this->response = $response;
         $this->template = $template;
     }
 
-    public function sendResponse() {
+    public function sendResponse()
+    {
         $response = $this->response;
         header($response->status->get(), true, $response->status->getCode());
 
@@ -41,11 +44,13 @@ abstract class WebBase {
         echo $response->content->get();
     }
 
-    public function getResponse() {
+    public function getResponse()
+    {
         return $this->response;
     }
 
-    public function getTemplate() {
+    public function getTemplate()
+    {
         return $this->template;
     }
 }

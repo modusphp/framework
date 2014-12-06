@@ -2,4 +2,7 @@
 
 namespace Modus\Common\Route\Exception;
 
-class NotFoundException extends \Exception {}
+class NotFoundException extends \Exception
+{
+
+}

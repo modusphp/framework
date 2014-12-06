@@ -4,23 +4,25 @@ namespace Modus\Router;
 
 use Aura\Router\Router;
 
-class Standard {
+class Standard
+{
     
     protected $routes;
     protected $router;
     protected $lastRoute;
     protected $serverVars;
     
-    public function __construct(Router $router, array $routes = array(), array $serverVars = array()) {
+    public function __construct(Router $router, array $routes = array(), array $serverVars = array())
+    {
         $this->router = $router;
         $this->routes = $routes;
         $this->serverVars = $serverVars;
         $this->configureRouter();
     }
     
-    protected function configureRouter() {
-        foreach($this->routes as $routeName => $route) {
-
+    protected function configureRouter()
+    {
+        foreach ($this->routes as $routeName => $route) {
             // defaults
             $params = [];
             $secure = false;
@@ -55,7 +57,7 @@ class Standard {
     {
         $serverVars = $this->serverVars;
 
-        if(!isset($serverVars['REQUEST_URI'])) {
+        if (!isset($serverVars['REQUEST_URI'])) {
             return false;
         }
 
@@ -65,11 +67,13 @@ class Standard {
         return $result;
     }
 
-    public function getLastRoute() {
+    public function getLastRoute()
+    {
         return $this->lastRoute;
     }
 
-    public function getRouter() {
+    public function getRouter()
+    {
         return $this->router;
     }
 }

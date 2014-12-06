@@ -5,7 +5,8 @@ namespace Modus\ErrorLogging;
 use Monolog;
 use Savage\BooBoo\Runner;
 
-class Manager {
+class Manager
+{
 
     /**
      * @var array
@@ -26,8 +27,7 @@ class Manager {
     public function __construct(
         Runner $runner,
         array $loggers = array()
-    )
-    {
+    ) {
         $runner->register();
 
         $this->errorHandler = $runner;
@@ -37,7 +37,8 @@ class Manager {
     /**
      * @return Runner
      */
-    public function getErrorHandler() {
+    public function getErrorHandler()
+    {
         return $this->errorHandler;
     }
 
@@ -46,9 +47,10 @@ class Manager {
      * @return Monolog\Logger;
      * @throws \Exception
      */
-    public function getLogger($loggerName = null) {
+    public function getLogger($loggerName = null)
+    {
 
-        if(empty($loggerName)) {
+        if (empty($loggerName)) {
             return $this->loggers;
         }
 

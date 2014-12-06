@@ -5,7 +5,8 @@ namespace Modus\Auth;
 use Aura\Auth;
 use Aura\Auth\Service as AuthService;
 
-class Service {
+class Service
+{
 
     public function __construct(
         AuthService\LoginService $loginService,
@@ -19,23 +20,26 @@ class Service {
         $this->userObj = $userObj;
     }
 
-    public function getUser() {
+    public function getUser()
+    {
         return $this->userObj;
     }
 
-    public function resume() {
+    public function resume()
+    {
         $this->resumeService->resume($this->userObj);
         return $this->getUser();
     }
 
-    public function authenticate($user = null, $pass = null) {
+    public function authenticate($user = null, $pass = null)
+    {
         $this->loginService->login($this->userObj, ['username' => $user, 'password' => $pass]);
         return $this->getUser();
     }
 
-    public function logOut() {
+    public function logOut()
+    {
         $this->logoutService->logout($this->userObj);
         return $this->getUser();
     }
-
 }

@@ -2,4 +2,7 @@
 
 namespace Modus\Common\Model\User;
 
-class Exception extends \Exception {}
+class Exception extends \Exception
+{
+
+}

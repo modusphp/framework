@@ -6,16 +6,21 @@ use Aura\Html\Helper\AbstractHelper;
 use Pagerfanta\View;
 use Pagerfanta;
 
-class Paginator extends AbstractHelper {
+class Paginator extends AbstractHelper
+{
 
     protected $defaultView;
 
-    public function __construct(View\ViewInterface $defaultView) {
+    public function __construct(View\ViewInterface $defaultView)
+    {
         $this->defaultView = $defaultView;
     }
 
-    public function __invoke(Pagerfanta\PagerfantaInterface $pagerfanta, $route, array $options = array()) {
-        $routeGenerator = function($page) use ($route) { return $route . '/' . $page; };
+    public function __invoke(Pagerfanta\PagerfantaInterface $pagerfanta, $route, array $options = array())
+    {
+        $routeGenerator = function($page) use ($route) { return $route . '/' . $page;
+
+        };
         return $this->defaultView->render($pagerfanta, $routeGenerator, $options);
     }
 }
