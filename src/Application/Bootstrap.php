@@ -63,7 +63,7 @@ class Bootstrap
                 $this->eventLog->info(sprintf("No route was found that matches '%s'", $lastRoute));
 
                 $responder = $this->depInj->newInstance($config['error_page']['404']);
-                $responder->processResponse([]);
+                $responder->process([]);
                 $responder->sendResponse();
                 return;
             }
@@ -75,8 +75,11 @@ class Bootstrap
         $object = $this->depInj->newInstance($action);
         $result = call_user_func_array([$object, $method], $params);
 
+        if (!$result) {
+            $result = [];
+        }
         $responder = $this->depInj->newInstance($responder);
-        $responder->processResponse($result);
+        $responder->process($result);
         $responder->sendResponse();
     }
 

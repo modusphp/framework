@@ -8,7 +8,14 @@ use Aura\View;
 abstract class WebBase
 {
 
+    /**
+     * @var Web\Response
+     */
     protected $response;
+
+    /**
+     * @var View\View
+     */
     protected $template;
 
     public function __construct(Web\Response $response, View\View $template)
@@ -53,4 +60,6 @@ abstract class WebBase
     {
         return $this->template;
     }
+
+    abstract public function process(array $results);
 }
