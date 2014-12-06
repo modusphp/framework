@@ -1,6 +1,7 @@
 <?php
 
 $layout = $config['template']['layout'];
+$views = $config['template']['views'];
 
 return [
     'layout' => [
@@ -8,6 +9,6 @@ return [
     ],
 
     'views' => [
-        'test' => $layout . 'test.php',
+        'test' => $views . 'test.php',
     ]
 ];

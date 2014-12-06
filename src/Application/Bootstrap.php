@@ -7,7 +7,7 @@ use Aura\Web;
 
 use Modus\Router;
 use Modus\ErrorLogging as Log;
-use Modus\Common\Controller\Exception;
+use Modus\Common\Route\NotFoundException;
 use Modus\Auth;
 use Modus\Config\Config;
 
@@ -41,7 +41,7 @@ class Bootstrap {
         $router = $this->router;
         $routepath = $router->determineRouting($this->request->server->get());
         if(!$routepath) {
-            throw new Exception\NotFound('The route "' . $router->getLastRoute() . '" was not found');
+            throw new NotFoundException('The route "' . $router->getLastRoute() . '" was not found');
         }
 
         $route = $routepath->values;
