@@ -22,7 +22,8 @@
         "robmorgan/phinx": "v0.3.2",
         "aura/auth": "2.0.0-beta2",
         "aura/html": "~2.1.0",
-        "brandonsavage/booboo": "~0.2"
+        "brandonsavage/booboo": "~0.2",
+        "ircmaxell/password-compat": "~1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*",

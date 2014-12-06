@@ -2,6 +2,10 @@
 
 namespace Modus\Common\Model\User;
 
+if(!function_exists('password_has') || !function_exists('password_verify')) {
+    require (realpath(__DIR__ . '/../../../../vendor/ircmaxell/password-compat/lib/') . '/password.php');
+}
+
 class User {
 
     public $id;
