@@ -1,7 +1,5 @@
 <?php
 
-require_once '../vendor/autoload.php';
-
 class BaseUserTest extends PHPUnit_Framework_TestCase {
 
     protected $userObj;
