@@ -1,7 +1,6 @@
 logs
 .idea
 .DS_Store
-*.lock
 *.phar
 vendor/
 keys/
