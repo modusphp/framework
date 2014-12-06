@@ -15,4 +15,5 @@ $di->params['Aura\Router\RouteCollection'] = [
 $di->params['Modus\Router\Standard'] = [
     'router' => $di->lazyNew('Aura\Router\Router'),
     'routes' => require('routes.php'),
+    'serverVars' => $_SERVER,
 ];

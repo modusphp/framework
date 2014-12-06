@@ -9,10 +9,12 @@ class Standard {
     protected $routes;
     protected $router;
     protected $lastRoute;
+    protected $serverVars;
     
-    public function __construct(Router $router, array $routes = array()) {
+    public function __construct(Router $router, array $routes = array(), array $serverVars = array()) {
         $this->router = $router;
         $this->routes = $routes;
+        $this->serverVars = $serverVars;
         $this->configureRouter();
     }
     
@@ -49,8 +51,10 @@ class Standard {
         }
     }
     
-    public function determineRouting(array $serverVars = array())
+    public function determineRouting()
     {
+        $serverVars = $this->serverVars;
+
         if(!isset($serverVars['REQUEST_URI'])) {
             return false;
         }

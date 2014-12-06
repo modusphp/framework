@@ -51,6 +51,15 @@ return array(
 
     /*
      * --------------------------------------------------
+     * Error statuses and the responders to use.
+     * --------------------------------------------------
+     */
+    'error_page' => [
+        '404' => null, // FQ Namespace
+    ],
+
+    /*
+     * --------------------------------------------------
      * Template Directory and Layout
      * --------------------------------------------------
      */
@@ -64,7 +73,7 @@ return array(
      * Default Session Configuration
      * --------------------------------------------------
      */
-    'default_session_segment' => '',
+    'default_session_segment' => 'modus',
 
     /*
       * --------------------------------------------------

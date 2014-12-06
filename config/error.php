@@ -25,12 +25,18 @@ $di->set('event_logger', $di->lazyNew('Monolog\Logger', ['name' => 'event', 'han
 
 switch ($config['environment']) {
     case 'production':
+        $formatters[] = $di->newInstance('Savage\BooBoo\Formatter\NullFormatter');
+        $di->setters['Savage\BooBoo\Runner']['setErrorPageFormatter'] = $di->lazyNew('Savage\BooBoo\Formatter\NullForamtter');
+        $di->setters['Savage\BooBoo\Runner']['silenceAllErrors'] = true;
+        $handlers[] = $di->newInstance('Savage\BooBoo\Handler\LogHandler', ['logger' => $di->lazyGet('logger')]);
+        break;
+
     case 'staging':
     case 'dev':
     case 'testing':
         $formatters[] = $di->newInstance('Savage\BooBoo\Formatter\HtmlTableFormatter');
         $handlers[] = $di->newInstance('Savage\BooBoo\Handler\LogHandler', ['logger' => $di->lazyGet('logger')]);
-
+        break;
 }
 
 $di->params['Savage\BooBoo\Runner'] = [
@@ -41,5 +47,5 @@ $di->params['Savage\BooBoo\Runner'] = [
 
 $di->params['Modus\ErrorLogging\Manager'] = [
     'runner' => $di->lazyNew('Savage\BooBoo\Runner'),
-    'loggers' => ['error' => $di->lazyGet('logger'), 'event' => $di->lazyGet('event_logger')]
+    'loggers' => ['error' => $di->get('logger'), 'event' => $di->get('event_logger')]
 ];
