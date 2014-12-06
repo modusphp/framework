@@ -1,6 +1,8 @@
 The Modus Framework
 ===================
 
+(Note: This README is a work in progress.)
+
 The Modus Framework is a collection of components included through Composer and bound together by "glue code" that makes the components useful as a unit.
 
 Modus makes use of many components of Aura, as well as some Symfony components and others.
