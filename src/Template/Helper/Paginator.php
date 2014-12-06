@@ -18,7 +18,8 @@ class Paginator extends AbstractHelper
 
     public function __invoke(Pagerfanta\PagerfantaInterface $pagerfanta, $route, array $options = array())
     {
-        $routeGenerator = function($page) use ($route) { return $route . '/' . $page;
+        $routeGenerator = function ($page) use ($route) {
+            return $route . '/' . $page;
 
         };
         return $this->defaultView->render($pagerfanta, $routeGenerator, $options);

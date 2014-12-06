@@ -13,7 +13,7 @@ use Modus\Config\Config;
 
 class Bootstrap
 {
-    
+
     protected $config;
     protected $router;
     protected $responseMgr;
@@ -40,7 +40,7 @@ class Bootstrap
 
         $this->authService->resume();
     }
-    
+
     public function execute()
     {
 

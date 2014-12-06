@@ -6,7 +6,7 @@ use Aura\Session;
 
 class Aura
 {
-    
+
     public $instance;
     public $segment;
 
@@ -15,7 +15,7 @@ class Aura
         $this->instance = $manager;
         $this->segment = $this->instance->newSegment($defaultSegment);
     }
-    
+
     public function getInstance()
     {
         return $this->instance;

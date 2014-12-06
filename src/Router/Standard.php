@@ -6,12 +6,12 @@ use Aura\Router\Router;
 
 class Standard
 {
-    
+
     protected $routes;
     protected $router;
     protected $lastRoute;
     protected $serverVars;
-    
+
     public function __construct(Router $router, array $routes = array(), array $serverVars = array())
     {
         $this->router = $router;
@@ -19,7 +19,7 @@ class Standard
         $this->serverVars = $serverVars;
         $this->configureRouter();
     }
-    
+
     protected function configureRouter()
     {
         foreach ($this->routes as $routeName => $route) {
@@ -46,13 +46,13 @@ class Standard
 
             $router = $this->router;
             $router->add($routeName, $path)
-                   ->addValues($values)
-                   ->addTokens($params)
-                   ->setSecure($secure)
-                   ->addServer(['REQUEST_METHOD' => $request]);
+                ->addValues($values)
+                ->addTokens($params)
+                ->setSecure($secure)
+                ->addServer(['REQUEST_METHOD' => $request]);
         }
     }
-    
+
     public function determineRouting()
     {
         $serverVars = $this->serverVars;
