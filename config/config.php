@@ -9,7 +9,7 @@ return array(
      * Are we in production?
      * --------------------------------------------------
      */
-    "environment" => $_SERVER['MY_ENV'],
+    "environment" => $env,
 
     /*
      * --------------------------------------------------

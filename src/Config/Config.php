@@ -92,6 +92,9 @@ class Config
     protected function loadConfiguration()
     {
 
+        // This is used in the confguration file.
+        $env = $this->environment;
+
         $config = [];
         $env_config = $this->environment . '.php';
         if (in_array('config.php', $this->fileList)) {
