@@ -69,7 +69,8 @@ class Config
         return $this->containerBuilder;
     }
 
-    public function getContainer() {
+    public function getContainer()
+    {
         return $this->container;
     }
 
