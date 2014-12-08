@@ -15,8 +15,8 @@ class ErrorHandler extends Config
         $loggers = [];
         $handlers = [];
 
-        foreach($config['error_logging'] as $log_name => $log_handler) {
-            foreach($log_handler as $handler => $params) {
+        foreach ($config['error_logging'] as $log_name => $log_handler) {
+            foreach ($log_handler as $handler => $params) {
                 $loggers[$log_name][] = $di->newInstance($handler, $params);
             }
         }
@@ -40,14 +40,16 @@ class ErrorHandler extends Config
                 $formatters[] = $di->newInstance('Savage\BooBoo\Formatter\NullFormatter');
                 $di->setters['Savage\BooBoo\Runner']['setErrorPageFormatter'] = $di->lazyNew('Savage\BooBoo\Formatter\NullForamtter');
                 $di->setters['Savage\BooBoo\Runner']['silenceAllErrors'] = true;
-                $handlers[] = $di->newInstance('Savage\BooBoo\Handler\LogHandler', ['logger' => $di->lazyGet('logger')]);
+                $handlers[] = $di->newInstance('Savage\BooBoo\Handler\LogHandler',
+                    ['logger' => $di->lazyGet('logger')]);
                 break;
 
             case 'staging':
             case 'dev':
             case 'testing':
                 $formatters[] = $di->newInstance('Savage\BooBoo\Formatter\HtmlTableFormatter');
-                $handlers[] = $di->newInstance('Savage\BooBoo\Handler\LogHandler', ['logger' => $di->lazyGet('logger')]);
+                $handlers[] = $di->newInstance('Savage\BooBoo\Handler\LogHandler',
+                    ['logger' => $di->lazyGet('logger')]);
                 break;
         }
 
@@ -62,7 +64,7 @@ class ErrorHandler extends Config
             'loggers' => ['error' => $di->get('logger'), 'event' => $di->get('event_logger')]
         ];
 
-        if($config['use_booboo']) {
+        if ($config['use_booboo']) {
             $di->setter['Modus\ErrorLogging\Manager']['registerErrorHandler'] = true;
         }
     }

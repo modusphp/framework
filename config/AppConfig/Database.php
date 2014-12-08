@@ -5,7 +5,8 @@ namespace AppConfig;
 use Aura\Di\Config;
 use Aura\Di\Container;
 
-class Database extends Config {
+class Database extends Config
+{
 
     public function define(Container $di)
     {
@@ -21,7 +22,7 @@ class Database extends Config {
 
         $defaultDsn = sprintf($dsn, $type, $database['default']['host'], $dbname);
 
-        $databaseConnections['default'] = function() use ($di, $defaultDsn, $type, $database) {
+        $databaseConnections['default'] = function () use ($di, $defaultDsn, $type, $database) {
             return $di->newInstance('\Aura\Sql\ExtendedPdo', [
                     'dsn' => $defaultDsn,
                     'username' => $database['default']['user'],
@@ -34,7 +35,7 @@ class Database extends Config {
          * Configure the WRITE databases
          * --------------------------------------------------
          */
-        foreach($database['write'] as $key => $dbconfig) {
+        foreach ($database['write'] as $key => $dbconfig) {
             $databaseConnections['write'][$key] =
                 $di->lazyNew('\Aura\Sql\ExtendedPdo', [
                         'dsn' => sprintf(
@@ -54,7 +55,7 @@ class Database extends Config {
          * Configure the READ databases
          * --------------------------------------------------
          */
-        foreach($database['read'] as $key => $dbconfig) {
+        foreach ($database['read'] as $key => $dbconfig) {
             $databaseConnections['read'][$key] =
                 $di->lazyNew('\Aura\Sql\ExtendedPdo', [
                         'dsn' => sprintf(
@@ -84,5 +85,4 @@ class Database extends Config {
             'db' => $type,
         ];
     }
-
 }

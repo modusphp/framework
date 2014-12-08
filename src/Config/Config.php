@@ -114,7 +114,7 @@ class Config
 
         $services = ['config' => $this];
 
-        $container = $containerBuilder->newInstance($services, $config['aura_configs'], ContainerBuilder::DISABLE_AUTO_RESOLVE);
+        $container = $containerBuilder->newInstance($services, $config['config_classes'], ContainerBuilder::DISABLE_AUTO_RESOLVE);
         $this->container = $container;
     }
 }

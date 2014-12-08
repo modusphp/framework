@@ -10,9 +10,11 @@ use Aura\Di;
  * Class Action
  * @package AppConfig\ADR
  */
-class Responder extends Di\Config {
+class Responder extends Di\Config
+{
 
-    public function define(Di\Container $di) {
+    public function define(Di\Container $di)
+    {
 
         /**
          * Basic configuration for base responder.
@@ -31,5 +33,4 @@ class Responder extends Di\Config {
             'helpers' => $di->lazyNew('Aura\Html\HelperLocator'),
         ];
     }
-
 }

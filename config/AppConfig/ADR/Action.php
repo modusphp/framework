@@ -10,10 +10,14 @@ use Aura\Di;
  * Class Action
  * @package AppConfig\ADR
  */
-class Action extends Di\Config {
+class Action extends Di\Config
+{
 
-    public function define(Di\Container $di) {
-        $di->setter['Application\Controller\Index']['setAuth'] = $di->lazyNew('Modus\Auth\Service');
+    public function define(Di\Container $di)
+    {
+        /**
+         * Configure the settings for your actions here (e.g.
+         * constructor arguments, setters, etc.)
+         */
     }
-
 }

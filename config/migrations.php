@@ -1,7 +1,6 @@
-
 <?php
 
-if(function_exists('xdebug_disable')) {
+if (function_exists('xdebug_disable')) {
     xdebug_disable();
 }
 
@@ -9,7 +8,7 @@ $rootPath = realpath(__DIR__ . '/..');
 
 require($rootPath . '/vendor/autoload.php');
 
-if(isset($_SERVER['PHINX_ENV'])) {
+if (isset($_SERVER['PHINX_ENV'])) {
     $env = $_SERVER['PHINX_ENV'];
 } else {
     $env = 'dev';
@@ -25,7 +24,6 @@ return [
     "paths" => [
         "migrations" => "$rootPath/migrations"
     ],
-
     "environments" => [
         "default_migration_table" => "phinxlog",
         "default_database" => "default",
@@ -36,6 +34,6 @@ return [
             "user" => $config['database']['default']['user'],
             "pass" => $config['database']['default']['pass'],
             "port" => 3306
-            ],
         ],
-    ];
+    ],
+];

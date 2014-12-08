@@ -5,7 +5,8 @@ namespace AppConfig;
 use Aura\Di\Config;
 use Aura\Di\Container;
 
-class Router extends Config {
+class Router extends Config
+{
 
     public function define(Container $di)
     {
@@ -30,5 +31,4 @@ class Router extends Config {
             'serverVars' => $_SERVER,
         ];
     }
-
 }

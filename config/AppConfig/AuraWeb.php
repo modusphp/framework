@@ -146,5 +146,4 @@ class AuraWeb extends Config
             'cache' => $di->lazyGet('web_response_cache'),
         );
     }
-
 }

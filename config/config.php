@@ -10,14 +10,12 @@ return array(
      * --------------------------------------------------
      */
     "environment" => $env,
-
     /*
      * --------------------------------------------------
      * Default Root Path
      * --------------------------------------------------
      */
     "root_path" => $rootPath,
-
     /*
      * --------------------------------------------------
      * Database Configuration
@@ -31,7 +29,6 @@ return array(
             "pass" => "",
             "host" => "127.0.0.1",
         ],
-
         'write' => [
             'master' => [
                 "user" => "",
@@ -39,7 +36,6 @@ return array(
                 "host" => "127.0.0.1",
             ],
         ],
-
         'read' => [
             'slave' => [
                 "user" => "",
@@ -48,7 +44,6 @@ return array(
             ],
         ]
     ],
-
     /*
      * --------------------------------------------------
      * Error statuses and the responders to use.
@@ -57,7 +52,6 @@ return array(
     'error_page' => [
         '404' => null, // FQ Namespace
     ],
-
     /*
      * --------------------------------------------------
      * Template Directory and Layout
@@ -67,19 +61,17 @@ return array(
         "layout" => "$rootPath/views/",
         "views" => "$rootPath/views/",
     ],
-
     /*
      * --------------------------------------------------
      * Default Session Configuration
      * --------------------------------------------------
      */
     'default_session_segment' => 'modus',
-
     /*
-      * --------------------------------------------------
-      * Default Error Configuration
-      * --------------------------------------------------
-      */
+     * --------------------------------------------------
+     * Default Error Configuration
+     * --------------------------------------------------
+     */
     'error_logging' => [
         'error' => [
             'Monolog\Handler\StreamHandler' => [$rootPath . '/logs/error.log'],
@@ -88,10 +80,18 @@ return array(
             'Monolog\Handler\StreamHandler' => [$rootPath . '/logs/event.log'],
         ],
     ],
-
-    'use_booboo' => false,
-
-    'aura_configs' => [
+    /*
+     * --------------------------------------------------
+     * Should we use the BooBoo error handler?
+     * --------------------------------------------------
+     */
+    'use_booboo' => true,
+    /*
+     * --------------------------------------------------
+     * List of configuration classes to load (FQNS)
+     * --------------------------------------------------
+     */
+    'config_classes' => [
         'AppConfig\Bootstrap',
         'AppConfig\Router',
         'AppConfig\Database',

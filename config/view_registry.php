@@ -7,7 +7,6 @@ return [
     'layout' => [
         'layout' => $layout . 'layout.php',
     ],
-
     'views' => [
         'test' => $views . 'test.php',
         '404' => $views . '404.php',
