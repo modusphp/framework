@@ -34,7 +34,8 @@
             "Modus\\": "src"
         },
         "psr-0": {
-            "Application": "local-src/"
+            "Application": "local-src/",
+            "AppConfig": "config/"
         }
     },
     "bin": [

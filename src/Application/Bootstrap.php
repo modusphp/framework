@@ -31,7 +31,7 @@ class Bootstrap
         Log\Manager $handler
     ) {
         $this->config = $config;
-        $this->depInj = $config->getDI();
+        $this->depInj = $config->getContainer();
         $this->request = $request;
         $this->router = $router;
         $this->authService = $authService;

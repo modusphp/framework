@@ -16,7 +16,7 @@ if(isset($_SERVER['PHINX_ENV'])) {
     trigger_error('Phinx migration environment not set', E_USER_WARNING);
 }
 
-$configuration = new Modus\Config\Config($env, $rootPath . '/config', new Aura\Di\Container(new Aura\Di\Factory));
+$configuration = new Modus\Config\Config($env, $rootPath . '/config', new Aura\Di\ContainerBuilder());
 
 $config = $configuration->getConfig();
 

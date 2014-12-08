@@ -2,11 +2,15 @@
 
 namespace Modus\Config;
 
-use Aura\Di\Container;
+use Aura\Di;
+use Aura\Di\ContainerBuilder;
 
 class Config
 {
 
+    /**
+     * Environments avaialble to our system.
+     */
     const ENV_DEV = 'dev';
     const ENV_STAGING = 'staging';
     const ENV_PRODUCTION = 'production';
@@ -19,41 +23,40 @@ class Config
         self::ENV_PRODUCTION,
     ];
 
+    /**
+     * @var string The set environment
+     */
     protected $environment;
+
+    /**
+     * @var string The directory where configurations are stored
+     */
     protected $configDir;
-    protected $di;
-    protected $configs = [
-        'config.php',
-        'dev.php',
-        'staging.php',
-        'production.php',
-        'local.php',
-        'testing.php',
-        'migrations.php',
-    ];
 
-    protected $fileList = [];
+    /**
+     * @var ContainerBuilder The DI container builder
+     */
+    protected $containerBuilder;
 
+    /**
+     * @var array The parsed configuration array
+     */
     protected $config = [];
 
+    /**
+     * @var Di\Container The processed DI container.
+     */
+    protected $container;
 
-    public function __construct($env, $configDir, Container $di)
+
+    public function __construct($env, $configDir, ContainerBuilder $containerBuilder)
     {
         $this->environment = $this->validateEnvironment($env);
         $this->configDir = realpath($configDir);
-        $this->di = $di;
+        $this->containerBuilder = $containerBuilder;
 
-        $this->loadFileList($this->configDir);
         $this->loadConfiguration($configDir);
-        $this->loadDependencies($di);
-    }
-
-    public function addExcludedFile($fileName)
-    {
-        if (is_string($fileName)) {
-            array_push($this->configs, $fileName);
-        }
-        return $this;
+        $this->loadDependencies($containerBuilder);
     }
 
     public function getConfig()
@@ -61,9 +64,13 @@ class Config
         return $this->config;
     }
 
-    public function getDI()
+    public function getContainerBuilder()
     {
-        return $this->di;
+        return $this->containerBuilder;
+    }
+
+    public function getContainer() {
+        return $this->container;
     }
 
     protected function validateEnvironment($env)
@@ -75,20 +82,6 @@ class Config
         return $env;
     }
 
-    protected function loadFileList($configDir)
-    {
-        $it = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($configDir));
-
-        while ($it->valid()) {
-            if (!$it->isDot()) {
-                if ($it->getExtension() == 'php') {
-                    $this->fileList[] = $it->getFilename();
-                }
-            }
-            $it->next();
-        }
-    }
-
     protected function loadConfiguration()
     {
 
@@ -97,15 +90,15 @@ class Config
 
         $config = [];
         $env_config = $this->environment . '.php';
-        if (in_array('config.php', $this->fileList)) {
+        if (file_exists($this->configDir . '/config.php')) {
             $config = array_merge($config, require($this->configDir . '/config.php'));
         }
 
-        if (in_array($env_config, $this->fileList)) {
+        if (file_exists($this->configDir . '/' . $env_config)) {
             $config = array_merge($config, require($this->configDir . '/' . $env_config));
         }
 
-        if (in_array('local.php', $this->fileList)) {
+        if (file_exists($this->configDir . '/local.php')) {
             $config = array_merge($config, require($this->configDir . '/local.php'));
         }
 
@@ -114,14 +107,13 @@ class Config
 
     }
 
-    protected function loadDependencies(Container $di)
+    protected function loadDependencies(ContainerBuilder $containerBuilder)
     {
         $config = $this->config;
 
-        foreach ($this->fileList as $file) {
-            if (!in_array($file, $this->configs)) {
-                require_once $this->configDir . '/' . $file;
-            }
-        }
+        $services = ['config' => $this];
+
+        $container = $containerBuilder->newInstance($services, $config['aura_configs'], ContainerBuilder::DISABLE_AUTO_RESOLVE);
+        $this->container = $container;
     }
 }

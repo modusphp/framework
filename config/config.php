@@ -90,4 +90,20 @@ return array(
     ],
 
     'use_booboo' => false,
+
+    'aura_configs' => [
+        'AppConfig\Bootstrap',
+        'AppConfig\Router',
+        'AppConfig\Database',
+        'AppConfig\AuraWeb',
+        'AppConfig\Auth',
+        'AppConfig\HtmlHelpers',
+        'AppConfig\Session',
+        'AppConfig\ErrorHandler',
+        'AppConfig\ADR\Action',
+        'AppConfig\ADR\Responder',
+        'AppConfig\ADR\Domain',
+    ],
+
+
 );
