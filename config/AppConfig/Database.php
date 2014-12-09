@@ -23,7 +23,9 @@ class Database extends Config
         $defaultDsn = sprintf($dsn, $type, $database['default']['host'], $dbname);
 
         $databaseConnections['default'] = function () use ($di, $defaultDsn, $type, $database) {
-            return $di->newInstance('\Aura\Sql\ExtendedPdo', [
+            return $di->newInstance(
+                '\Aura\Sql\ExtendedPdo',
+                [
                     'dsn' => $defaultDsn,
                     'username' => $database['default']['user'],
                     'password' => $database['default']['pass'],
@@ -37,7 +39,9 @@ class Database extends Config
          */
         foreach ($database['write'] as $key => $dbconfig) {
             $databaseConnections['write'][$key] =
-                $di->lazyNew('\Aura\Sql\ExtendedPdo', [
+                $di->lazyNew(
+                    '\Aura\Sql\ExtendedPdo',
+                    [
                         'dsn' => sprintf(
                             $dsn,
                             $type,
@@ -57,7 +61,9 @@ class Database extends Config
          */
         foreach ($database['read'] as $key => $dbconfig) {
             $databaseConnections['read'][$key] =
-                $di->lazyNew('\Aura\Sql\ExtendedPdo', [
+                $di->lazyNew(
+                    '\Aura\Sql\ExtendedPdo',
+                    [
                         'dsn' => sprintf(
                             $dsn,
                             $type,

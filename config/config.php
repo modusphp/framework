@@ -51,6 +51,7 @@ return array(
      */
     'error_page' => [
         '404' => null, // FQ Namespace
+        '406' => 'Application\Responder\Page501',
     ],
     /*
      * --------------------------------------------------

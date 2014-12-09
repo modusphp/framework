@@ -10,6 +10,7 @@ use Modus\ErrorLogging as Log;
 use Modus\Common\Route\Exception\NotFoundException;
 use Modus\Auth;
 use Modus\Config\Config;
+use Modus\Responder\Exception;
 
 class Bootstrap
 {
@@ -43,6 +44,8 @@ class Bootstrap
 
     public function execute()
     {
+        $config = $this->config->getConfig();
+
 
         try {
             $routepath = $this->evaluateRoute();
@@ -57,7 +60,6 @@ class Bootstrap
             unset($params['responder']);
             unset($params['method']);
         } catch (NotFoundException $e) {
-            $config = $this->config->getConfig();
             if (isset($config['error_page']['404'])) {
                 $lastRoute = $this->router->getLastRoute();
                 $this->eventLog->info(sprintf("No route was found that matches '%s'", $lastRoute));
@@ -72,13 +74,27 @@ class Bootstrap
             throw $e;
         }
 
+        try {
+            // We put the responder first, so that if the content type is unavailable, we don't execute the
+            // request
+            $responder = $this->depInj->newInstance($responder);
+        } catch (Exception\ContentTypeNotValidException $e) {
+            if (isset($config['error_page']['406'])) {
+                $responder = $this->depInj->newInstance($config['error_page']['406']);
+                $responder->process([]);
+                $responder->sendResponse();
+                return;
+            }
+
+            throw $e;
+        }
+
         $object = $this->depInj->newInstance($action);
         $result = call_user_func_array([$object, $method], $params);
 
         if (!$result) {
             $result = [];
         }
-        $responder = $this->depInj->newInstance($responder);
         $responder->process($result);
         $responder->sendResponse();
     }
