@@ -15,14 +15,43 @@ use Modus\Responder\Exception;
 class Bootstrap
 {
 
+    /**
+     * @var Config
+     */
     protected $config;
-    protected $router;
-    protected $responseMgr;
-    protected $errorLog;
-    protected $eventLog;
-    protected $authService;
-    protected $depInj;
 
+    /**
+     * @var Router\Standard
+     */
+    protected $router;
+
+    /**
+     * @var \Monolog\Logger
+     */
+    protected $errorLog;
+
+    /**
+     * @var \Monolog\Logger
+     */
+    protected $eventLog;
+
+    /**
+     * @var Auth\Service
+     */
+    protected $authService;
+
+    /**
+     * @var Di\Container
+     */
+    protected $serviceLocator;
+
+    /**
+     * @param Config $config
+     * @param Router\Standard $router
+     * @param Auth\Service $authService
+     * @param Log\Manager $handler
+     * @throws Log\Exception\LoggerNotRegistered
+     */
     public function __construct(
         Config $config,
         Router\Standard $router,
@@ -30,7 +59,7 @@ class Bootstrap
         Log\Manager $handler
     ) {
         $this->config = $config;
-        $this->depInj = $config->getContainer();
+        $this->serviceLocator = $config->getContainer();
         $this->router = $router;
         $this->authService = $authService;
         $this->errorLog = $handler->getLogger('error');
@@ -39,10 +68,14 @@ class Bootstrap
         $this->authService->resume();
     }
 
+    /**
+     * @throws Exception\ContentTypeNotValidException
+     * @throws NotFoundException
+     * @throws \Exception
+     */
     public function execute()
     {
         $config = $this->config->getConfig();
-
 
         try {
             $routepath = $this->evaluateRoute();
@@ -61,7 +94,7 @@ class Bootstrap
                 $lastRoute = $this->router->getLastRoute();
                 $this->eventLog->info(sprintf("No route was found that matches '%s'", $lastRoute));
 
-                $responder = $this->depInj->newInstance($config['error_page']['404']);
+                $responder = $this->serviceLocator->newInstance($config['error_page']['404']);
                 $responder->process([]);
                 $responder->sendResponse();
                 return;
@@ -74,10 +107,10 @@ class Bootstrap
         try {
             // We put the responder first, so that if the content type is unavailable, we don't execute the
             // request
-            $responder = $this->depInj->newInstance($responder);
+            $responder = $this->serviceLocator->newInstance($responder);
         } catch (Exception\ContentTypeNotValidException $e) {
             if (isset($config['error_page']['406'])) {
-                $responder = $this->depInj->newInstance($config['error_page']['406']);
+                $responder = $this->serviceLocator->newInstance($config['error_page']['406']);
                 $responder->process([]);
                 $responder->sendResponse();
                 return;
@@ -86,7 +119,7 @@ class Bootstrap
             throw $e;
         }
 
-        $object = $this->depInj->newInstance($action);
+        $object = $this->serviceLocator->newInstance($action);
         $result = call_user_func_array([$object, $method], $params);
 
         if (!$result) {
@@ -96,7 +129,11 @@ class Bootstrap
         $responder->sendResponse();
     }
 
-    public function evaluateRoute()
+    /**
+     * @return \Aura\Router\Route
+     * @throws NotFoundException
+     */
+    protected function evaluateRoute()
     {
         $router = $this->router;
         $routepath = $router->determineRouting();

@@ -8,7 +8,6 @@ if (!function_exists('password_has') || !function_exists('password_verify')) {
 
 class User
 {
-
     public $id;
     public $username;
     public $email;

@@ -20,7 +20,6 @@ class Paginator extends AbstractHelper
     {
         $routeGenerator = function ($page) use ($route) {
             return $route . '/' . $page;
-
         };
         return $this->defaultView->render($pagerfanta, $routeGenerator, $options);
     }

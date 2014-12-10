@@ -28,7 +28,6 @@ class Messages extends AbstractHelper
         if ($message) {
             return '<div class="failure">' . $message . '</div>';
         }
-
     }
 
     protected function getMessages()

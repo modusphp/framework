@@ -46,7 +46,7 @@ class ManagerTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @expectedException \Exception
+     * @expectedException Modus\ErrorLogging\Exception\LoggerNotRegistered
      * @expectedMessage 'not registered'
      */
     public function testUnregisteredLoggerThrowsException() {

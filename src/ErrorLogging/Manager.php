@@ -65,6 +65,6 @@ class Manager
             return $this->loggers[$loggerName];
         }
 
-        throw new \Exception(sprintf('Logger %s is not registered', $loggerName));
+        throw new Exception\LoggerNotRegistered(sprintf('Logger %s is not registered', $loggerName));
     }
 }

@@ -77,7 +77,7 @@ class Config
     protected function validateEnvironment($env)
     {
         if (!in_array($env, $this->environments)) {
-            throw new \Exception(sprintf('%s is an invalid environment', $env));
+            throw new Exception\InvalidEnvironment(sprintf('%s is an invalid environment', $env));
         }
 
         return $env;
@@ -105,7 +105,6 @@ class Config
 
         $this->config = $config;
         return $config;
-
     }
 
     protected function loadDependencies(ContainerBuilder $containerBuilder)

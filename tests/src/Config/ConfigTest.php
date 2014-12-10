@@ -32,7 +32,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @expectedException \Exception
+     * @expectedException Modus\Config\Exception\InvalidEnvironment
      * @expectedMessage is an invalid environment
      */
     public function testInvalidEnvironmentRaisesException() {

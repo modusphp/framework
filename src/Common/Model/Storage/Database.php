@@ -7,7 +7,6 @@ use Aura\SqlQuery\QueryFactory;
 
 abstract class Database
 {
-
     /**
      * @var QueryFactory
      */
