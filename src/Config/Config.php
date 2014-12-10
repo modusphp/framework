@@ -49,9 +49,9 @@ class Config
     protected $container;
 
 
-    public function __construct($env, $configDir, ContainerBuilder $containerBuilder)
+    public function __construct($enviornment, $configDir, ContainerBuilder $containerBuilder)
     {
-        $this->environment = $this->validateEnvironment($env);
+        $this->environment = $this->validateEnvironment($enviornment);
         $this->configDir = realpath($configDir);
         $this->containerBuilder = $containerBuilder;
 

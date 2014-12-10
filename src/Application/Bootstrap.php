@@ -120,7 +120,11 @@ class Bootstrap
         }
 
         $object = $this->serviceLocator->newInstance($action);
-        $result = call_user_func_array([$object, $method], $params);
+        if($params) {
+            $result = call_user_func_array([$object, $method], $params);
+        } else {
+            $result = call_user_func([$object, $method]);
+        }
 
         if (!$result) {
             $result = [];

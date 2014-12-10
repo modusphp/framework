@@ -3,4 +3,4 @@ RewriteEngine On
 FallbackResource /index.php
 </IfModule>
 
-SetEnv MY_ENV production
+SetEnv MODUS_ENV production

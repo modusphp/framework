@@ -96,6 +96,8 @@ abstract class Web
 
         // send content
         print($response->content->get());
+
+        header('Connection: close');
     }
 
     /**
