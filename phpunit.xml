@@ -7,6 +7,10 @@
     <filter>
         <whitelist>
             <directory suffix=".php">./src/</directory>
+            <exclude>
+                <directory>src/Common/Model/Gateway/Base.php</directory>
+                <directory>src/Common/Model/Storage/Database.php</directory>
+            </exclude>
         </whitelist>
     </filter>
 </phpunit>
