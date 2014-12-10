@@ -53,6 +53,9 @@ class Standard
         }
     }
 
+    /**
+     * @return \Aura\Router\Route|bool
+     */
     public function determineRouting()
     {
         $serverVars = $this->serverVars;

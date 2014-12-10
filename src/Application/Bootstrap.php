@@ -20,20 +20,17 @@ class Bootstrap
     protected $responseMgr;
     protected $errorLog;
     protected $eventLog;
-    protected $request;
     protected $authService;
     protected $depInj;
 
     public function __construct(
         Config $config,
-        Web\Request $request,
         Router\Standard $router,
         Auth\Service $authService,
         Log\Manager $handler
     ) {
         $this->config = $config;
         $this->depInj = $config->getContainer();
-        $this->request = $request;
         $this->router = $router;
         $this->authService = $authService;
         $this->errorLog = $handler->getLogger('error');
