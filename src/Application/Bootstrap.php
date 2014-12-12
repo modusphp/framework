@@ -85,7 +85,7 @@ class Bootstrap
             $responder = (isset($route['responder']))? $route['responder'] : null;
             $method = (isset($route['method'])) ? $route['method'] : null;
 
-            if(!$responder) {
+            if (!$responder) {
                 $responder = 'Modus\Responder\NoContent204Response';
             }
 
@@ -123,7 +123,7 @@ class Bootstrap
             throw $e;
         }
 
-        if(isset($action) && isset($method)) {
+        if (isset($action) && isset($method)) {
             $object = $this->serviceLocator->newInstance($action);
             $result = call_user_func_array([$object, $method], $params);
         }
