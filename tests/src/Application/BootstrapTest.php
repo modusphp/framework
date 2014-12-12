@@ -240,4 +240,39 @@ class BootstrapTest extends PHPUnit_Framework_TestCase {
         return $handler;
     }
 
+    public function testAbsentResponderReturns204Responder() {
+        $this->responder->shouldReceive('process')->once()->with(['a' => 'b']);
+        $this->responder->shouldReceive('sendResponse')->once();
+
+
+        $this->action->shouldReceive('index')->once()->with()->andReturn(['a' => 'b']);
+
+        $this->container->shouldReceive('newInstance')->once()->with('Modus\Responder\NoContent204Response')->andReturn($this->responder);
+        $this->container->shouldReceive('newInstance')->once()->with('A\B\C')->andReturn($this->action);
+
+        $this->config->shouldReceive('getContainer')->andReturn($this->container);
+        $this->config->shouldReceive('getConfig')->andReturn([]);
+
+        $route = new stdClass();
+        $route->values = [
+            'action' => 'A\B\C',
+            'method' => 'index'
+        ];
+        $this->router->shouldReceive('determineRouting')->andReturn($route);
+
+        $this->bootstrap->execute();
+
+        try {
+            $this->action->mockery_verify();
+            $this->responder->mockery_verify();
+            $this->container->mockery_verify();
+            $this->router->mockery_verify();
+            $this->authService->mockery_verify();
+            $this->config->mockery_verify();
+            $this->assertTrue(true);
+        } catch (\Exception $e) {
+            $this->fail($e->getMessage());
+        }
+    }
+
 }
