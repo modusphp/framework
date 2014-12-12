@@ -81,9 +81,13 @@ class Bootstrap
             $routepath = $this->evaluateRoute();
             $route = $routepath->values;
 
-            $action = $route['action'];
-            $responder = $route['responder'];
-            $method = $route['method'];
+            $action = (isset($route['action'])) ? $route['action'] : null;
+            $responder = (isset($route['responder']))? $route['responder'] : null;
+            $method = (isset($route['method'])) ? $route['method'] : null;
+
+            if(!$responder) {
+                $responder = 'Modus\Responder\NoContent204Response';
+            }
 
             $params = $route;
             unset($params['action']);
@@ -119,10 +123,12 @@ class Bootstrap
             throw $e;
         }
 
-        $object = $this->serviceLocator->newInstance($action);
-        $result = call_user_func_array([$object, $method], $params);
+        if(isset($action) && isset($method)) {
+            $object = $this->serviceLocator->newInstance($action);
+            $result = call_user_func_array([$object, $method], $params);
+        }
 
-        if (!$result) {
+        if (!isset($result) || !$result) {
             $result = [];
         }
         $responder->process($result);
