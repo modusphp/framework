@@ -9,7 +9,9 @@ class ManagerTest extends PHPUnit_Framework_TestCase {
         $runner->shouldReceive('register')->once()->andReturn(true);
         $runner->shouldReceive('deregister')->once()->andReturn(true);
 
-        $manager = new Manager($runner, []);
+        $accept = Mockery::mock('Aura\Accept\Accept');
+
+        $manager = new Manager($runner, $accept, []);
         $manager->registerErrorHandler(true);
         $manager->registerErrorHandler(false);
 
@@ -23,7 +25,9 @@ class ManagerTest extends PHPUnit_Framework_TestCase {
     public function testGetErrorHandler() {
         // This function is somewhat useless to test, since we're just evaluating that we got a mock back.
         $runner = Mockery::mock('Savage\BooBoo\Runner');
-        $manager = new Manager($runner, []);
+        $accept = Mockery::mock('Aura\Accept\Accept');
+
+        $manager = new Manager($runner, $accept, []);
         $this->assertTrue(($runner === $manager->getErrorHandler()));
     }
 
@@ -35,8 +39,9 @@ class ManagerTest extends PHPUnit_Framework_TestCase {
 
 
         $runner = Mockery::mock('Savage\BooBoo\Runner');
-        $manager = new Manager($runner, $loggers);
+        $accept = Mockery::mock('Aura\Accept\Accept');
 
+        $manager = new Manager($runner, $accept, $loggers);
         $all = $manager->getLogger();
         $this->assertInternalType('array', $all);
         $this->assertEquals($loggers, $all);
@@ -51,7 +56,9 @@ class ManagerTest extends PHPUnit_Framework_TestCase {
      */
     public function testUnregisteredLoggerThrowsException() {
         $runner = Mockery::mock('Savage\BooBoo\Runner');
-        $manager = new Manager($runner, []);
+        $accept = Mockery::mock('Aura\Accept\Accept');
+
+        $manager = new Manager($runner, $accept, []);
         $manager->getLogger('abc');
     }
 

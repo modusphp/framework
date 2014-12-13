@@ -4,6 +4,7 @@ namespace Modus\ErrorLogging;
 
 use Monolog;
 use Savage\BooBoo\Runner;
+use Aura\Accept\Accept;
 
 class Manager
 {
@@ -26,10 +27,20 @@ class Manager
      */
     public function __construct(
         Runner $runner,
-        array $loggers = array()
+        Accept $accept,
+        array $loggers = array(),
+        array $availableFormatters = array()
     ) {
         $this->errorHandler = $runner;
         $this->loggers = $loggers;
+
+        if ($availableFormatters) {
+            $possibleAccepts = array_keys($availableFormatters);
+            $result = $accept->negotiateMedia($possibleAccepts);
+            if ($result) {
+                $this->errorHandler->pushFormatter($availableFormatters[$result->getValue()]);
+            }
+        }
     }
 
     public function registerErrorHandler($bool)

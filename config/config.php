@@ -81,12 +81,21 @@ return array(
             'Monolog\Handler\StreamHandler' => [$rootPath . '/logs/event.log'],
         ],
     ],
+
     /*
      * --------------------------------------------------
-     * Should we use the BooBoo error handler?
+     * BooBoo Configuration
      * --------------------------------------------------
      */
     'use_booboo' => true,
+    'silence_errors' => false,
+    'default_formatter' => 'Savage\BooBoo\Formatter\HtmlFormatter',
+    'formatter_accepts' => [
+        'text/html' => 'Savage\BooBoo\Formatter\HtmlTableFormatter',
+        'text/text' => 'Savage\BooBoo\Formatter\CommandLineFormatter',
+        'application/json' => 'Savage\BooBoo\Formatter\JsonFormatter',
+    ],
+
     /*
      * --------------------------------------------------
      * List of configuration classes to load (FQNS)

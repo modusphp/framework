@@ -228,18 +228,6 @@ class BootstrapTest extends PHPUnit_Framework_TestCase {
         $this->bootstrap->execute();
     }
 
-    protected function getErrorHandler() {
-        $runner = Mockery::mock('Savage\BooBoo\Runner');
-
-        $loggers = [
-            'error' => new Logger('error', [new NullHandler()]),
-            'event' => new Logger('event', [new NullHandler()]),
-        ];
-
-        $handler = new Modus\ErrorLogging\Manager($runner, $loggers);
-        return $handler;
-    }
-
     public function testAbsentResponderReturns204Responder() {
         $this->responder->shouldReceive('process')->once()->with(['a' => 'b']);
         $this->responder->shouldReceive('sendResponse')->once();
@@ -273,6 +261,19 @@ class BootstrapTest extends PHPUnit_Framework_TestCase {
         } catch (\Exception $e) {
             $this->fail($e->getMessage());
         }
+    }
+
+    protected function getErrorHandler() {
+        $runner = Mockery::mock('Savage\BooBoo\Runner');
+        $accept = Mockery::mock('Aura\Accept\Accept');
+
+        $loggers = [
+            'error' => new Logger('error', [new NullHandler()]),
+            'event' => new Logger('event', [new NullHandler()]),
+        ];
+
+        $handler = new Modus\ErrorLogging\Manager($runner, $accept, $loggers);
+        return $handler;
     }
 
 }
