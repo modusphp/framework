@@ -6,7 +6,7 @@ use Monolog;
 use Savage\BooBoo\Runner;
 use Aura\Accept\Accept;
 
-class Manager
+class Manager implements ManagerInterface
 {
 
     /**
@@ -23,7 +23,6 @@ class Manager
     /**
      * @param Runner $runner
      * @param array $loggers
-     * @throws \Savage\BooBoo\Exception\NoFormattersRegisteredException
      */
     public function __construct(
         Runner $runner,
@@ -43,6 +42,10 @@ class Manager
         }
     }
 
+    /**
+     * @param $bool
+     * @throws \Savage\BooBoo\Exception\NoFormattersRegisteredException
+     */
     public function registerErrorHandler($bool)
     {
         if ($bool) {
@@ -63,7 +66,7 @@ class Manager
     /**
      * @param null $loggerName
      * @return Monolog\Logger;
-     * @throws \Exception
+     * @throws Exception\LoggerNotRegistered
      */
     public function getLogger($loggerName = null)
     {
