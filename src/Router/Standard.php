@@ -46,10 +46,10 @@ class Standard
     protected function configureRouter()
     {
         $routes = $this->routes;
-        if(isset($routes['route_groups'])) {
+        if (isset($routes['route_groups'])) {
             $groups = $routes['route_groups'];
             unset($routes['route_groups']);
-            foreach($groups as $prefix => $routeGroup) {
+            foreach ($groups as $prefix => $routeGroup) {
                 $this->processRouteList($routeGroup, $prefix);
             }
         }
@@ -63,9 +63,10 @@ class Standard
      * @param array $routes
      * @param null $prefix
      */
-    protected function processRouteList(array $routes, $prefix = null) {
-        foreach($routes as $routeName => $route) {
-            if($prefix) {
+    protected function processRouteList(array $routes, $prefix = null)
+    {
+        foreach ($routes as $routeName => $route) {
+            if ($prefix) {
                 $route['path'] = $prefix . '/' . $route['path'];
                 // Sanity check
                 $route['path'] = str_replace('//', '/', $route['path']);
@@ -80,7 +81,8 @@ class Standard
      * @param $routeName
      * @param array $route
      */
-    protected function addRoute($routeName, array $route) {
+    protected function addRoute($routeName, array $route)
+    {
         $params = [];
         $secure = false;
         $request = 'HEAD|GET|DELETE|OPTIONS|PATCH|POST|PUT';
@@ -143,7 +145,8 @@ class Standard
         return $this->router;
     }
 
-    public function getRouteForName($name, array $args = array()) {
+    public function getRouteForName($name, array $args = array())
+    {
         return $this->router->generate($name, $args);
     }
 }
