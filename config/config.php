@@ -6,7 +6,7 @@ return array(
 
     /*
      * --------------------------------------------------
-     * Are we in production?
+     * What environment are we in?
      * --------------------------------------------------
      */
     "environment" => $env,
@@ -50,8 +50,9 @@ return array(
      * --------------------------------------------------
      */
     'error_page' => [
-        '404' => null, // FQ Namespace
-        '406' => 'Application\Responder\Page501',
+        // These are fully qualified namespaces
+        '404' => 'Some\Namespace\Responder\Page404',
+        '406' => 'Some\Namespace\Responder\Page406',
     ],
     /*
      * --------------------------------------------------
@@ -68,18 +69,40 @@ return array(
      * --------------------------------------------------
      */
     'default_session_segment' => 'modus',
+
     /*
      * --------------------------------------------------
      * Default Error Configuration
      * --------------------------------------------------
      */
     'error_logging' => [
-        'error' => [
-            'Monolog\Handler\StreamHandler' => [$rootPath . '/logs/error.log'],
-        ],
-        'event' => [
-            'Monolog\Handler\StreamHandler' => [$rootPath . '/logs/event.log'],
-        ],
+        'logger' => 'Monolog\Logger',
+        'logs' => [
+            'error' => [
+                'handlers' => [
+                    'Monolog\Handler\StreamHandler' => [
+                        $rootPath . '/logs/error.log'
+                    ]
+                ],
+                'formatter' => 'Monolog\Formatter\LineFormatter',
+                'formatterArgs' => [
+                    'format' => "%datetime% > %level_name% > %message% %context% %extra%\n",
+                    'dateFormat' => 'c'
+                ]
+            ],
+            'event' => [
+                'handlers' => [
+                    'Monolog\Handler\StreamHandler' => [
+                        $rootPath . '/logs/error.log'
+                    ],
+                ],
+                'formatter' => 'Monolog\Formatter\LineFormatter',
+                'formatterArgs' => [
+                    'format' => "%datetime% > %level_name% > %message% %context% %extra%\n",
+                    'dateFormat' => 'c'
+                ]
+            ]
+        ]
     ],
 
     /*
@@ -90,6 +113,7 @@ return array(
     'use_booboo' => true,
     'silence_errors' => false,
     'default_formatter' => 'Savage\BooBoo\Formatter\HtmlFormatter',
+    'error_page_formatter' => 'Savage\BooBoo\Formatter\HtmlTableFormatter',
     'formatter_accepts' => [
         'text/html' => 'Savage\BooBoo\Formatter\HtmlTableFormatter',
         'text/text' => 'Savage\BooBoo\Formatter\CommandLineFormatter',
