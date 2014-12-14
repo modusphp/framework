@@ -19,7 +19,7 @@
  **/
 return array(
 
-    "auth" => [
+    "home" => [
         "path" => "/",
         "values" => [
             'action' => 'Application\Action\Index',
@@ -27,4 +27,7 @@ return array(
             'method' => 'index',
         ],
     ],
+
+    "route_groups" => [
+    ]
 );

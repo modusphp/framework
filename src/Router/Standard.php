@@ -45,35 +45,68 @@ class Standard
      */
     protected function configureRouter()
     {
-        foreach ($this->routes as $routeName => $route) {
-            // defaults
-            $params = [];
-            $secure = false;
-            $request = 'HEAD|GET|DELETE|OPTIONS|PATCH|POST|PUT';
-
-            $path = $route['path'];
-
-            $values = $route['values'];
-
-            if (isset($route['params'])) {
-                $params = $route['params'];
+        $routes = $this->routes;
+        if(isset($routes['route_groups'])) {
+            $groups = $routes['route_groups'];
+            unset($routes['route_groups']);
+            foreach($groups as $prefix => $routeGroup) {
+                $this->processRouteList($routeGroup, $prefix);
             }
-
-            if (isset($route['secure'])) {
-                $secure = $route['secure'];
-            }
-
-            if (isset($route['request'])) {
-                $request = $route['request'];
-            }
-
-            $router = $this->router;
-            $router->add($routeName, $path)
-                ->addValues($values)
-                ->addTokens($params)
-                ->setSecure($secure)
-                ->addServer(['REQUEST_METHOD' => $request]);
         }
+
+        $this->processRouteList($routes);
+    }
+
+    /**
+     * Process an array of routes, and register them.
+     *
+     * @param array $routes
+     * @param null $prefix
+     */
+    protected function processRouteList(array $routes, $prefix = null) {
+        foreach($routes as $routeName => $route) {
+            if($prefix) {
+                $route['path'] = $prefix . '/' . $route['path'];
+                // Sanity check
+                $route['path'] = str_replace('//', '/', $route['path']);
+            }
+            $this->addRoute($routeName, $route);
+        }
+    }
+
+    /**
+     * Register a single route with the router.
+     *
+     * @param $routeName
+     * @param array $route
+     */
+    protected function addRoute($routeName, array $route) {
+        $params = [];
+        $secure = false;
+        $request = 'HEAD|GET|DELETE|OPTIONS|PATCH|POST|PUT';
+
+        $path = $route['path'];
+
+        $values = $route['values'];
+
+        if (isset($route['params'])) {
+            $params = $route['params'];
+        }
+
+        if (isset($route['secure'])) {
+            $secure = $route['secure'];
+        }
+
+        if (isset($route['request'])) {
+            $request = $route['request'];
+        }
+
+        $router = $this->router;
+        $router->add($routeName, $path)
+            ->addValues($values)
+            ->addTokens($params)
+            ->setSecure($secure)
+            ->addServer(['REQUEST_METHOD' => $request]);
     }
 
     /**
@@ -108,5 +141,9 @@ class Standard
     public function getRouter()
     {
         return $this->router;
+    }
+
+    public function getRouteForName($name, array $args = array()) {
+        return $this->router->generate($name, $args);
     }
 }
