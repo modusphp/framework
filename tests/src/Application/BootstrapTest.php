@@ -64,7 +64,7 @@ class BootstrapTest extends PHPUnit_Framework_TestCase {
         $this->config->shouldReceive('getConfig')->andReturn([]);
 
         $route = new stdClass();
-        $route->values = [
+        $route->params = [
             'action' => 'A\B\C',
             'responder' => 'D\E\F',
             'method' => 'index'
@@ -100,7 +100,7 @@ class BootstrapTest extends PHPUnit_Framework_TestCase {
         $this->config->shouldReceive('getConfig')->andReturn([]);
 
         $route = new stdClass();
-        $route->values = [
+        $route->params = [
             'action' => 'A\B\C',
             'responder' => 'D\E\F',
             'method' => 'index'
@@ -173,7 +173,7 @@ class BootstrapTest extends PHPUnit_Framework_TestCase {
 
     public function testNoContentType406Error() {
         $route = new stdClass;
-        $route->values = [
+        $route->params = [
             'action' => 'A\B\C',
             'responder' => 'D\E\F',
             'method' => 'index'
@@ -218,7 +218,7 @@ class BootstrapTest extends PHPUnit_Framework_TestCase {
         $this->config->shouldReceive('getConfig')->andReturn([]);
 
         $route = new stdClass();
-        $route->values = [
+        $route->params = [
             'action' => 'A\B\C',
             'responder' => 'D\E\F',
             'method' => 'index'
@@ -242,7 +242,7 @@ class BootstrapTest extends PHPUnit_Framework_TestCase {
         $this->config->shouldReceive('getConfig')->andReturn([]);
 
         $route = new stdClass();
-        $route->values = [
+        $route->params = [
             'action' => 'A\B\C',
             'method' => 'index'
         ];
