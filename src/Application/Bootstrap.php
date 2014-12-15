@@ -79,7 +79,7 @@ class Bootstrap
 
         try {
             $routepath = $this->evaluateRoute();
-            $route = $routepath->values;
+            $route = $routepath->params;
 
             $action = (isset($route['action'])) ? $route['action'] : null;
             $responder = (isset($route['responder']))? $route['responder'] : null;

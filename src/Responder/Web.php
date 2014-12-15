@@ -93,11 +93,11 @@ abstract class Web
                 $cookie['httponly']
             );
         }
+        header('Connection: close');
 
         // send content
         print($response->content->get());
 
-        header('Connection: close');
     }
 
     /**
