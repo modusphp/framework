@@ -5,3 +5,8 @@ logs
 vendor/
 keys/
 .htaccess
+local-src/
+config/
+public/
+views/
+migrations/
