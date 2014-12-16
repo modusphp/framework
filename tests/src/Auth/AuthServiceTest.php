@@ -45,12 +45,6 @@ class AuthServiceTest extends PHPUnit_Framework_TestCase {
 
         $user = $this->service->resume();
         $this->assertInstanceOf('Aura\Auth\Auth', $user);
-
-        try {
-            $this->resume->mockery_verify();
-        } catch (\Exception $e) {
-            $this->fail($e->getMessage());
-        }
     }
 
     public function testAuthenticateCallsAuthenticateMethodAndReturnsUser() {
@@ -59,12 +53,6 @@ class AuthServiceTest extends PHPUnit_Framework_TestCase {
 
         $user = $this->service->authenticate('abc', '123');
         $this->assertInstanceOf('Aura\Auth\Auth', $user);
-
-        try {
-            $this->resume->mockery_verify();
-        } catch (\Exception $e) {
-            $this->fail($e->getMessage());
-        }
     }
 
     public function testLogoutCallsLogoutService() {
@@ -73,12 +61,6 @@ class AuthServiceTest extends PHPUnit_Framework_TestCase {
 
         $user = $this->service->logout();
         $this->assertInstanceOf('Aura\Auth\Auth', $user);
-
-        try {
-            $this->resume->mockery_verify();
-        } catch (\Exception $e) {
-            $this->fail($e->getMessage());
-        }
     }
 
 }

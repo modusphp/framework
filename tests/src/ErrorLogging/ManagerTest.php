@@ -14,12 +14,6 @@ class ManagerTest extends PHPUnit_Framework_TestCase {
         $manager = new Manager($runner, $accept, []);
         $manager->registerErrorHandler(true);
         $manager->registerErrorHandler(false);
-
-        try {
-            $runner->mockery_verify();
-        } catch (\Exception $e) {
-            $this->fail($e->getMessage());
-        }
     }
 
     public function testGetErrorHandler() {

@@ -35,6 +35,11 @@ class BootstrapTest extends PHPUnit_Framework_TestCase {
      */
     protected $router;
 
+    /**
+     * @var \Modus\Application\Bootstrap
+     */
+    protected $bootstrap;
+
     protected function setUp() {
         $this->responder = Mockery::mock('Modus\Responder\Base');
         $this->action = Mockery::mock('stdClass');
@@ -46,8 +51,6 @@ class BootstrapTest extends PHPUnit_Framework_TestCase {
         $this->authService->shouldReceive('resume')->once();
         $this->config->shouldReceive('getContainer')->once()->andReturn($this->container);
         $this->bootstrap = new \Modus\Application\Bootstrap($this->config, $this->router, $this->authService, $this->getErrorHandler());
-
-
     }
 
     public function testRouteRoutedAndLoaded() {
@@ -72,18 +75,6 @@ class BootstrapTest extends PHPUnit_Framework_TestCase {
         $this->router->shouldReceive('determineRouting')->andReturn($route);
 
         $this->bootstrap->execute();
-
-        try {
-            $this->action->mockery_verify();
-            $this->responder->mockery_verify();
-            $this->container->mockery_verify();
-            $this->router->mockery_verify();
-            $this->authService->mockery_verify();
-            $this->config->mockery_verify();
-            $this->assertTrue(true);
-        } catch (\Exception $e) {
-            $this->fail($e->getMessage());
-        }
     }
 
     public function testNullResultCausesEmptyResultsArrayToBeCreated() {
@@ -108,18 +99,6 @@ class BootstrapTest extends PHPUnit_Framework_TestCase {
         $this->router->shouldReceive('determineRouting')->andReturn($route);
 
         $this->bootstrap->execute();
-
-        try {
-            $this->action->mockery_verify();
-            $this->responder->mockery_verify();
-            $this->container->mockery_verify();
-            $this->router->mockery_verify();
-            $this->authService->mockery_verify();
-            $this->config->mockery_verify();
-            $this->assertTrue(true);
-        } catch (\Exception $e) {
-            $this->fail($e->getMessage());
-        }
     }
 
     public function testNotFound4040Error() {
@@ -132,17 +111,6 @@ class BootstrapTest extends PHPUnit_Framework_TestCase {
         $this->responder->shouldReceive('sendResponse');
 
         $this->bootstrap->execute();
-
-        try {
-            $this->responder->mockery_verify();
-            $this->container->mockery_verify();
-            $this->router->mockery_verify();
-            $this->authService->mockery_verify();
-            $this->config->mockery_verify();
-            $this->assertTrue(true);
-        } catch (\Exception $e) {
-            $this->fail($e->getMessage());
-        }
     }
 
     /**
@@ -153,22 +121,7 @@ class BootstrapTest extends PHPUnit_Framework_TestCase {
         $this->router->shouldIgnoreMissing();
         $this->config->shouldReceive('getConfig')->andReturn([]);
 
-        $this->container->shouldReceive('newInstance')->once()->with('NotFound\Error404')->andReturn($this->responder);
-        $this->responder->shouldReceive('process')->with([])->once();
-        $this->responder->shouldReceive('sendResponse');
-
         $this->bootstrap->execute();
-
-        try {
-            $this->responder->mockery_verify();
-            $this->container->mockery_verify();
-            $this->router->mockery_verify();
-            $this->authService->mockery_verify();
-            $this->config->mockery_verify();
-            $this->assertTrue(true);
-        } catch (\Exception $e) {
-            $this->fail($e->getMessage());
-        }
     }
 
     public function testNoContentType406Error() {
@@ -189,31 +142,13 @@ class BootstrapTest extends PHPUnit_Framework_TestCase {
         $this->responder->shouldReceive('sendResponse');
 
         $this->bootstrap->execute();
-
-        try {
-            $this->responder->mockery_verify();
-            $this->container->mockery_verify();
-            $this->router->mockery_verify();
-            $this->authService->mockery_verify();
-            $this->config->mockery_verify();
-            $this->assertTrue(true);
-        } catch (\Exception $e) {
-            $this->fail($e->getMessage());
-        }
     }
 
     /**
      * @expectedException Modus\Responder\Exception\ContentTypeNotValidException
      */
     public function testInvalidContentExceptionIsRethrownIfNotHandled() {
-        $this->responder->shouldReceive('process')->once()->with(['a' => 'b']);
-        $this->responder->shouldReceive('sendResponse')->once();
-
-
-        $this->action->shouldReceive('index')->once()->with()->andReturn(['a' => 'b']);
-
         $this->container->shouldReceive('newInstance')->once()->with('D\E\F')->andThrow('Modus\Responder\Exception\ContentTypeNotValidException');
-
         $this->config->shouldReceive('getContainer')->andReturn($this->container);
         $this->config->shouldReceive('getConfig')->andReturn([]);
 
@@ -249,18 +184,6 @@ class BootstrapTest extends PHPUnit_Framework_TestCase {
         $this->router->shouldReceive('determineRouting')->andReturn($route);
 
         $this->bootstrap->execute();
-
-        try {
-            $this->action->mockery_verify();
-            $this->responder->mockery_verify();
-            $this->container->mockery_verify();
-            $this->router->mockery_verify();
-            $this->authService->mockery_verify();
-            $this->config->mockery_verify();
-            $this->assertTrue(true);
-        } catch (\Exception $e) {
-            $this->fail($e->getMessage());
-        }
     }
 
     protected function getErrorHandler() {
@@ -275,5 +198,4 @@ class BootstrapTest extends PHPUnit_Framework_TestCase {
         $handler = new Modus\ErrorLogging\Manager($runner, $accept, $loggers);
         return $handler;
     }
-
 }
