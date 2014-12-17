@@ -44,8 +44,7 @@ class Standard
         array $routes = array(),
         array $serverVars = array(),
         array $routeAuthServices = array()
-    )
-    {
+    ) {
         $this->router = $router;
         $this->routes = $routes;
         $this->serverVars = $serverVars;
@@ -73,7 +72,7 @@ class Standard
      */
     public function getRouteAuth($name = 'default')
     {
-        if(isset($this->authStack[$name])) {
+        if (isset($this->authStack[$name])) {
             return $this->authStack[$name];
         }
 
@@ -82,7 +81,7 @@ class Standard
 
     public function removeRouteAuth($name)
     {
-        if(isset($this->authStack[$name])) {
+        if (isset($this->authStack[$name])) {
             unset($this->authStack[$name]);
         }
 
@@ -181,21 +180,21 @@ class Standard
         $path = parse_url($serverVars['REQUEST_URI'], PHP_URL_PATH);
         $this->lastRoute = $path;
         $result = $this->router->match($path, $serverVars);
-        if(isset($result->values['authRequired']) && $result->values['authRequired']) {
+        if (isset($result->values['authRequired']) && $result->values['authRequired']) {
 
             $check = 'default';
-            if(isset($result->values['authValidator'])) {
+            if (isset($result->values['authValidator'])) {
                 $check = $result->values['authValidator'];
             }
 
             $checker = $this->getRouteAuth($check);
             $route = $checker->checkAuth($result);
-            if($route === $result) {
+            if ($route === $result) {
                 return $result;
             }
 
             $result = $this->router->match($route, $serverVars);
-            if(!$result) {
+            if (!$result) {
                 throw new \LogicException('Both the route requeted and the auth redirect route are invalid');
             }
         }

@@ -30,7 +30,7 @@ class Standard implements RouterAuthInterface
     public function checkAuth(Route $requestedRoute)
     {
         $auth = $this->authService->resume();
-        if(!$auth->isValid()) {
+        if (!$auth->isValid()) {
             return $this->redirectRoute;
         }
 

@@ -82,7 +82,7 @@ class Bootstrap
             $route = $routepath->params;
 
             $action = (isset($route['action'])) ? $route['action'] : null;
-            $responder = (isset($route['responder']))? $route['responder'] : null;
+            $responder = (isset($route['responder'])) ? $route['responder'] : null;
             $method = (isset($route['method'])) ? $route['method'] : null;
 
             if (!$responder) {
