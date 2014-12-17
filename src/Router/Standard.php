@@ -3,6 +3,7 @@
 namespace Modus\Router;
 
 use Aura\Router\Router;
+use Modus\Auth\Router\RouterAuthInterface;
 
 class Standard
 {
@@ -28,17 +29,66 @@ class Standard
     protected $serverVars = array();
 
     /**
+     * @var array
+     */
+    protected $authStack = [];
+
+    /**
      * @param Router $router
      * @param array $routes
      * @param array $serverVars
+     * @param array $routeAuthServices
      */
-    public function __construct(Router $router, array $routes = array(), array $serverVars = array())
+    public function __construct(
+        Router $router,
+        array $routes = array(),
+        array $serverVars = array(),
+        array $routeAuthServices = array()
+    )
     {
         $this->router = $router;
         $this->routes = $routes;
         $this->serverVars = $serverVars;
         $this->configureRouter();
+
+        foreach ($routeAuthServices as $key => $service) {
+            $this->addRouteAuth($service, $key);
+        }
     }
+
+    public function addRouteAuth(RouterAuthInterface $auth, $name = 'default')
+    {
+        $this->authStack[$name] = $auth;
+        if (isset($this->routes['metadata']['redirect_routes'][$name])) {
+            $redirect = $this->routes['metadata']['redirect_routes'][$name];
+            $path = $this->router->generate($redirect);
+            $auth->setRedirectPath($path);
+        }
+    }
+
+    /**
+     * @param string $name
+     * @return RouterAuthInterface
+     * @throws \InvalidArgumentException
+     */
+    public function getRouteAuth($name = 'default')
+    {
+        if(isset($this->authStack[$name])) {
+            return $this->authStack[$name];
+        }
+
+        throw new \InvalidArgumentException('The route auth you requested was not provided');
+    }
+
+    public function removeRouteAuth($name)
+    {
+        if(isset($this->authStack[$name])) {
+            unset($this->authStack[$name]);
+        }
+
+        return $this;
+    }
+
 
     /**
      * Configure the router with all the options that we have specified in our routes file.
@@ -46,6 +96,11 @@ class Standard
     protected function configureRouter()
     {
         $routes = $this->routes;
+
+        if (isset($routes['metadata'])) {
+            unset($routes['metadata']);
+        }
+
         if (isset($routes['route_groups'])) {
             $groups = $routes['route_groups'];
             unset($routes['route_groups']);
@@ -126,6 +181,25 @@ class Standard
         $path = parse_url($serverVars['REQUEST_URI'], PHP_URL_PATH);
         $this->lastRoute = $path;
         $result = $this->router->match($path, $serverVars);
+        if(isset($result->values['authRequired']) && $result->values['authRequired']) {
+
+            $check = 'default';
+            if(isset($result->values['authValidator'])) {
+                $check = $result->values['authValidator'];
+            }
+
+            $checker = $this->getRouteAuth($check);
+            $route = $checker->checkAuth($result);
+            if($route === $result) {
+                return $result;
+            }
+
+            $result = $this->router->match($route, $serverVars);
+            if(!$result) {
+                throw new \LogicException('Both the route requeted and the auth redirect route are invalid');
+            }
+        }
+
         return $result;
     }
 
