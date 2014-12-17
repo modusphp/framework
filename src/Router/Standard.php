@@ -138,7 +138,7 @@ class Standard
     protected function addRoute($routeName, array $route)
     {
         $params = [];
-        $secure = false;
+        $secure = null;
         $request = 'HEAD|GET|DELETE|OPTIONS|PATCH|POST|PUT';
 
         $path = $route['path'];
