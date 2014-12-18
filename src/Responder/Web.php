@@ -204,4 +204,9 @@ abstract class Web
 
         throw new Exception\ContentTypeNotValidException('The content type requested was not a valid response type');
     }
+
+    protected function useTemplateForContent()
+    {
+        $this->setContent($this->template->__invoke());
+    }
 }
