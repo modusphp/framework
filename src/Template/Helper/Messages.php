@@ -3,14 +3,14 @@
 namespace Modus\Template\Helper;
 
 use Aura\Html\Helper\AbstractHelper;
-use Modus\Session;
+use Modus\Session\Session;
 
 class Messages extends AbstractHelper
 {
 
     protected $segment;
 
-    public function __construct(Session\Aura $session)
+    public function __construct(Session $session)
     {
         $this->segment = $session->getSegment();
     }

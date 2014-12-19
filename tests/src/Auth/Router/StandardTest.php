@@ -1,6 +1,6 @@
 <?php
 
-use Modus\Auth\Router\Standard;
+use Modus\Auth\Router\RouteManager;
 
 class StandardTest extends PHPUnit_Framework_TestCase
 {
@@ -14,7 +14,7 @@ class StandardTest extends PHPUnit_Framework_TestCase
     {
         $this->authService = Mockery::mock('Modus\Auth\Service');
 
-        $this->service = new Standard($this->authService);
+        $this->service = new RouteManager($this->authService);
         $this->service->setRedirectPath('test_path');
     }
 

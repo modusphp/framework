@@ -46,7 +46,7 @@ class BootstrapTest extends PHPUnit_Framework_TestCase {
         $this->container = Mockery::mock('Aura\Di\Container');
         $this->config = Mockery::mock('Modus\Config\Config');
         $this->authService = Mockery::mock('Modus\Auth\Service');
-        $this->router = Mockery::mock('Modus\Router\Standard');
+        $this->router = Mockery::mock('Modus\Router\RouteManager');
 
         $this->authService->shouldReceive('resume')->once();
         $this->config->shouldReceive('getContainer')->once()->andReturn($this->container);

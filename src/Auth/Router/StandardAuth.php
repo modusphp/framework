@@ -5,7 +5,7 @@ namespace Modus\Auth\Router;
 use Aura\Router\Route;
 use Modus\Auth\Service;
 
-class Standard implements RouterAuthInterface
+class StandardAuth implements RouterAuthInterface
 {
     /**
      * @var Route

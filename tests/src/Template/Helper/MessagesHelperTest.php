@@ -10,7 +10,7 @@ class MessagesHelperTest extends PHPUnit_Framework_TestCase {
 
         $m = Mockery::mock('Aura\Session\Manager');
         $m->shouldReceive('newSegment')->once()->andReturn($segment);
-        $session = new Modus\Session\Aura($m);
+        $session = new Modus\Session\Session($m);
 
         $messages = new Modus\Template\Helper\Messages($session);
         $values = $messages();
@@ -28,7 +28,7 @@ class MessagesHelperTest extends PHPUnit_Framework_TestCase {
 
         $m = Mockery::mock('Aura\Session\Manager');
         $m->shouldReceive('newSegment')->once()->andReturn($segment);
-        $session = new Modus\Session\Aura($m);
+        $session = new Modus\Session\Session($m);
 
         $messages = new Modus\Template\Helper\Messages($session);
         $values = $messages();

@@ -21,7 +21,7 @@ class Bootstrap
     protected $config;
 
     /**
-     * @var Router\Standard
+     * @var Router\RouteManager
      */
     protected $router;
 
@@ -47,14 +47,14 @@ class Bootstrap
 
     /**
      * @param Config $config
-     * @param Router\Standard $router
+     * @param Router\RouteManager $router
      * @param Auth\Service $authService
      * @param Log\Manager $handler
      * @throws Log\Exception\LoggerNotRegistered
      */
     public function __construct(
         Config $config,
-        Router\Standard $router,
+        Router\RouteManager $router,
         Auth\Service $authService,
         Log\Manager $handler
     ) {

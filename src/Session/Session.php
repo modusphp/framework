@@ -2,15 +2,15 @@
 
 namespace Modus\Session;
 
-use Aura\Session;
+use Aura\Session as AuraSession;
 
-class Aura
+class Session
 {
 
     public $instance;
     public $segment;
 
-    public function __construct(Session\Manager $manager, $defaultSegment = null)
+    public function __construct(AuraSession\Manager $manager, $defaultSegment = null)
     {
         $this->instance = $manager;
         $this->segment = $this->instance->newSegment($defaultSegment);

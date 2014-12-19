@@ -5,7 +5,7 @@ namespace Modus\Router;
 use Aura\Router\Router;
 use Modus\Auth\Router\RouterAuthInterface;
 
-class Standard
+class RouteManager
 {
 
     /**
