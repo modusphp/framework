@@ -10,5 +10,4 @@ interface RouterAuthInterface
     public function setRedirectPath($path);
 
     public function checkAuth(Route $requestedRoute);
-
 }

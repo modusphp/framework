@@ -181,7 +181,6 @@ class Standard
         $this->lastRoute = $path;
         $result = $this->router->match($path, $serverVars);
         if (isset($result->values['authRequired']) && $result->values['authRequired']) {
-
             $check = 'default';
             if (isset($result->values['authValidator'])) {
                 $check = $result->values['authValidator'];

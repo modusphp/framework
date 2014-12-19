@@ -4,7 +4,7 @@ namespace Modus\Auth;
 
 use Aura\Auth;
 use Aura\Auth\Service as AuthService;
-Use Aura\Auth\Exception;
+use Aura\Auth\Exception;
 
 class Service
 {
@@ -111,7 +111,7 @@ class Service
             default:
                 throw $e;
                 break;
-            }
+        }
     }
 
     protected function setError($message, $exceptionMessage = null)
