@@ -203,7 +203,7 @@ class Standard
 
             $result = $this->router->match($route, $serverVars);
             if (!$result) {
-                throw new \LogicException('Both the route requeted and the auth redirect route are invalid');
+                throw new \LogicException('Both the route requested and the auth redirect route are invalid');
             }
         }
 
