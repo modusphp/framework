@@ -189,6 +189,9 @@ class Standard
         $path = parse_url($serverVars['REQUEST_URI'], PHP_URL_PATH);
         $this->lastRoute = $path;
         $result = $this->router->match($path, $serverVars);
+        if(!$result) {
+            return $result;
+        }
         $authValidator = $this->requiresAuth($result->name);
         if ($authValidator) {
 
