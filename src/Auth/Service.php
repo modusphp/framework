@@ -87,6 +87,7 @@ class Service
 
             case ($e instanceof Exception\PasswordColumnNotSpecified):
                 $this->setError('The password column was not specified in the database.');
+                break;
 
             case ($e instanceof Exception\PasswordIncorrect):
                 $this->setError('The password was incorrect.');
