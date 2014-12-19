@@ -121,7 +121,12 @@ class Standard
     {
         foreach ($routes as $routeName => $route) {
             if ($prefix) {
-                $route['path'] = $prefix . '/' . $route['path'];
+                if($route['path']) {
+                    $route['path'] = $prefix . '/' . $route['path'];
+                } else {
+                    // No trailing slashes!
+                    $route['path'] = $prefix;
+                }
                 // Sanity check
                 $route['path'] = str_replace('//', '/', $route['path']);
             }
