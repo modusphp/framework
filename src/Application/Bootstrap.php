@@ -93,8 +93,6 @@ class Bootstrap
             unset($params['action']);
             unset($params['responder']);
             unset($params['method']);
-            unset($params['authValidator']);
-            unset($params['authRequired']);
         } catch (NotFoundException $e) {
             if (isset($config['error_page']['404'])) {
                 $lastRoute = $this->router->getLastRoute();

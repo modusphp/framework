@@ -34,6 +34,11 @@ class Standard
     protected $authStack = [];
 
     /**
+     * @var array An array of paths that require auth
+     */
+    protected $requiresAuth = [];
+
+    /**
      * @param Router $router
      * @param array $routes
      * @param array $serverVars
@@ -96,19 +101,14 @@ class Standard
     {
         $routes = $this->routes;
 
-        if (isset($routes['metadata'])) {
-            unset($routes['metadata']);
-        }
-
         if (isset($routes['route_groups'])) {
             $groups = $routes['route_groups'];
-            unset($routes['route_groups']);
             foreach ($groups as $prefix => $routeGroup) {
                 $this->processRouteList($routeGroup, $prefix);
             }
         }
 
-        $this->processRouteList($routes);
+        $this->processRouteList($routes['routes']);
     }
 
     /**
@@ -163,6 +163,15 @@ class Standard
             ->addTokens($params)
             ->setSecure($secure)
             ->addServer(['REQUEST_METHOD' => $request]);
+
+        if(isset($route['authRequired']) && $route['authRequired']) {
+            $validator = 'default';
+            if(isset($route['authValidator'])) {
+                $validator = $route['authValidator'];
+            }
+
+            $this->requiresAuth[$routeName] = $validator;
+        }
     }
 
     /**
@@ -180,13 +189,10 @@ class Standard
         $path = parse_url($serverVars['REQUEST_URI'], PHP_URL_PATH);
         $this->lastRoute = $path;
         $result = $this->router->match($path, $serverVars);
-        if (isset($result->values['authRequired']) && $result->values['authRequired']) {
-            $check = 'default';
-            if (isset($result->values['authValidator'])) {
-                $check = $result->values['authValidator'];
-            }
+        $authValidator = $this->requiresAuth($result->name);
+        if ($authValidator) {
 
-            $checker = $this->getRouteAuth($check);
+            $checker = $this->getRouteAuth($authValidator);
             $route = $checker->checkAuth($result);
             if ($route === $result) {
                 return $result;
@@ -217,8 +223,28 @@ class Standard
         return $this->router;
     }
 
+    /**
+     * Returns a full route path.
+     *
+     * @param $name
+     * @param array $args
+     * @return false|string
+     */
     public function getRouteForName($name, array $args = array())
     {
         return $this->router->generate($name, $args);
+    }
+
+    /**
+     * @param $routePathName
+     * @return bool
+     */
+    public function requiresAuth($routePathName)
+    {
+        if (isset($this->requiresAuth[$routePathName])) {
+            return $this->requiresAuth[$routePathName];
+        }
+
+        return false;
     }
 }
