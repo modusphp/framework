@@ -38,8 +38,5 @@
             "Application": "local-src/",
             "AppConfig": "config/"
         }
-    },
-    "bin": [
-        "bin/modus"
-    ]
+    }
 }
