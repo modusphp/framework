@@ -17,10 +17,13 @@ abstract class Database
      */
     protected $locator;
 
-
-    public function __construct(ConnectionLocator $locator, QueryFactory $queryFactory = null)
+    public function setConnectionLocator(ConnectionLocator $locator)
     {
         $this->locator = $locator;
+    }
+
+    public function setQueryFactory(QueryFactory $queryFactory)
+    {
         $this->queryFactory = $queryFactory;
     }
 }
