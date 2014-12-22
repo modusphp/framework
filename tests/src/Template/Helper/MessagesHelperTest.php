@@ -7,6 +7,9 @@ class MessagesHelperTest extends PHPUnit_Framework_TestCase {
         $segment = Mockery::mock('Aura\Session\Segment');
         $segment->shouldReceive('getFlash')->withArgs(['success'])->andReturn('abc');
         $segment->shouldReceive('getFlash')->withArgs(['failure'])->andReturn('def');
+        $segment->shouldReceive('getFlash')->withArgs(['error'])->once();
+        $segment->shouldReceive('getFlash')->withArgs(['warning'])->once();
+        $segment->shouldReceive('getFlash')->withArgs(['info'])->once();
 
         $m = Mockery::mock('Aura\Session\Manager');
         $m->shouldReceive('newSegment')->once()->andReturn($segment);
@@ -25,6 +28,9 @@ class MessagesHelperTest extends PHPUnit_Framework_TestCase {
         $segment = Mockery::mock('Aura\Session\Segment');
         $segment->shouldReceive('getFlash')->withArgs(['success'])->andReturn('');
         $segment->shouldReceive('getFlash')->withArgs(['failure'])->andReturn('');
+        $segment->shouldReceive('getFlash')->withArgs(['error'])->once();
+        $segment->shouldReceive('getFlash')->withArgs(['warning'])->once();
+        $segment->shouldReceive('getFlash')->withArgs(['info'])->once();
 
         $m = Mockery::mock('Aura\Session\Manager');
         $m->shouldReceive('newSegment')->once()->andReturn($segment);
