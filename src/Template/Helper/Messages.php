@@ -10,6 +10,14 @@ class Messages extends AbstractHelper
 
     protected $segment;
 
+    protected $messageTypes = [
+        'error',
+        'warning',
+        'info',
+        'failure',
+        'success'
+    ];
+
     public function __construct(Session $session)
     {
         $this->segment = $session->getSegment();
@@ -17,24 +25,17 @@ class Messages extends AbstractHelper
 
     public function __invoke()
     {
-        $messages = $this->getErrors();
-        $messages .= $this->getMessages();
+        $messages = '';
+
+        foreach($this->messageTypes as $type)
+        {
+            $message = $this->segment->getFlash($type);
+            if ($message)
+            {
+                $messages .= sprintf('<div class="%s">%s</div>', $type, $message);
+            }
+        }
+
         return $messages;
-    }
-
-    protected function getErrors()
-    {
-        $message = $this->segment->getFlash('failure');
-        if ($message) {
-            return '<div class="failure">' . $message . '</div>';
-        }
-    }
-
-    protected function getMessages()
-    {
-        $message = $this->segment->getFlash('success');
-        if ($message) {
-            return '<div class="success">' . $message . '</div>';
-        }
     }
 }
