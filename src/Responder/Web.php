@@ -2,6 +2,7 @@
 
 namespace Modus\Responder;
 
+use Aura\Html\HelperLocator;
 use Modus\Responder\Exception;
 
 use Aura\Accept;
@@ -36,6 +37,11 @@ abstract class Web
     ];
 
     /**
+     * @var HelperLocator
+     */
+    protected $locator;
+
+    /**
      * The negotiated types.
      *
      * @var string
@@ -48,11 +54,17 @@ abstract class Web
      * @param Accept\Accept $contentNegotiation
      * @throws Exception\ContentTypeNotValidException
      */
-    public function __construct(Response $response, View\View $template, Accept\Accept $contentNegotiation)
+    public function __construct(
+        Response $response,
+        View\View $template,
+        Accept\Accept $contentNegotiation,
+        HelperLocator $locator
+    )
     {
         $this->response = $response;
         $this->template = $template;
         $this->contentNegotiation = $contentNegotiation;
+        $this->locator = $locator;
 
         $this->determineResponseType();
     }
