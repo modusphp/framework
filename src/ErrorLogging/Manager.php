@@ -40,6 +40,14 @@ class Manager implements ManagerInterface
                 $this->errorHandler->pushFormatter($availableFormatters[$result->getValue()]);
             }
         }
+
+        foreach($loggers as $name => $logger) {
+            if($name == 'event') {
+                Logger::registerLogger($logger);
+            } else {
+                Logger::registerLogger($logger, $name);
+            }
+        }
     }
 
     /**
