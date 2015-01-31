@@ -108,10 +108,6 @@ class Bootstrap
             // request
             $responder = $this->serviceLocator->newInstance($components['responderClass']);
 
-            if(!method_exists($responder, $components['responderMethod'])) {
-                throw new NoValidMethod(sprintf('The method %s does not exist on responder %s', $components['responderMethod'],$components['responderClass']));
-            }
-
         } catch (Exception\ContentTypeNotValidException $e) {
             if (isset($config['error_page']['406'])) {
                 $responder = $this->serviceLocator->newInstance($config['error_page']['406']);
@@ -125,11 +121,6 @@ class Bootstrap
 
         if (!is_null($components['actionClass'])) {
             $action = $this->serviceLocator->newInstance($components['actionClass']);
-
-            if(!method_exists($action, $components['actionMethod'])) {
-                throw new NoValidMethod(sprintf('The method %s does not exist on action %s', $components['actionMethod'],$components['actionClass']));
-            }
-
             $result = call_user_func_array([$action, $components['actionMethod']], $params);
         }
 
