@@ -92,15 +92,15 @@ class Config
         $config = [];
         $env_config = $this->environment . '.php';
         if (file_exists($this->configDir . '/config.php')) {
-            $config = array_merge($config, require($this->configDir . '/config.php'));
+            $config = array_replace_recursive($config, require($this->configDir . '/config.php'));
         }
 
         if (file_exists($this->configDir . '/' . $env_config)) {
-            $config = array_merge($config, require($this->configDir . '/' . $env_config));
+            $config = array_replace_recursive($config, require($this->configDir . '/' . $env_config));
         }
 
         if (file_exists($this->configDir . '/local.php')) {
-            $config = array_merge($config, require($this->configDir . '/local.php'));
+            $config = array_replace_recursive($config, require($this->configDir . '/local.php'));
         }
 
         $this->config = $config;
