@@ -48,7 +48,12 @@ class Config
      */
     protected $container;
 
-
+    /**
+     * @param string $enviornment
+     * @param string $configDir
+     * @param ContainerBuilder $containerBuilder
+     * @throws Exception\InvalidEnvironment
+     */
     public function __construct($enviornment, $configDir, ContainerBuilder $containerBuilder)
     {
         $this->environment = $this->validateEnvironment($enviornment);
@@ -59,21 +64,35 @@ class Config
         $this->loadDependencies($containerBuilder);
     }
 
+    /**
+     * @return array
+     */
     public function getConfig()
     {
         return $this->config;
     }
 
+    /**
+     * @return ContainerBuilder
+     */
     public function getContainerBuilder()
     {
         return $this->containerBuilder;
     }
 
+    /**
+     * @return Di\Container
+     */
     public function getContainer()
     {
         return $this->container;
     }
 
+    /**
+     * @param string $env
+     * @return string
+     * @throws Exception\InvalidEnvironment
+     */
     protected function validateEnvironment($env)
     {
         if (!in_array($env, $this->environments)) {
@@ -83,6 +102,9 @@ class Config
         return $env;
     }
 
+    /**
+     * @return array
+     */
     protected function loadConfiguration()
     {
 
@@ -107,6 +129,10 @@ class Config
         return $config;
     }
 
+    /**
+     * @param ContainerBuilder $containerBuilder
+     * @return \Aura\Di\Container
+     */
     protected function loadDependencies(ContainerBuilder $containerBuilder)
     {
         $config = $this->config;
@@ -119,5 +145,6 @@ class Config
             ContainerBuilder::DISABLE_AUTO_RESOLVE
         );
         $this->container = $container;
+        return $container;
     }
 }
