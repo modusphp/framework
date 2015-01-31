@@ -4,20 +4,20 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c0ae922bd98be9247b39a4f66dd4d0f8",
+    "hash": "a2c923f2a271b40e945135d434a5ed4b",
     "packages": [
         {
             "name": "aura/accept",
-            "version": "2.0.0",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/auraphp/Aura.Accept.git",
-                "reference": "10f2f06f2e39c2560674ab2f43ee4298de84a747"
+                "reference": "bce57d159bbbbac724992f6a589f7070de18750c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/auraphp/Aura.Accept/zipball/10f2f06f2e39c2560674ab2f43ee4298de84a747",
-                "reference": "10f2f06f2e39c2560674ab2f43ee4298de84a747",
+                "url": "https://api.github.com/repos/auraphp/Aura.Accept/zipball/bce57d159bbbbac724992f6a589f7070de18750c",
+                "reference": "bce57d159bbbbac724992f6a589f7070de18750c",
                 "shasum": ""
             },
             "require": {
@@ -62,7 +62,7 @@
                 "content type",
                 "media type"
             ],
-            "time": "2014-11-07 15:33:09"
+            "time": "2015-01-23 15:23:41"
         },
         {
             "name": "aura/auth",
@@ -125,16 +125,16 @@
         },
         {
             "name": "aura/cli",
-            "version": "2.0.1",
+            "version": "2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/auraphp/Aura.Cli.git",
-                "reference": "85bf3ec15194c890da64f5888b8e08cf034ce044"
+                "reference": "86565b72309c298b4222f1f37fb7e502ece1aebe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/auraphp/Aura.Cli/zipball/85bf3ec15194c890da64f5888b8e08cf034ce044",
-                "reference": "85bf3ec15194c890da64f5888b8e08cf034ce044",
+                "url": "https://api.github.com/repos/auraphp/Aura.Cli/zipball/86565b72309c298b4222f1f37fb7e502ece1aebe",
+                "reference": "86565b72309c298b4222f1f37fb7e502ece1aebe",
                 "shasum": ""
             },
             "require": {
@@ -178,7 +178,7 @@
                 "options",
                 "stdio"
             ],
-            "time": "2014-11-07 15:45:18"
+            "time": "2015-01-19 22:38:16"
         },
         {
             "name": "aura/di",
@@ -520,16 +520,16 @@
         },
         {
             "name": "aura/sql",
-            "version": "2.1.0",
+            "version": "2.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/auraphp/Aura.Sql.git",
-                "reference": "b6cf73defca732c03d429942cf2b6c491511a360"
+                "reference": "841099baa60c5873319586caf403316ca4139c2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/auraphp/Aura.Sql/zipball/b6cf73defca732c03d429942cf2b6c491511a360",
-                "reference": "b6cf73defca732c03d429942cf2b6c491511a360",
+                "url": "https://api.github.com/repos/auraphp/Aura.Sql/zipball/841099baa60c5873319586caf403316ca4139c2b",
+                "reference": "841099baa60c5873319586caf403316ca4139c2b",
                 "shasum": ""
             },
             "require": {
@@ -569,7 +569,7 @@
                 "sqlserver",
                 "sqlsrv"
             ],
-            "time": "2014-08-24 19:47:39"
+            "time": "2015-01-19 16:46:48"
         },
         {
             "name": "aura/sqlquery",
@@ -753,16 +753,16 @@
         },
         {
             "name": "brandonsavage/booboo",
-            "version": "0.2.0",
+            "version": "0.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brandonsavage/booboo.git",
-                "reference": "38e2a6966b8e136c11ac426581a8b5ba2a0fe029"
+                "reference": "255dbb2603f2f1aaa57fec602ce2477b614c43e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brandonsavage/booboo/zipball/38e2a6966b8e136c11ac426581a8b5ba2a0fe029",
-                "reference": "38e2a6966b8e136c11ac426581a8b5ba2a0fe029",
+                "url": "https://api.github.com/repos/brandonsavage/booboo/zipball/255dbb2603f2f1aaa57fec602ce2477b614c43e4",
+                "reference": "255dbb2603f2f1aaa57fec602ce2477b614c43e4",
                 "shasum": ""
             },
             "require": {
@@ -771,7 +771,11 @@
             },
             "require-dev": {
                 "mockery/mockery": "~0.9",
-                "phpunit/phpunit": "~4.3"
+                "phpunit/phpunit": "~4.3",
+                "raven/raven": "0.10.0"
+            },
+            "suggest": {
+                "raven/raven": "Use Raven for passing errors to Sentry."
             },
             "type": "library",
             "autoload": {
@@ -790,7 +794,7 @@
                 }
             ],
             "description": "Provides an error handler for PHP that can execute a stack of handlers for various purposes.",
-            "time": "2014-12-06 01:13:09"
+            "time": "2015-01-22 16:23:51"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -924,16 +928,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "1.11.0",
+            "version": "1.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "ec3961874c43840e96da3a8a1ed20d8c73d7e5aa"
+                "reference": "1fbe8c2641f2b163addf49cc5e18f144bec6b19f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/ec3961874c43840e96da3a8a1ed20d8c73d7e5aa",
-                "reference": "ec3961874c43840e96da3a8a1ed20d8c73d7e5aa",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/1fbe8c2641f2b163addf49cc5e18f144bec6b19f",
+                "reference": "1fbe8c2641f2b163addf49cc5e18f144bec6b19f",
                 "shasum": ""
             },
             "require": {
@@ -947,7 +951,7 @@
                 "aws/aws-sdk-php": "~2.4, >2.4.8",
                 "doctrine/couchdb": "~1.0@dev",
                 "graylog2/gelf-php": "~1.0",
-                "phpunit/phpunit": "~3.7.0",
+                "phpunit/phpunit": "~4.0",
                 "raven/raven": "~0.5",
                 "ruflin/elastica": "0.90.*",
                 "videlalvaro/php-amqplib": "~2.4"
@@ -966,7 +970,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.11.x-dev"
+                    "dev-master": "1.12.x-dev"
                 }
             },
             "autoload": {
@@ -992,7 +996,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2014-09-30 13:30:58"
+            "time": "2014-12-29 21:29:35"
         },
         {
             "name": "pagerfanta/pagerfanta",
@@ -1153,24 +1157,24 @@
         },
         {
             "name": "symfony/class-loader",
-            "version": "v2.6.1",
+            "version": "v2.6.3",
             "target-dir": "Symfony/Component/ClassLoader",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/ClassLoader.git",
-                "reference": "ba3300e6d79eb51ca9edf77791bbd0497f6030dc"
+                "reference": "deac802f76910708ab50d039806cfd1866895b52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/ba3300e6d79eb51ca9edf77791bbd0497f6030dc",
-                "reference": "ba3300e6d79eb51ca9edf77791bbd0497f6030dc",
+                "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/deac802f76910708ab50d039806cfd1866895b52",
+                "reference": "deac802f76910708ab50d039806cfd1866895b52",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "symfony/finder": "~2.0"
+                "symfony/finder": "~2.0,>=2.0.5"
             },
             "type": "library",
             "extra": {
@@ -1199,21 +1203,21 @@
             ],
             "description": "Symfony ClassLoader Component",
             "homepage": "http://symfony.com",
-            "time": "2014-12-02 20:19:20"
+            "time": "2015-01-05 14:28:40"
         },
         {
             "name": "symfony/config",
-            "version": "v2.6.1",
+            "version": "v2.6.3",
             "target-dir": "Symfony/Component/Config",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Config.git",
-                "reference": "84c0c150c1520995f09ea9e47e817068b353cb0f"
+                "reference": "d94f222eff99a22ce313555b78642b4873418d56"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Config/zipball/84c0c150c1520995f09ea9e47e817068b353cb0f",
-                "reference": "84c0c150c1520995f09ea9e47e817068b353cb0f",
+                "url": "https://api.github.com/repos/symfony/Config/zipball/d94f222eff99a22ce313555b78642b4873418d56",
+                "reference": "d94f222eff99a22ce313555b78642b4873418d56",
                 "shasum": ""
             },
             "require": {
@@ -1247,21 +1251,21 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "http://symfony.com",
-            "time": "2014-12-02 20:19:20"
+            "time": "2015-01-03 08:01:59"
         },
         {
             "name": "symfony/console",
-            "version": "v2.6.1",
+            "version": "v2.6.3",
             "target-dir": "Symfony/Component/Console",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "ef825fd9f809d275926547c9e57cbf14968793e8"
+                "reference": "6ac6491ff60c0e5a941db3ccdc75a07adbb61476"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/ef825fd9f809d275926547c9e57cbf14968793e8",
-                "reference": "ef825fd9f809d275926547c9e57cbf14968793e8",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/6ac6491ff60c0e5a941db3ccdc75a07adbb61476",
+                "reference": "6ac6491ff60c0e5a941db3ccdc75a07adbb61476",
                 "shasum": ""
             },
             "require": {
@@ -1304,21 +1308,21 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2014-12-02 20:19:20"
+            "time": "2015-01-06 17:50:02"
         },
         {
             "name": "symfony/filesystem",
-            "version": "v2.6.1",
+            "version": "v2.6.3",
             "target-dir": "Symfony/Component/Filesystem",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Filesystem.git",
-                "reference": "ff6efc95256cb33031933729e68b01d720b5436b"
+                "reference": "a1f566d1f92e142fa1593f4555d6d89e3044a9b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/ff6efc95256cb33031933729e68b01d720b5436b",
-                "reference": "ff6efc95256cb33031933729e68b01d720b5436b",
+                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/a1f566d1f92e142fa1593f4555d6d89e3044a9b7",
+                "reference": "a1f566d1f92e142fa1593f4555d6d89e3044a9b7",
                 "shasum": ""
             },
             "require": {
@@ -1351,21 +1355,21 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "http://symfony.com",
-            "time": "2014-12-02 20:19:20"
+            "time": "2015-01-03 21:13:09"
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.6.1",
+            "version": "v2.6.3",
             "target-dir": "Symfony/Component/Yaml",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "3346fc090a3eb6b53d408db2903b241af51dcb20"
+                "reference": "82462a90848a52c2533aa6b598b107d68076b018"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/3346fc090a3eb6b53d408db2903b241af51dcb20",
-                "reference": "3346fc090a3eb6b53d408db2903b241af51dcb20",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/82462a90848a52c2533aa6b598b107d68076b018",
+                "reference": "82462a90848a52c2533aa6b598b107d68076b018",
                 "shasum": ""
             },
             "require": {
@@ -1398,21 +1402,21 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2014-12-02 20:19:20"
+            "time": "2015-01-03 15:33:07"
         },
         {
             "name": "zendframework/zend-escaper",
-            "version": "2.3.3",
+            "version": "2.3.4",
             "target-dir": "Zend/Escaper",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/Component_ZendEscaper.git",
-                "reference": "c24949840766a544489bfc303714e1f332341010"
+                "reference": "67c8f76ff6d899a5619a4ab27c3b46ed3ae743fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/Component_ZendEscaper/zipball/c24949840766a544489bfc303714e1f332341010",
-                "reference": "c24949840766a544489bfc303714e1f332341010",
+                "url": "https://api.github.com/repos/zendframework/Component_ZendEscaper/zipball/67c8f76ff6d899a5619a4ab27c3b46ed3ae743fc",
+                "reference": "67c8f76ff6d899a5619a4ab27c3b46ed3ae743fc",
                 "shasum": ""
             },
             "require": {
@@ -1439,7 +1443,7 @@
                 "escaper",
                 "zf2"
             ],
-            "time": "2014-09-16 22:58:11"
+            "time": "2015-01-14 16:44:17"
         }
     ],
     "packages-dev": [
@@ -1482,7 +1486,7 @@
             ],
             "authors": [
                 {
-                    "name": "Pádraic Brady",
+                    "name": "Padraic Brady",
                     "email": "padraic.brady@gmail.com",
                     "homepage": "http://blog.astrumfutura.com"
                 },
