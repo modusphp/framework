@@ -5,6 +5,7 @@ namespace Modus\Application;
 use Aura\Di;
 use Aura\Web;
 
+use Modus\Application\Exception\NoValidMethod;
 use Modus\Router;
 use Modus\ErrorLogging as Log;
 use Modus\Common\Route\Exception\NotFoundException;
@@ -81,13 +82,7 @@ class Bootstrap
             $routepath = $this->evaluateRoute();
             $route = $routepath->params;
 
-            $action = (isset($route['action'])) ? $route['action'] : null;
-            $responder = (isset($route['responder'])) ? $route['responder'] : null;
-            $method = (isset($route['method'])) ? $route['method'] : null;
-
-            if (!$responder) {
-                $responder = 'Modus\Responder\NoContent204Response';
-            }
+            $components = $this->determineRouteComponents($route);
 
             $params = $route;
             unset($params['action']);
@@ -111,11 +106,16 @@ class Bootstrap
         try {
             // We put the responder first, so that if the content type is unavailable, we don't execute the
             // request
-            $responder = $this->serviceLocator->newInstance($responder);
+            $responder = $this->serviceLocator->newInstance($components['responderClass']);
+
+            if(!is_callable([$responder, $components['responderMethod']])) {
+                throw new NoValidMethod(sprintf('The method %s does not exist on responder %s', $components['responderMethod'],$components['responderClass']));
+            }
+
         } catch (Exception\ContentTypeNotValidException $e) {
             if (isset($config['error_page']['406'])) {
                 $responder = $this->serviceLocator->newInstance($config['error_page']['406']);
-                $responder->process([]);
+                $responder->$components['responderMethod']([]);
                 $responder->sendResponse();
                 return;
             }
@@ -123,15 +123,20 @@ class Bootstrap
             throw $e;
         }
 
-        if (isset($action) && isset($method)) {
-            $object = $this->serviceLocator->newInstance($action);
-            $result = call_user_func_array([$object, $method], $params);
+        if (!is_null($components['actionClass'])) {
+            $action = $this->serviceLocator->newInstance($components['actionClass']);
+
+            if(!is_callable([$action, $components['actionMethod']])) {
+                throw new NoValidMethod(sprintf('The method %s does not exist on action %s', $components['actionMethod'],$components['actionClass']));
+            }
+
+            $result = call_user_func_array([$action, $components['actionMethod']], $params);
         }
 
         if (!isset($result) || !$result) {
             $result = [];
         }
-        $responder->process($result);
+        $responder->$components['responderMethod']($result);
         $responder->sendResponse();
     }
 
@@ -147,5 +152,39 @@ class Bootstrap
             throw new NotFoundException('The route "' . $router->getLastRoute() . '" was not found');
         }
         return $routepath;
+    }
+
+    protected function determineRouteComponents(array $components = [])
+    {
+        if(isset($components['responder'])) {
+            if (strpos($components['responder'], ':') !== false) {
+                list($responder, $responderMethod) = explode(':', $components['responder']);
+            } else {
+                $responder = $components['responder'];
+                $responderMethod = 'process';
+            }
+        } else {
+            $responder = 'Modus\Responder\NoContent204Response';
+            $responderMethod = 'process';
+        }
+
+        if(isset($components['action'])) {
+            if (isset($components['method'])) {
+                $action = $components['action'];
+                $method = $components['method'];
+            } else {
+                list($action, $method) = explode(':', $components['action']);
+            }
+        } else {
+            $action = null;
+            $method = null;
+        }
+
+        return [
+            'responderClass' => $responder,
+            'responderMethod' => $responderMethod,
+            'actionClass' => $action,
+            'actionMethod' => $method,
+        ];
     }
 }
