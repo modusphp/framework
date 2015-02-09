@@ -22,7 +22,7 @@ abstract class Http extends Web {
         HelperLocator $locator,
         HttpResponse $httpResponse
     ) {
-        $this->$httpResponse = $httpResponse;
+        $this->httpResponse = $httpResponse;
         parent::__construct($response, $template, $contentNegotiation, $locator);
     }
 
