@@ -28,6 +28,6 @@ abstract class Http extends Web {
 
     public function sendResponse()
     {
-        $this->httpResponse->sendResponse($this->response);
+        $this->httpResponse->sendResponse($this->response, $this->contentType);
     }
 }

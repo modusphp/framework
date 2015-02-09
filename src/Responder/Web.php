@@ -49,6 +49,11 @@ abstract class Web
     protected $useType = null;
 
     /**
+     * @var The content type to use for the response.
+     */
+    protected $contentType;
+
+    /**
      * @param Response $response
      * @param View\View $template
      * @param Accept\Accept $contentNegotiation
