@@ -5,7 +5,7 @@ namespace Modus\ErrorLogging;
 use Monolog\Logger as MonologLogger;
 use InvalidArgumentException;
 
-abstract class Logger
+abstract class ModusLogger
 {
     static protected $loggers = [];
 
@@ -29,7 +29,7 @@ abstract class Logger
     static public function getLogger($name)
     {
         if(!isset(static::$loggers[$name])) {
-            throw new InvalidArgumentException('Logger was not found');
+            throw new InvalidArgumentException('ModusLogger was not found');
         }
 
         return static::$loggers[$name];
