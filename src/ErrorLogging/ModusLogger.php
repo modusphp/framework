@@ -7,6 +7,16 @@ use InvalidArgumentException;
 
 abstract class ModusLogger
 {
+    const EMERGENCY = MonologLogger::EMERGENCY;
+    const ALERT     = MonologLogger::ALERT;
+    const CRITICAL  = MonologLogger::CRITICAL;
+    const ERROR     = MonologLogger::ERROR;
+    const WARNING   = MonologLogger::WARNING;
+    const NOTICE    = MonologLogger::NOTICE;
+    const INFO      = MonologLogger::INFO;
+    const DEBUG     = MonologLogger::DEBUG;
+
+
     static protected $loggers = [];
 
     static public function registerLogger(MonologLogger $logger, $name = 'default')
@@ -42,37 +52,37 @@ abstract class ModusLogger
 
     static public function alert($message, $context = [], $name = 'default')
     {
-        static::log(MonologLogger::EMERGENCY, $message, $context, $name);
+        static::log(MonologLogger::ALERT, $message, $context, $name);
     }
 
     static public function critical($message, $context = [], $name = 'default')
     {
-        static::log(MonologLogger::EMERGENCY, $message, $context, $name);
+        static::log(MonologLogger::CRITICAL, $message, $context, $name);
     }
 
     static public function error($message, $context = [], $name = 'default')
     {
-        static::log(MonologLogger::EMERGENCY, $message, $context, $name);
+        static::log(MonologLogger::ERROR, $message, $context, $name);
     }
 
     static public function warning($message, $context = [], $name = 'default')
     {
-        static::log(MonologLogger::EMERGENCY, $message, $context, $name);
+        static::log(MonologLogger::WARNING, $message, $context, $name);
     }
 
     static public function notice($message, $context = [], $name = 'default')
     {
-        static::log(MonologLogger::EMERGENCY, $message, $context, $name);
+        static::log(MonologLogger::NOTICE, $message, $context, $name);
     }
 
     static public function info($message, $context = [], $name = 'default')
     {
-        static::log(MonologLogger::EMERGENCY, $message, $context, $name);
+        static::log(MonologLogger::INFO, $message, $context, $name);
     }
 
     static public function debug($message, $context = [], $name = 'default')
     {
-        static::log(MonologLogger::EMERGENCY, $message, $context, $name);
+        static::log(MonologLogger::DEBUG, $message, $context, $name);
     }
 
     static public function log($level, $message, $context = [], $name = 'default')
