@@ -52,6 +52,7 @@ abstract class Web
      * @param Response $response
      * @param View\View $template
      * @param Accept\Accept $contentNegotiation
+     * @param HelperLocator $locator
      * @throws Exception\ContentTypeNotValidException
      */
     public function __construct(
@@ -109,7 +110,6 @@ abstract class Web
 
         // send content
         print($response->content->get());
-
     }
 
     /**
