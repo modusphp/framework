@@ -150,6 +150,10 @@ class RouteManager
 
         $values = $route['values'];
 
+        if (!isset($values['action'])) {
+            $values['action'] = null;
+        }
+
         if (isset($route['params'])) {
             $params = $route['params'];
         }
@@ -163,7 +167,7 @@ class RouteManager
         }
 
         $router = $this->router;
-        $router->add($routeName, $path)
+        $result = $router->add($routeName, $path)
             ->addValues($values)
             ->addTokens($params)
             ->setSecure($secure)

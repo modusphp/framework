@@ -43,9 +43,9 @@ class Manager implements ManagerInterface
 
         foreach($loggers as $name => $logger) {
             if($name == 'event') {
-                Logger::registerLogger($logger);
+                ModusLogger::registerLogger($logger);
             } else {
-                Logger::registerLogger($logger, $name);
+                ModusLogger::registerLogger($logger, $name);
             }
         }
     }
@@ -87,6 +87,6 @@ class Manager implements ManagerInterface
             return $this->loggers[$loggerName];
         }
 
-        throw new Exception\LoggerNotRegistered(sprintf('Logger %s is not registered', $loggerName));
+        throw new Exception\LoggerNotRegistered(sprintf('ModusLogger %s is not registered', $loggerName));
     }
 }
