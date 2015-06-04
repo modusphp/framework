@@ -11,7 +11,7 @@ class NoContent204ResponseTest extends PHPUnit_Framework_TestCase {
         $accept = $acceptFactory->newInstance();
 
         $noContent = new Modus\Responder\NoContent204Response($response, $view, $accept, new \Aura\Html\HelperLocator());
-        $noContent->process([]);
+        $noContent->process();
 
         $this->assertEquals('HTTP/1.1 204 No Content', $response->status->get());
     }
