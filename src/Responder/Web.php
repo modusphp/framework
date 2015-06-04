@@ -3,6 +3,7 @@
 namespace Modus\Responder;
 
 use Aura\Html\HelperLocator;
+use Aura\Payload_Interface\PayloadInterface;
 use Modus\Responder\Exception;
 
 use Aura\Accept;
@@ -78,10 +79,10 @@ abstract class Web
     /**
      * Processes the results of the Action.
      *
-     * @param array $results
+     * @param PayloadInterface $payload
      * @return $this
      */
-    abstract public function process(array $results);
+    abstract public function process(PayloadInterface $payload);
 
     /**
      * Prepares and sends the HTTP response. Directly outputs to the browser with print.
