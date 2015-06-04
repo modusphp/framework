@@ -3,7 +3,7 @@
 namespace Modus\ErrorLogging;
 
 use Monolog;
-use Savage\BooBoo\Runner;
+use League\BooBoo\Runner;
 use Aura\Accept\Accept;
 
 class Manager implements ManagerInterface
