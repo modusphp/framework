@@ -3,7 +3,7 @@
 use Modus\Config\Config;
 use Aura\Di;
 
-class SampleConfig extends Di\ContainerConfig {
+class SampleConfig extends Di\Config {
     public function define(Di\Container $di) {
     }
 }
