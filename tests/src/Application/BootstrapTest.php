@@ -187,7 +187,7 @@ class BootstrapTest extends PHPUnit_Framework_TestCase {
     }
 
     protected function getErrorHandler() {
-        $runner = Mockery::mock('Savage\BooBoo\Runner');
+        $runner = Mockery::mock('League\BooBoo\Runner');
         $accept = Mockery::mock('Aura\Accept\Accept');
 
         $loggers = [
