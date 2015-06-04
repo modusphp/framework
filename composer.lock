@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a623e420964e1c0ede6419cbcef5e8b5",
+    "hash": "0d6a6d0b11111869328afc543d83c759",
     "packages": [
         {
             "name": "aura/accept",
@@ -182,27 +182,27 @@
         },
         {
             "name": "aura/di",
-            "version": "2.x-dev",
+            "version": "3.0.0-beta1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/auraphp/Aura.Di.git",
-                "reference": "c0d51c15e105c4b6df90d4c29d9e4dac6bee4d5b"
+                "reference": "eacd5ebfdbfd5e38a11245a0042fb3935baa4710"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/auraphp/Aura.Di/zipball/c0d51c15e105c4b6df90d4c29d9e4dac6bee4d5b",
-                "reference": "c0d51c15e105c4b6df90d4c29d9e4dac6bee4d5b",
+                "url": "https://api.github.com/repos/auraphp/Aura.Di/zipball/eacd5ebfdbfd5e38a11245a0042fb3935baa4710",
+                "reference": "eacd5ebfdbfd5e38a11245a0042fb3935baa4710",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "container-interop/container-interop": "~1.0",
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "acclimate/container": "~1.0",
+                "mouf/picotainer": "~1.0"
             },
             "type": "library",
-            "extra": {
-                "aura": {
-                    "type": "library"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Aura\\Di\\": "src/"
@@ -210,7 +210,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD-2-Clause"
+                "MIT"
             ],
             "authors": [
                 {
@@ -218,7 +218,7 @@
                     "homepage": "https://github.com/auraphp/Aura.Di/contributors"
                 }
             ],
-            "description": "Provides a dependency injection container system with native support for constructor- and setter-based injection, lazy-loading of services, and inheritable configuration of setters and constructor params.",
+            "description": "A serializable dependency injection container with constructor and setter injection, interface and trait awareness, configuration inheritance, and much more.",
             "homepage": "https://github.com/auraphp/Aura.Di",
             "keywords": [
                 "container",
@@ -227,7 +227,7 @@
                 "di",
                 "di container"
             ],
-            "time": "2015-05-31 20:45:07"
+            "time": "2015-06-03 21:13:48"
         },
         {
             "name": "aura/html",
@@ -829,6 +829,33 @@
                 "response"
             ],
             "time": "2015-04-04 16:00:33"
+        },
+        {
+            "name": "container-interop/container-interop",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/container-interop/container-interop.git",
+                "reference": "fc08354828f8fd3245f77a66b9e23a6bca48297e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/container-interop/container-interop/zipball/fc08354828f8fd3245f77a66b9e23a6bca48297e",
+                "reference": "fc08354828f8fd3245f77a66b9e23a6bca48297e",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Interop\\Container\\": "src/Interop/Container/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Promoting the interoperability of container objects (DIC, SL, etc.)",
+            "time": "2014-12-30 15:22:37"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -1995,7 +2022,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.4.0"
+        "php": ">=5.5.0"
     },
     "platform-dev": []
 }

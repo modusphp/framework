@@ -141,8 +141,7 @@ class Config
 
         $container = $containerBuilder->newInstance(
             $services,
-            $config['config_classes'],
-            ContainerBuilder::DISABLE_AUTO_RESOLVE
+            $config['config_classes']
         );
         $this->container = $container;
         return $container;
