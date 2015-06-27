@@ -40,25 +40,31 @@ class BootstrapTest extends PHPUnit_Framework_TestCase {
      */
     protected $bootstrap;
 
+    /**
+     * @var \Modus\Response\ResponseManager $responseManager
+     */
+    protected $responseManager;
+
     protected function setUp() {
-        $this->responder = Mockery::mock('Modus\Responder\Base');
+        $this->responder = Mockery::mock('Modus\Response\Interfaces\ResponseGenerator');
         $this->action = Mockery::mock('stdClass');
         $this->container = Mockery::mock('Aura\Di\Container');
         $this->config = Mockery::mock('Modus\Config\Config');
         $this->authService = Mockery::mock('Modus\Auth\Service');
         $this->router = Mockery::mock('Modus\Router\RouteManager');
 
+        $this->responseManager = Mockery::mock('Modus\Response\ResponseManager');
+
         $this->authService->shouldReceive('resume')->once();
         $this->config->shouldReceive('getContainer')->once()->andReturn($this->container);
-        $this->bootstrap = new \Modus\Application\Bootstrap($this->config, $this->router, $this->authService, $this->getErrorHandler());
+        $this->bootstrap = new \Modus\Application\Bootstrap($this->config, $this->router, $this->authService, $this->getErrorHandler(), $this->responseManager);
     }
 
     public function testRouteRoutedAndLoaded() {
-        $this->responder->shouldReceive('process')->once()->with(['a' => 'b']);
-        $this->responder->shouldReceive('sendResponse')->once();
+        $this->responseManager->shouldReceive('process')->once();
 
 
-        $this->action->shouldReceive('index')->once()->with()->andReturn(['a' => 'b']);
+        $this->action->shouldReceive('index')->once()->with()->andReturn(new \Aura\Payload\Payload());
 
         $this->container->shouldReceive('newInstance')->once()->with('D\E\F')->andReturn($this->responder);
         $this->container->shouldReceive('newInstance')->once()->with('A\B\C')->andReturn($this->action);
@@ -77,9 +83,8 @@ class BootstrapTest extends PHPUnit_Framework_TestCase {
         $this->bootstrap->execute();
     }
 
-    public function testNullResultCausesEmptyResultsArrayToBeCreated() {
-        $this->responder->shouldReceive('process')->once()->with([]);
-        $this->responder->shouldReceive('sendResponse')->once();
+    public function testNullResultCreatesAutomaticPayload() {
+        $this->responseManager->shouldReceive('process')->once();
 
 
         $this->action->shouldReceive('index')->once()->with()->andReturn(null);
@@ -107,8 +112,7 @@ class BootstrapTest extends PHPUnit_Framework_TestCase {
         $this->config->shouldReceive('getConfig')->andReturn(['error_page' => ['404' => 'NotFound\Error404']]);
 
         $this->container->shouldReceive('newInstance')->once()->with('NotFound\Error404')->andReturn($this->responder);
-        $this->responder->shouldReceive('process')->with([])->once();
-        $this->responder->shouldReceive('sendResponse');
+        $this->responseManager->shouldReceive('process')->once();
 
         $this->bootstrap->execute();
     }
@@ -120,68 +124,6 @@ class BootstrapTest extends PHPUnit_Framework_TestCase {
         $this->router->shouldReceive('determineRouting')->once()->andReturn(false);
         $this->router->shouldIgnoreMissing();
         $this->config->shouldReceive('getConfig')->andReturn([]);
-
-        $this->bootstrap->execute();
-    }
-
-    public function testNoContentType406Error() {
-        $route = new stdClass;
-        $route->params = [
-            'action' => 'A\B\C',
-            'responder' => 'D\E\F',
-            'method' => 'index'
-        ];
-        $this->router->shouldReceive('determineRouting')->once()->andReturn($route);
-        $this->router->shouldIgnoreMissing();
-        $this->config->shouldReceive('getConfig')->andReturn(['error_page' => ['406' => 'NotFound\Error406']]);
-
-        $this->container->shouldReceive('newInstance')->once()->with('D\E\F')->andThrow('Modus\Responder\Exception\ContentTypeNotValidException');
-        $this->container->shouldReceive('newInstance')->once()->with('NotFound\Error406')->andReturn($this->responder);
-
-        $this->responder->shouldReceive('process')->with([])->once();
-        $this->responder->shouldReceive('sendResponse');
-
-        $this->bootstrap->execute();
-    }
-
-    /**
-     * @expectedException Modus\Responder\Exception\ContentTypeNotValidException
-     */
-    public function testInvalidContentExceptionIsRethrownIfNotHandled() {
-        $this->container->shouldReceive('newInstance')->once()->with('D\E\F')->andThrow('Modus\Responder\Exception\ContentTypeNotValidException');
-        $this->config->shouldReceive('getContainer')->andReturn($this->container);
-        $this->config->shouldReceive('getConfig')->andReturn([]);
-
-        $route = new stdClass();
-        $route->params = [
-            'action' => 'A\B\C',
-            'responder' => 'D\E\F',
-            'method' => 'index'
-        ];
-        $this->router->shouldReceive('determineRouting')->andReturn($route);
-
-        $this->bootstrap->execute();
-    }
-
-    public function testAbsentResponderReturns204Responder() {
-        $this->responder->shouldReceive('process')->once()->with(['a' => 'b']);
-        $this->responder->shouldReceive('sendResponse')->once();
-
-
-        $this->action->shouldReceive('index')->once()->with()->andReturn(['a' => 'b']);
-
-        $this->container->shouldReceive('newInstance')->once()->with('Modus\Responder\NoContent204Response')->andReturn($this->responder);
-        $this->container->shouldReceive('newInstance')->once()->with('A\B\C')->andReturn($this->action);
-
-        $this->config->shouldReceive('getContainer')->andReturn($this->container);
-        $this->config->shouldReceive('getConfig')->andReturn([]);
-
-        $route = new stdClass();
-        $route->params = [
-            'action' => 'A\B\C',
-            'method' => 'index'
-        ];
-        $this->router->shouldReceive('determineRouting')->andReturn($route);
 
         $this->bootstrap->execute();
     }
