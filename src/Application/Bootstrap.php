@@ -118,8 +118,8 @@ class Bootstrap
         if (!is_null($components['actionClass'])) {
             $action = $this->serviceLocator->newInstance($components['actionClass']);
 
-            if(!is_callable([$action, $components['actionMethod']])) {
-                throw new NoValidMethod(sprintf('The method %s does not exist on action %s', $components['actionMethod'],$components['actionClass']));
+            if (!is_callable([$action, $components['actionMethod']])) {
+                throw new NoValidMethod(sprintf('The method %s does not exist on action %s', $components['actionMethod'], $components['actionClass']));
             }
 
             // Call the action.
@@ -151,7 +151,7 @@ class Bootstrap
 
     protected function determineRouteComponents(array $components = [])
     {
-        if(isset($components['responder'])) {
+        if (isset($components['responder'])) {
             if (strpos($components['responder'], ':') !== false) {
                 list($responder, $responderMethod) = explode(':', $components['responder']);
             } else {
@@ -163,7 +163,7 @@ class Bootstrap
             $responderMethod = 'process';
         }
 
-        if(isset($components['action'])) {
+        if (isset($components['action'])) {
             if (isset($components['method'])) {
                 $action = $components['action'];
                 $method = $components['method'];

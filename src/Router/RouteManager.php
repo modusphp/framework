@@ -121,7 +121,7 @@ class RouteManager
     {
         foreach ($routes as $routeName => $route) {
             if ($prefix) {
-                if($route['path']) {
+                if ($route['path']) {
                     $route['path'] = $prefix . '/' . $route['path'];
                 } else {
                     // No trailing slashes!
@@ -173,9 +173,9 @@ class RouteManager
             ->setSecure($secure)
             ->addServer(['REQUEST_METHOD' => $request]);
 
-        if(isset($route['authRequired']) && $route['authRequired']) {
+        if (isset($route['authRequired']) && $route['authRequired']) {
             $validator = 'default';
-            if(isset($route['authValidator'])) {
+            if (isset($route['authValidator'])) {
                 $validator = $route['authValidator'];
             }
 
@@ -198,12 +198,11 @@ class RouteManager
         $path = parse_url($serverVars['REQUEST_URI'], PHP_URL_PATH);
         $this->lastRoute = $path;
         $result = $this->router->match($path, $serverVars);
-        if(!$result) {
+        if (!$result) {
             return $result;
         }
         $authValidator = $this->requiresAuth($result->name);
         if ($authValidator) {
-
             $checker = $this->getRouteAuth($authValidator);
             $route = $checker->checkAuth($result);
             if ($route === $result) {

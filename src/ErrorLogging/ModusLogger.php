@@ -19,15 +19,15 @@ abstract class ModusLogger
 
     static protected $loggers = [];
 
-    static public function registerLogger(MonologLogger $logger, $name = 'default')
+    public static function registerLogger(MonologLogger $logger, $name = 'default')
     {
         static::$loggers[$name] = $logger;
     }
 
-    static public function deregisterLogger(MonologLogger $logger)
+    public static function deregisterLogger(MonologLogger $logger)
     {
         foreach (static::$loggers as $key => $loggerInstance) {
-            if($loggerInstance === $logger) {
+            if ($loggerInstance === $logger) {
                 unset(static::$loggers[$key]);
                 return;
             }
@@ -36,58 +36,58 @@ abstract class ModusLogger
         throw new \InvalidArgumentException('The logger could not be found');
     }
 
-    static public function getLogger($name)
+    public static function getLogger($name)
     {
-        if(!isset(static::$loggers[$name])) {
+        if (!isset(static::$loggers[$name])) {
             throw new InvalidArgumentException('ModusLogger was not found');
         }
 
         return static::$loggers[$name];
     }
 
-    static public function emergency($message, $context = [], $name = 'default')
+    public static function emergency($message, $context = [], $name = 'default')
     {
         static::log(MonologLogger::EMERGENCY, $message, $context, $name);
     }
 
-    static public function alert($message, $context = [], $name = 'default')
+    public static function alert($message, $context = [], $name = 'default')
     {
         static::log(MonologLogger::ALERT, $message, $context, $name);
     }
 
-    static public function critical($message, $context = [], $name = 'default')
+    public static function critical($message, $context = [], $name = 'default')
     {
         static::log(MonologLogger::CRITICAL, $message, $context, $name);
     }
 
-    static public function error($message, $context = [], $name = 'default')
+    public static function error($message, $context = [], $name = 'default')
     {
         static::log(MonologLogger::ERROR, $message, $context, $name);
     }
 
-    static public function warning($message, $context = [], $name = 'default')
+    public static function warning($message, $context = [], $name = 'default')
     {
         static::log(MonologLogger::WARNING, $message, $context, $name);
     }
 
-    static public function notice($message, $context = [], $name = 'default')
+    public static function notice($message, $context = [], $name = 'default')
     {
         static::log(MonologLogger::NOTICE, $message, $context, $name);
     }
 
-    static public function info($message, $context = [], $name = 'default')
+    public static function info($message, $context = [], $name = 'default')
     {
         static::log(MonologLogger::INFO, $message, $context, $name);
     }
 
-    static public function debug($message, $context = [], $name = 'default')
+    public static function debug($message, $context = [], $name = 'default')
     {
         static::log(MonologLogger::DEBUG, $message, $context, $name);
     }
 
-    static public function log($level, $message, $context = [], $name = 'default')
+    public static function log($level, $message, $context = [], $name = 'default')
     {
-        if(isset(static::$loggers[$name])) {
+        if (isset(static::$loggers[$name])) {
             static::$loggers[$name]->log($level, $message, $context);
         }
     }

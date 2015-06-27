@@ -41,8 +41,8 @@ class Manager implements ManagerInterface
             }
         }
 
-        foreach($loggers as $name => $logger) {
-            if($name == 'event') {
+        foreach ($loggers as $name => $logger) {
+            if ($name == 'event') {
                 ModusLogger::registerLogger($logger);
             } else {
                 ModusLogger::registerLogger($logger, $name);

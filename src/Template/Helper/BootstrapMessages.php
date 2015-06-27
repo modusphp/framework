@@ -27,11 +27,9 @@ class BootstrapMessages extends AbstractHelper
     {
         $messages = '';
 
-        foreach($this->messageTypes as $key => $type)
-        {
+        foreach ($this->messageTypes as $key => $type) {
             $message = $this->segment->getFlash($key);
-            if ($message)
-            {
+            if ($message) {
                 $messages .= sprintf('<div class="alert %s">%s</div>', $type, $message);
             }
         }

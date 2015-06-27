@@ -29,8 +29,7 @@ class ResponseManager
     public function __construct(
         HttpResponse $httpResponse,
         Accept\Accept $contentNegotiation
-    )
-    {
+    ) {
         $this->httpResponse = $httpResponse;
         $this->contentNegotiation = $contentNegotiation;
     }

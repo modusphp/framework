@@ -27,11 +27,9 @@ class Messages extends AbstractHelper
     {
         $messages = '';
 
-        foreach($this->messageTypes as $type)
-        {
+        foreach ($this->messageTypes as $type) {
             $message = $this->segment->getFlash($type);
-            if ($message)
-            {
+            if ($message) {
                 $messages .= sprintf('<div class="%s">%s</div>', $type, $message);
             }
         }
