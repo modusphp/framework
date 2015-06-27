@@ -6,6 +6,7 @@ use Aura\Di;
 use Aura\Web;
 
 use Modus\Application\Exception\NoValidMethod;
+use Modus\Response\ResponseManager;
 use Modus\Router;
 use Modus\ErrorLogging as Log;
 use Modus\Common\Route\Exception\NotFoundException;
@@ -47,17 +48,24 @@ class Bootstrap
     protected $serviceLocator;
 
     /**
+     * @var ResponseManager
+     */
+    protected $responseManager;
+
+    /**
      * @param Config $config
      * @param Router\RouteManager $router
      * @param Auth\Service $authService
      * @param Log\Manager $handler
+     * @param ResponseManager $responseManager
      * @throws Log\Exception\LoggerNotRegistered
      */
     public function __construct(
         Config $config,
         Router\RouteManager $router,
         Auth\Service $authService,
-        Log\Manager $handler
+        Log\Manager $handler,
+        ResponseManager $responseManager
     ) {
         $this->config = $config;
         $this->serviceLocator = $config->getContainer();
@@ -65,6 +73,7 @@ class Bootstrap
         $this->authService = $authService;
         $this->errorLog = $handler->getLogger('error');
         $this->eventLog = $handler->getLogger('event');
+        $this->responseManager = $responseManager;
 
         $this->authService->resume();
     }
@@ -103,25 +112,8 @@ class Bootstrap
             throw $e;
         }
 
-        try {
-            // We put the responder first, so that if the content type is unavailable, we don't execute the
-            // request
-            $responder = $this->serviceLocator->newInstance($components['responderClass']);
+        $responder = $this->serviceLocator->newInstance($components['responderClass']);
 
-            if(!is_callable([$responder, $components['responderMethod']])) {
-                throw new NoValidMethod(sprintf('The method %s does not exist on responder %s', $components['responderMethod'],$components['responderClass']));
-            }
-
-        } catch (Exception\ContentTypeNotValidException $e) {
-            if (isset($config['error_page']['406'])) {
-                $responder = $this->serviceLocator->newInstance($config['error_page']['406']);
-                $responder->$components['responderMethod']([]);
-                $responder->sendResponse();
-                return;
-            }
-
-            throw $e;
-        }
 
         if (!is_null($components['actionClass'])) {
             $action = $this->serviceLocator->newInstance($components['actionClass']);
@@ -136,8 +128,19 @@ class Bootstrap
         if (!isset($result) || !$result) {
             $result = [];
         }
-        $responder->$components['responderMethod']($result);
-        $responder->sendResponse();
+
+        try {
+            $this->responseManager->process($result, $responder);
+        } catch (Exception\ContentTypeNotValidException $e) {
+            if (isset($config['error_page']['406'])) {
+                $responder = $this->serviceLocator->newInstance($config['error_page']['406']);
+                $responder->$components['responderMethod']([]);
+                $responder->sendResponse();
+                return;
+            }
+
+            throw $e;
+        }
     }
 
     /**

@@ -12,37 +12,10 @@ use Aura\View;
 
 class ResponseManager
 {
-
-    /**
-     * @var Response
-     */
-    protected $response;
-
     /**
      * @var Accept\Accept
      */
     protected $contentNegotiation;
-
-    /**
-     * The content types we will accept. Override in base classes.
-     *
-     * @var array
-     */
-    protected $accept = [
-        'text/html'
-    ];
-
-    /**
-     * The negotiated types.
-     *
-     * @var string
-     */
-    protected $useType = null;
-
-    /**
-     * @var string The content type to use for the response.
-     */
-    protected $contentType;
 
     /**
      * @param Response $response
@@ -52,11 +25,9 @@ class ResponseManager
      * @throws Exception\ContentTypeNotValidException
      */
     public function __construct(
-        Response $response,
         Accept\Accept $contentNegotiation
     )
     {
-        $this->response = $response;
         $this->contentNegotiation = $contentNegotiation;
     }
 
@@ -69,18 +40,16 @@ class ResponseManager
      */
     public function process(PayloadInterface $payload, ResponseGenerator $generator)
     {
-        $typeValid = $generator->checkContentResponseType($this->contentType);
+        $typeMap = $generator->checkContentResponseType();
 
-        $availableTypes = array_keys($typeValid);
+        $availableTypes = array_keys($typeMap);
 
         $type = $this->determineResponseType($availableTypes);
 
-        if ($typeValid) {
-            $response = $generator->$typeValid($payload);
-            return $this->sendResponse($response);
-        }
+        $methodToCall = $typeMap[$type];
+        $response = $generator->$methodToCall($payload);
+        return $this->sendResponse($response);
 
-        throw new Exception\ContentTypeNotValidException('The content type requested was not a valid response type');
     }
 
     /**
@@ -128,7 +97,8 @@ class ResponseManager
         if ($bestType instanceof Accept\Media\MediaValue) {
             $contentType = $bestType->getValue();
             $subType = $bestType->getSubtype();
-            return [$contentType, $subType];
+            $this->contentType = $contentType;
+            return $contentType;
         }
 
         throw new Exception\ContentTypeNotValidException('The content type requested was not a valid response type');

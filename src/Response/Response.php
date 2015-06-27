@@ -11,7 +11,7 @@ class Response
      */
     protected $response;
 
-    public function __construct(Web\Response $response = null)
+    public function __construct(Web\Response $response)
     {
         $this->response = $response;
     }
