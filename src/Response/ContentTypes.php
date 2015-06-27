@@ -4,6 +4,8 @@ namespace Modus\Response;
 
 abstract class ContentTypes
 {
+    const ALL = '*/*';
+
     const APPLICATION_JSON = 'application/json';
     const APPLICATION_XML = 'appplication/xml';
     const APPLICATION_PDF = 'application/pdf';
