@@ -3,6 +3,7 @@
 namespace Modus\Application;
 
 use Aura\Di;
+use Aura\Payload\Payload;
 use Aura\Web;
 
 use Modus\Application\Exception\NoValidMethod;
@@ -87,12 +88,11 @@ class Bootstrap
     {
         $config = $this->config->getConfig();
 
+        // Figure out the route information.
         try {
             $routepath = $this->evaluateRoute();
             $route = $routepath->params;
-
             $components = $this->determineRouteComponents($route);
-
             $params = $route;
             unset($params['action']);
             unset($params['responder']);
@@ -103,8 +103,7 @@ class Bootstrap
                 $this->eventLog->info(sprintf("No route was found that matches '%s'", $lastRoute));
 
                 $responder = $this->serviceLocator->newInstance($config['error_page']['404']);
-                $responder->process([]);
-                $responder->sendResponse();
+                $this->responseManager->process(new Payload(), $responder);
                 return;
             }
 
@@ -112,9 +111,10 @@ class Bootstrap
             throw $e;
         }
 
+        // Load the responder that we identified from routes.
         $responder = $this->serviceLocator->newInstance($components['responderClass']);
 
-
+        // Load the action we identified from routes, if one exists.
         if (!is_null($components['actionClass'])) {
             $action = $this->serviceLocator->newInstance($components['actionClass']);
 
@@ -122,25 +122,17 @@ class Bootstrap
                 throw new NoValidMethod(sprintf('The method %s does not exist on action %s', $components['actionMethod'],$components['actionClass']));
             }
 
+            // Call the action.
             $result = call_user_func_array([$action, $components['actionMethod']], $params);
         }
 
+        // Let's not leave the response hanging...
         if (!isset($result) || !$result) {
-            $result = [];
+            $result = new Payload();
         }
 
-        try {
-            $this->responseManager->process($result, $responder);
-        } catch (Exception\ContentTypeNotValidException $e) {
-            if (isset($config['error_page']['406'])) {
-                $responder = $this->serviceLocator->newInstance($config['error_page']['406']);
-                $responder->$components['responderMethod']([]);
-                $responder->sendResponse();
-                return;
-            }
-
-            throw $e;
-        }
+        // Call and send the response, if possible.
+        $this->responseManager->process($result, $responder);
     }
 
     /**

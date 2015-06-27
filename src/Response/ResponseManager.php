@@ -50,10 +50,14 @@ class ResponseManager
 
         $type = $this->determineResponseType($availableTypes);
 
+        // If we don't get a valid type back, let's force one, per the HTTP 1.1 spec.
+        if (!$type) {
+            $type = array_shift($availableTypes);
+        }
+
         $methodToCall = $typeMap[$type];
         $response = $generator->$methodToCall($payload);
         $this->sendResponse($response);
-
     }
 
     /**
@@ -80,8 +84,6 @@ class ResponseManager
             $this->contentType = $contentType;
             return $contentType;
         }
-
-        throw new Exception\ContentTypeNotValidException('The content type requested was not a valid response type');
     }
 
     protected function useTemplateForContent()
