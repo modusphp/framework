@@ -12,7 +12,7 @@ use Modus\ErrorLogging as Log;
 use Modus\Common\Route\Exception\NotFoundException;
 use Modus\Auth;
 use Modus\Config\Config;
-use Modus\Responder\Exception;
+use Modus\Response\Exception;
 
 class Bootstrap
 {

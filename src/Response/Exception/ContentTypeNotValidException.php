@@ -1,6 +1,6 @@
 <?php
 
-namespace Modus\Responder\Exception;
+namespace Modus\Response\Exception;
 
 class ContentTypeNotValidException extends \Exception
 {

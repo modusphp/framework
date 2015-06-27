@@ -3,7 +3,7 @@
 namespace Modus\Response;
 
 use Aura\Payload_Interface\PayloadInterface;
-use Modus\Responder\Exception;
+use Modus\Response\Exception;
 
 use Aura\Accept;
 use Modus\Response\Interfaces\ResponseGenerator;
