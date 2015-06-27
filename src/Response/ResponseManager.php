@@ -18,16 +18,20 @@ class ResponseManager
     protected $contentNegotiation;
 
     /**
-     * @param Response $response
-     * @param View\View $template
-     * @param Accept\Accept $contentNegotiation
-     * @param HelperLocator $locator
+     * @var string
+     */
+    protected $contentType;
+
+    /**
+     * @param HttpResponse $responseType
      * @throws Exception\ContentTypeNotValidException
      */
     public function __construct(
+        HttpResponse $httpResponse,
         Accept\Accept $contentNegotiation
     )
     {
+        $this->httpResponse = $httpResponse;
         $this->contentNegotiation = $contentNegotiation;
     }
 
@@ -48,7 +52,7 @@ class ResponseManager
 
         $methodToCall = $typeMap[$type];
         $response = $generator->$methodToCall($payload);
-        return $this->sendResponse($response);
+        $this->sendResponse($response);
 
     }
 
@@ -58,31 +62,7 @@ class ResponseManager
     public function sendResponse(Response $response)
     {
         $response = $response->getResponse();
-        header($response->status->get(), true, $response->status->getCode());
-
-        $response->content->setType($this->contentType);
-
-        // send non-cookie headers
-        foreach ($response->headers->get() as $label => $value) {
-            header("{$label}: {$value}");
-        }
-
-        // send cookies
-        foreach ($response->cookies->get() as $name => $cookie) {
-            setcookie(
-                $name,
-                $cookie['value'],
-                $cookie['expire'],
-                $cookie['path'],
-                $cookie['domain'],
-                $cookie['secure'],
-                $cookie['httponly']
-            );
-        }
-        header('Connection: close');
-
-        // send content
-        print($response->content->get());
+        $this->httpResponse->sendResponse($response, $this->contentType);
     }
 
     /**
