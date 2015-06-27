@@ -13,7 +13,6 @@ abstract class ContentTypes
     const IMAGE_GIF = 'image/gif';
     const IMAGE_PNG = 'image/png';
     const IMAGE_PJPEG = 'image/pjpeg';
-    const IMAGE_PNG = 'image/png';
     const IMAGE_BMP = 'image/bmp';
     const IMAGE_SVGXML = 'image/svg+xml';
     const IMAGE_TIFF = 'image/tiff';
