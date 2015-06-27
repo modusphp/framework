@@ -1,27 +1,22 @@
 <?php
 
-namespace Modus\Responder;
+namespace Modus\Response;
 
-use Aura\Html\HelperLocator;
 use Aura\Payload_Interface\PayloadInterface;
 use Modus\Responder\Exception;
 
 use Aura\Accept;
+use Modus\Response\Interfaces\ResponseGenerator;
 use Modus\Response\Response;
 use Aura\View;
 
-abstract class Web
+class ResponseManager
 {
 
     /**
      * @var Response
      */
     protected $response;
-
-    /**
-     * @var View\View
-     */
-    protected $template;
 
     /**
      * @var Accept\Accept
@@ -38,11 +33,6 @@ abstract class Web
     ];
 
     /**
-     * @var HelperLocator
-     */
-    protected $locator;
-
-    /**
      * The negotiated types.
      *
      * @var string
@@ -50,7 +40,7 @@ abstract class Web
     protected $useType = null;
 
     /**
-     * @var The content type to use for the response.
+     * @var string The content type to use for the response.
      */
     protected $contentType;
 
@@ -68,25 +58,37 @@ abstract class Web
     {
         $this->response = $response;
         $this->contentNegotiation = $contentNegotiation;
-
-        $this->determineResponseType();
     }
 
     /**
      * Processes the results of the Action.
      *
-     * @param PayloadInterface $payload
-     * @return $this
+     * @var $payload PayloadInterface
+     * @var $generator ResponseGenerator
+     * @throws Exception\ContentTypeNotValidException
      */
-    abstract public function process(PayloadInterface $payload);
+    public function process(PayloadInterface $payload, ResponseGenerator $generator)
+    {
+        $typeValid = $generator->checkContentResponseType($this->contentType);
+
+        $availableTypes = array_keys($typeValid);
+
+        $type = $this->determineResponseType($availableTypes);
+
+        if ($typeValid) {
+            $response = $generator->$typeValid($payload);
+            return $this->sendResponse($response);
+        }
+
+        throw new Exception\ContentTypeNotValidException('The content type requested was not a valid response type');
+    }
 
     /**
      * Prepares and sends the HTTP response. Directly outputs to the browser with print.
      */
-    public function sendResponse()
+    public function sendResponse(Response $response)
     {
-        $response = $this->response->getResponse();
-
+        $response = $response->getResponse();
         header($response->status->get(), true, $response->status->getCode());
 
         $response->content->setType($this->contentType);
@@ -115,26 +117,18 @@ abstract class Web
     }
 
     /**
-     * @return View\View
-     */
-    public function getTemplate()
-    {
-        return $this->template;
-    }
-
-    /**
      * Determines if the Accepts header types match what this responder is configured to return.
      * If not, we throw an exception.
      *
      * @throws Exception\ContentTypeNotValidException
      */
-    protected function determineResponseType()
+    protected function determineResponseType($availableTypes)
     {
-        $bestType = $this->contentNegotiation->negotiateMedia($this->accept);
+        $bestType = $this->contentNegotiation->negotiateMedia($availableTypes);
         if ($bestType instanceof Accept\Media\MediaValue) {
-            $this->contentType = $bestType->getValue();
-            $this->useType = $bestType->getSubtype();
-            return;
+            $contentType = $bestType->getValue();
+            $subType = $bestType->getSubtype();
+            return [$contentType, $subType];
         }
 
         throw new Exception\ContentTypeNotValidException('The content type requested was not a valid response type');
