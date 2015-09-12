@@ -2,6 +2,7 @@
 
 namespace Modus\Response;
 
+use Aura\View\View;
 use Aura\Web;
 
 class Response
@@ -93,5 +94,18 @@ class Response
     public function getResponse()
     {
         return $this->response;
+    }
+
+    /**
+     * @param View $view
+     */
+    public function useTemplateForResponse(View $view)
+    {
+        $this->setContent($view->__invoke());
+    }
+
+    public function setRedirect($to, $status = 302)
+    {
+        $this->response->redirect->to($to, $status);
     }
 }
