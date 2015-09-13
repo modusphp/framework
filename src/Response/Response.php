@@ -99,7 +99,7 @@ class Response
     /**
      * @param View $view
      */
-    public function useTemplateForResponse(View $view)
+    public function useTemplateForContent(View $view)
     {
         $this->setContent($view->__invoke());
     }
