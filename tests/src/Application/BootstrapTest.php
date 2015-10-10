@@ -63,7 +63,7 @@ class BootstrapTest extends PHPUnit_Framework_TestCase {
         $this->responseManager->shouldReceive('process')->once();
 
 
-        $this->action->shouldReceive('index')->once()->with()->andReturn(new \Aura\Payload\Payload());
+        $this->action->shouldReceive('index')->once()->with()->andReturn(new \Modus\Payload\Payload());
 
         $this->container->shouldReceive('newInstance')->once()->with('D\E\F')->andReturn($this->responder);
         $this->container->shouldReceive('newInstance')->once()->with('A\B\C')->andReturn($this->action);

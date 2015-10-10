@@ -3,7 +3,7 @@
     "description": "The Modus framework, providing basic support for many components of Aura and other libraries.",
     "type": "library",
     "license": "MIT",
-    "minimum-stability": "dev",
+    "minimum-stability": "beta",
     "require": {
         "php": ">=5.5.0",
         "aura/session": "~1.0.1",
@@ -19,7 +19,6 @@
         "aura/html": "~2.1.0",
         "league/booboo": "~1.0",
         "aura/accept": "~2.0",
-        "aura/payload": "3.0.0-alpha1",
         "modus/config": "~1.0"
     },
     "require-dev": {

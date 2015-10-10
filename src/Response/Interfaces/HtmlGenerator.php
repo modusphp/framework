@@ -2,7 +2,7 @@
 
 namespace Modus\Response\Interfaces;
 
-use Aura\Payload_Interface\PayloadInterface;
+use Modus\Payload\PayloadInterface;
 
 interface HtmlGenerator extends ResponseGenerator
 {

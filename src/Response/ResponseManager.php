@@ -2,7 +2,7 @@
 
 namespace Modus\Response;
 
-use Aura\Payload_Interface\PayloadInterface;
+use Modus\Payload\PayloadInterface;
 use Modus\Response\Exception;
 
 use Aura\Accept;

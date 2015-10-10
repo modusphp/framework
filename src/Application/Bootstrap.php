@@ -3,7 +3,7 @@
 namespace Modus\Application;
 
 use Aura\Di;
-use Aura\Payload\Payload;
+use Modus\Payload\Payload;
 use Aura\Web;
 
 use Modus\Application\Exception\NoValidMethod;
