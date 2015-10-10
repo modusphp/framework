@@ -63,13 +63,14 @@ class Bootstrap
      */
     public function __construct(
         Config $config,
+        Di\Container $di,
         Router\RouteManager $router,
         Auth\Service $authService,
         Log\Manager $handler,
         ResponseManager $responseManager
     ) {
         $this->config = $config;
-        $this->serviceLocator = $config->getContainer();
+        $this->serviceLocator = $di;
         $this->router = $router;
         $this->authService = $authService;
         $this->errorLog = $handler->getLogger('error');
