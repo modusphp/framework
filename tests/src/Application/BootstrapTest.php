@@ -56,8 +56,7 @@ class BootstrapTest extends PHPUnit_Framework_TestCase {
         $this->responseManager = Mockery::mock('Modus\Response\ResponseManager');
 
         $this->authService->shouldReceive('resume')->once();
-        $this->config->shouldReceive('getContainer')->once()->andReturn($this->container);
-        $this->bootstrap = new \Modus\Application\Bootstrap($this->config, $this->router, $this->authService, $this->getErrorHandler(), $this->responseManager);
+        $this->bootstrap = new \Modus\Application\Bootstrap($this->config, $this->container, $this->router, $this->authService, $this->getErrorHandler(), $this->responseManager);
     }
 
     public function testRouteRoutedAndLoaded() {
