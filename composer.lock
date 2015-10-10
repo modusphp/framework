@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "55ef1fad1b3c99248f3990c98d0a382f",
+    "hash": "5e9311a9cabb4df91af944c3a66eac52",
     "packages": [
         {
             "name": "aura/accept",
@@ -124,63 +124,6 @@
             "time": "2014-11-07 15:41:31"
         },
         {
-            "name": "aura/cli",
-            "version": "2.x-dev",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/auraphp/Aura.Cli.git",
-                "reference": "375504b54dcf8d93f99b18a076ccf1640301bd6c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/auraphp/Aura.Cli/zipball/375504b54dcf8d93f99b18a076ccf1640301bd6c",
-                "reference": "375504b54dcf8d93f99b18a076ccf1640301bd6c",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "aura/di": "~2.0"
-            },
-            "type": "library",
-            "extra": {
-                "aura": {
-                    "type": "library",
-                    "config": {
-                        "common": "Aura\\Cli\\_Config\\Common"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Aura\\Cli\\": "src/",
-                    "Aura\\Cli\\_Config\\": "config/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Aura.Cli Contributors",
-                    "homepage": "https://github.com/auraphp/Aura.Cli/contributors"
-                }
-            ],
-            "description": "Provides the equivalent of request (Context) and response (Stdio) classes for a command line environment, including Getopt support.",
-            "homepage": "https://github.com/auraphp/Aura.Cli",
-            "keywords": [
-                "cli",
-                "command",
-                "command line",
-                "getopt",
-                "options",
-                "stdio"
-            ],
-            "time": "2015-04-28 10:38:18"
-        },
-        {
             "name": "aura/di",
             "version": "2.x-dev",
             "source": {
@@ -190,7 +133,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/auraphp/Aura.Di/zipball/c0d51c15e105c4b6df90d4c29d9e4dac6bee4d5b",
+                "url": "https://api.github.com/repos/auraphp/Aura.Di/zipball/aebf32e331ef3940cbac04ddc5f5ae24fb604785",
                 "reference": "c0d51c15e105c4b6df90d4c29d9e4dac6bee4d5b",
                 "shasum": ""
             },
@@ -290,79 +233,6 @@
             "time": "2014-11-07 15:48:57"
         },
         {
-            "name": "aura/http",
-            "version": "1.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/auraphp/Aura.Http.git",
-                "reference": "6e7e71e81e4bcc93430b1b8b93f505230e4c37f6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/auraphp/Aura.Http/zipball/6e7e71e81e4bcc93430b1b8b93f505230e4c37f6",
-                "reference": "6e7e71e81e4bcc93430b1b8b93f505230e4c37f6",
-                "shasum": ""
-            },
-            "require": {
-                "aura/installer-default": "1.0.*",
-                "php": ">=5.4.0"
-            },
-            "type": "aura-package",
-            "autoload": {
-                "psr-0": {
-                    "Aura\\Http": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Paul M. Jones",
-                    "email": "pmjones88@gmail.com",
-                    "homepage": "http://paul-m-jones.com"
-                },
-                {
-                    "name": "Hari KT",
-                    "email": "kthari85@gmail.com",
-                    "homepage": "http://harikt.com"
-                },
-                {
-                    "name": "Aura.Http Contributors",
-                    "homepage": "https://github.com/auraphp/Aura.Http/contributors"
-                },
-                {
-                    "name": "Galactic Void",
-                    "email": "galacticvoid+git@gmail.com",
-                    "homepage": "https://github.com/galactic-void"
-                },
-                {
-                    "name": "Pascal Borreli",
-                    "email": "pascal@borreli.com"
-                },
-                {
-                    "name": "Brandon Savage",
-                    "email": "brandon@brandonsavage.net",
-                    "homepage": "http://brandonsavage.net"
-                }
-            ],
-            "description": "The Aura HTTP package provides objects to build and send HTTP requests and responses.",
-            "homepage": "http://auraphp.com/Aura.Http",
-            "keywords": [
-                "client",
-                "http",
-                "http client",
-                "http request",
-                "http response",
-                "http transport",
-                "request",
-                "response",
-                "transport"
-            ],
-            "time": "2014-05-31 00:00:00"
-        },
-        {
             "name": "aura/installer-default",
             "version": "1.0.0",
             "source": {
@@ -456,7 +326,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/auraphp/Aura.Payload_Interface/zipball/fb72bf457a4321e8c3f8917ab6c553c82c42f2d1",
+                "url": "https://api.github.com/repos/auraphp/Aura.Payload_Interface/zipball/301d4102134c758be04faf655b636c533141324c",
                 "reference": "fb72bf457a4321e8c3f8917ab6c553c82c42f2d1",
                 "shasum": ""
             },
@@ -498,7 +368,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/auraphp/Aura.Router/zipball/5946761a6ba7faab0ef5ab1d54fa7c1eefd90881",
+                "url": "https://api.github.com/repos/auraphp/Aura.Router/zipball/b98ca5060bfd24a34cd6159d18663ea7dab33bfe",
                 "reference": "5946761a6ba7faab0ef5ab1d54fa7c1eefd90881",
                 "shasum": ""
             },
@@ -610,7 +480,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/auraphp/Aura.Sql/zipball/75e683fe9ccdcc5d66ed44d9822092ca8d3642ee",
+                "url": "https://api.github.com/repos/auraphp/Aura.Sql/zipball/8c6df573bbdbfbe2c80c3013bb6a61af84f666e5",
                 "reference": "75e683fe9ccdcc5d66ed44d9822092ca8d3642ee",
                 "shasum": ""
             },
@@ -663,7 +533,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/auraphp/Aura.SqlQuery/zipball/e8551180d0a163773d6d13f3a8575069519f4b41",
+                "url": "https://api.github.com/repos/auraphp/Aura.SqlQuery/zipball/b7040ec03b4f1db178e4a8bcf5ebbbb5c2374bcb",
                 "reference": "e8551180d0a163773d6d13f3a8575069519f4b41",
                 "shasum": ""
             },
@@ -831,48 +701,6 @@
             "time": "2015-04-04 16:00:33"
         },
         {
-            "name": "ircmaxell/password-compat",
-            "version": "1.0.x-dev",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ircmaxell/password_compat.git",
-                "reference": "9b99377557a33a4129c9194e60a97a685fab21e0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ircmaxell/password_compat/zipball/9b99377557a33a4129c9194e60a97a685fab21e0",
-                "reference": "9b99377557a33a4129c9194e60a97a685fab21e0",
-                "shasum": ""
-            },
-            "require-dev": {
-                "phpunit/phpunit": "4.*"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "lib/password.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Anthony Ferrara",
-                    "email": "ircmaxell@php.net",
-                    "homepage": "http://blog.ircmaxell.com"
-                }
-            ],
-            "description": "A compatibility library for the proposed simplified password hashing algorithm: https://wiki.php.net/rfc/password_hash",
-            "homepage": "https://github.com/ircmaxell/password_compat",
-            "keywords": [
-                "hashing",
-                "password"
-            ],
-            "time": "2014-11-20 19:18:42"
-        },
-        {
             "name": "league/booboo",
             "version": "1.0.0",
             "source": {
@@ -918,61 +746,30 @@
             "time": "2015-02-25 19:12:30"
         },
         {
-            "name": "league/flysystem",
-            "version": "0.5.12",
+            "name": "modus/config",
+            "version": "1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "e046fe60d761e30691c642c9cc6a4089f724e805"
+                "url": "https://github.com/modusphp/config.git",
+                "reference": "239d8f3d1db2afa11e3b6fedc2527f7f3edc1bbd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/e046fe60d761e30691c642c9cc6a4089f724e805",
-                "reference": "e046fe60d761e30691c642c9cc6a4089f724e805",
+                "url": "https://api.github.com/repos/modusphp/config/zipball/239d8f3d1db2afa11e3b6fedc2527f7f3edc1bbd",
+                "reference": "239d8f3d1db2afa11e3b6fedc2527f7f3edc1bbd",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4.0"
+                "vlucas/phpdotenv": "^2.0"
             },
             "require-dev": {
-                "aws/aws-sdk-php": "~2.4",
-                "barracuda/copy": "~1.1.4",
-                "dropbox/dropbox-sdk": "~1.1.1",
-                "ext-fileinfo": "*",
-                "guzzlehttp/guzzle": "~4.0",
-                "league/event": "~1.0",
-                "league/phpunit-coverage-listener": "~1.1",
-                "mockery/mockery": "~0.9",
-                "phpseclib/phpseclib": "~0.3.5",
-                "phpspec/phpspec": "~2.0",
-                "phpunit/phpunit": "~4.0",
-                "predis/predis": "~1.0",
-                "rackspace/php-opencloud": "~1.10.0",
-                "sabre/dav": "~2.0.2",
-                "tedivm/stash": "~0.12.0"
-            },
-            "suggest": {
-                "aws/aws-sdk-php": "Allows you to use AWS S3 storage",
-                "barracuda/copy": "Allows you to use Copy.com storage",
-                "dropbox/dropbox-sdk": "Allows you to use Dropbox storage",
-                "ext-fileinfo": "Required for MimeType",
-                "guzzlehttp/guzzle": "Allows you to use http files (reading only)",
-                "league/event": "Required for EventableFilesystem",
-                "phpseclib/phpseclib": "Allows SFTP server storage",
-                "predis/predis": "Allows you to use Predis for caching",
-                "rackspace/php-opencloud": "Allows you to use Rackspace Cloud Files",
-                "sabre/dav": "Enables WebDav support",
-                "tedivm/stash": "Allows you to use Stash as cache implementation"
+                "mockery/mockery": "0.9.0",
+                "phpunit/phpunit": "4.3"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.5-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
-                    "League\\Flysystem\\": "src/"
+                    "Modus\\Config\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -981,29 +778,12 @@
             ],
             "authors": [
                 {
-                    "name": "Frank de Jonge",
-                    "email": "info@frenky.net"
+                    "name": "Brandon Savage",
+                    "email": "brandon@brandonsavage.net"
                 }
             ],
-            "description": "Many filesystems, one API.",
-            "keywords": [
-                "Cloud Files",
-                "WebDAV",
-                "aws",
-                "cloud",
-                "copy.com",
-                "dropbox",
-                "file systems",
-                "files",
-                "filesystem",
-                "ftp",
-                "rackspace",
-                "remote",
-                "s3",
-                "sftp",
-                "storage"
-            ],
-            "time": "2014-11-05 13:39:29"
+            "description": "The Modus Configuration class, supporting various local and global configuration settings for the Modus framework.",
+            "time": "2015-10-10 00:01:47"
         },
         {
             "name": "monolog/monolog",
@@ -1015,7 +795,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/3f1ac6544cedfb6285035521d4b9f231567ca821",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/3d3feb167314024ba7b48aa67a88b18d3d748588",
                 "reference": "3f1ac6544cedfb6285035521d4b9f231567ca821",
                 "shasum": ""
             },
@@ -1251,12 +1031,12 @@
             "version": "2.8.x-dev",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/ClassLoader.git",
+                "url": "https://github.com/symfony/class-loader.git",
                 "reference": "321ff8cc0bc6e6af1a625cc06166de9043447ee4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ClassLoader/zipball/321ff8cc0bc6e6af1a625cc06166de9043447ee4",
+                "url": "https://api.github.com/repos/symfony/class-loader/zipball/6e0eabdfbd6eeb75cedb84a747aa69a32e53b4f8",
                 "reference": "321ff8cc0bc6e6af1a625cc06166de9043447ee4",
                 "shasum": ""
             },
@@ -1301,12 +1081,12 @@
             "version": "2.8.x-dev",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Config.git",
+                "url": "https://github.com/symfony/config.git",
                 "reference": "b857230e15135537376aa4d844c6680a76642db7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Config/zipball/b857230e15135537376aa4d844c6680a76642db7",
+                "url": "https://api.github.com/repos/symfony/config/zipball/91f483a2de7b6c0552f42aa1d4fd1c066bc7ccba",
                 "reference": "b857230e15135537376aa4d844c6680a76642db7",
                 "shasum": ""
             },
@@ -1351,12 +1131,12 @@
             "version": "2.8.x-dev",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Console.git",
+                "url": "https://github.com/symfony/console.git",
                 "reference": "45d693ec9c39c9ff8ec4327a970d7cef8a4b8812"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/45d693ec9c39c9ff8ec4327a970d7cef8a4b8812",
+                "url": "https://api.github.com/repos/symfony/console/zipball/984e13389331cc32d38ed7bd56a62bb4102dd515",
                 "reference": "45d693ec9c39c9ff8ec4327a970d7cef8a4b8812",
                 "shasum": ""
             },
@@ -1408,12 +1188,12 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Filesystem.git",
+                "url": "https://github.com/symfony/filesystem.git",
                 "reference": "24fc9ecf8ed33772e0744397ba976cae95240a3b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/24fc9ecf8ed33772e0744397ba976cae95240a3b",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/9eb4a073e675cc53a1f723bdfc3e2303605d9a3f",
                 "reference": "24fc9ecf8ed33772e0744397ba976cae95240a3b",
                 "shasum": ""
             },
@@ -1457,12 +1237,12 @@
             "version": "2.8.x-dev",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Yaml.git",
+                "url": "https://github.com/symfony/yaml.git",
                 "reference": "a15e132f00e258c2da4cb409eec86d65ea2eabcb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/a15e132f00e258c2da4cb409eec86d65ea2eabcb",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/36ddab7971364b20229155cd972631a2257d7dac",
                 "reference": "a15e132f00e258c2da4cb409eec86d65ea2eabcb",
                 "shasum": ""
             },
@@ -1502,51 +1282,100 @@
             "time": "2015-06-18 16:14:27"
         },
         {
-            "name": "zendframework/zend-escaper",
-            "version": "dev-develop",
+            "name": "vlucas/phpdotenv",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/zendframework/zend-escaper.git",
-                "reference": "4931575996994f7e1a6e7f59445dc9334400048d"
+                "url": "https://github.com/vlucas/phpdotenv.git",
+                "reference": "4c619d36c7158138ef22b1066f836043629297d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-escaper/zipball/4931575996994f7e1a6e7f59445dc9334400048d",
-                "reference": "4931575996994f7e1a6e7f59445dc9334400048d",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/4c619d36c7158138ef22b1066f836043629297d7",
+                "reference": "4c619d36c7158138ef22b1066f836043629297d7",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5"
+                "php": ">=5.3.9"
             },
             "require-dev": {
-                "fabpot/php-cs-fixer": "1.7.*",
                 "phpunit/phpunit": "~4.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.5-dev",
-                    "dev-develop": "2.6-dev"
+                    "dev-master": "2.1-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Zend\\Escaper\\": "src/"
+                    "Dotenv\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD-3-Clause"
+                "BSD"
             ],
-            "homepage": "https://github.com/zendframework/zend-escaper",
+            "authors": [
+                {
+                    "name": "Vance Lucas",
+                    "email": "vance@vancelucas.com",
+                    "homepage": "http://www.vancelucas.com"
+                }
+            ],
+            "description": "Loads environment variables from `.env` to `getenv()`, `$_ENV` and `$_SERVER` automagically.",
+            "homepage": "http://github.com/vlucas/phpdotenv",
             "keywords": [
-                "escaper",
-                "zf2"
+                "dotenv",
+                "env",
+                "environment"
             ],
-            "time": "2015-06-05 09:18:01"
+            "time": "2015-08-18 21:06:42"
         }
     ],
     "packages-dev": [
+        {
+            "name": "ircmaxell/password-compat",
+            "version": "1.0.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ircmaxell/password_compat.git",
+                "reference": "9b99377557a33a4129c9194e60a97a685fab21e0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ircmaxell/password_compat/zipball/9b99377557a33a4129c9194e60a97a685fab21e0",
+                "reference": "9b99377557a33a4129c9194e60a97a685fab21e0",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "lib/password.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anthony Ferrara",
+                    "email": "ircmaxell@php.net",
+                    "homepage": "http://blog.ircmaxell.com"
+                }
+            ],
+            "description": "A compatibility library for the proposed simplified password hashing algorithm: https://wiki.php.net/rfc/password_hash",
+            "homepage": "https://github.com/ircmaxell/password_compat",
+            "keywords": [
+                "hashing",
+                "password"
+            ],
+            "time": "2014-11-20 19:18:42"
+        },
         {
             "name": "mockery/mockery",
             "version": "0.9.0",
@@ -1683,7 +1512,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-file-iterator/zipball/a923bb15680d0089e2316f7a4af8f437046e96bb",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-file-iterator/zipball/6150bf2c35d3fc379e50c7602b75caceaa39dbf0",
                 "reference": "a923bb15680d0089e2316f7a4af8f437046e96bb",
                 "shasum": ""
             },
