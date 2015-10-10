@@ -15,7 +15,6 @@
         "aura/web": "~2.0",
         "monolog/monolog": "~1.5",
         "pagerfanta/pagerfanta": "v1.0.1",
-        "robmorgan/phinx": "v0.3.2",
         "aura/auth": "2.0.0-beta2",
         "aura/html": "~2.1.0",
         "league/booboo": "~1.0",
