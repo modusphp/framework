@@ -1,5 +1,5 @@
 {
-    "name": "tailwindsllc/modus",
+    "name": "modus/framework",
     "description": "The Modus framework, providing basic support for many components of Aura and other libraries.",
     "type": "library",
     "license": "MIT",
