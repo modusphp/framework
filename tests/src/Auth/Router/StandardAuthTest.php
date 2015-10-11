@@ -20,14 +20,14 @@ class StandardTest extends PHPUnit_Framework_TestCase
 
     public function testCheckAuthReturnsNewPathWhenAuthFails()
     {
-        $this->authService->shouldReceive('resume')->andReturn(new \Aura\Auth\Auth(Mockery::mock('Aura\Auth\Session\SegmentInterface')->shouldIgnoreMissing()));
+        $this->authService->shouldReceive('resume')->andReturn(new \Modus\Auth\Auth(Mockery::mock('Modus\Auth\Session\SegmentInterface')->shouldIgnoreMissing()));
         $result = $this->service->checkAuth(Mockery::mock('Aura\Router\Route'));
         $this->assertEquals('test_path', $result);
     }
 
     public function testCheckAuthReturnsRouteWhenAuthMatches()
     {
-        $auth = Mockery::mock('Aura\Auth\Auth');
+        $auth = Mockery::mock('Modus\Auth\Auth');
         $auth->shouldReceive('isValid')->andReturn(true);
         $this->authService->shouldReceive('resume')->andReturn($auth);
         $routeMock = Mockery::mock('Aura\Router\Route');

@@ -1,7 +1,7 @@
 <?php
 
-use Aura\Auth;
-use Aura\Auth\Service as AuthService;
+use Modus\Auth;
+use Modus\Auth\Service as AuthService;
 use Modus\Auth\Service;
 
 class AuthServiceTest extends PHPUnit_Framework_TestCase {
@@ -28,23 +28,23 @@ class AuthServiceTest extends PHPUnit_Framework_TestCase {
 
     protected function setUp() {
 
-        $this->login = Mockery::mock('Aura\Auth\Service\LoginService');
-        $this->logout = Mockery::mock('Aura\Auth\Service\LogoutService');
-        $this->resume = Mockery::mock('Aura\Auth\Service\ResumeService');
-        $auth = new Auth\Auth(Mockery::mock('Aura\Auth\Session\SegmentInterface'));
+        $this->login = Mockery::mock('Modus\Auth\Service\LoginService');
+        $this->logout = Mockery::mock('Modus\Auth\Service\LogoutService');
+        $this->resume = Mockery::mock('Modus\Auth\Service\ResumeService');
+        $auth = new Auth\Auth(Mockery::mock('Modus\Auth\Session\SegmentInterface'));
         $this->service = new Service($this->login, $this->logout, $this->resume, $auth);
     }
 
     public function testGetUserReturnsAuthObject() {
         $user = $this->service->getUser();
-        $this->assertInstanceOf('Aura\Auth\Auth', $user);
+        $this->assertInstanceOf('Modus\Auth\Auth', $user);
     }
 
     public function testResumeCallsResumeAndReturnsUser() {
         $this->resume->shouldReceive('resume')->with($this->service->getUser())->once();
 
         $user = $this->service->resume();
-        $this->assertInstanceOf('Aura\Auth\Auth', $user);
+        $this->assertInstanceOf('Modus\Auth\Auth', $user);
     }
 
     public function testAuthenticateCallsAuthenticateMethodAndReturnsUser() {
@@ -52,7 +52,7 @@ class AuthServiceTest extends PHPUnit_Framework_TestCase {
         $this->login->shouldReceive('login')->with($user, ['username' => 'abc', 'password' => "123"])->once();
 
         $user = $this->service->authenticate('abc', '123');
-        $this->assertInstanceOf('Aura\Auth\Auth', $user);
+        $this->assertInstanceOf('Modus\Auth\Auth', $user);
     }
 
     public function testLogoutCallsLogoutService() {
@@ -60,12 +60,12 @@ class AuthServiceTest extends PHPUnit_Framework_TestCase {
         $this->logout->shouldReceive('logout')->with($user)->once();
 
         $user = $this->service->logout();
-        $this->assertInstanceOf('Aura\Auth\Auth', $user);
+        $this->assertInstanceOf('Modus\Auth\Auth', $user);
     }
 
     public function testExceptionHandlerPopulatesErrorMessage()
     {
-        $this->login->shouldReceive('login')->andThrow('Aura\Auth\Exception\MultipleMatches');
+        $this->login->shouldReceive('login')->andThrow('Modus\Auth\Exception\MultipleMatches');
 
         $this->service->authenticate();
 

@@ -3,7 +3,7 @@
     "description": "The Modus framework, providing basic support for many components of Aura and other libraries.",
     "type": "library",
     "license": "MIT",
-    "minimum-stability": "beta",
+    "minimum-stability": "stable",
     "require": {
         "php": ">=5.5.0",
         "aura/session": "~1.0.1",
@@ -15,7 +15,7 @@
         "aura/web": "~2.0",
         "monolog/monolog": "~1.5",
         "pagerfanta/pagerfanta": "v1.0.1",
-        "aura/auth": "2.0.0-beta2",
+        "modus/auth": "~1.0",
         "aura/html": "~2.1.0",
         "league/booboo": "~1.0",
         "aura/accept": "~2.0",
@@ -29,5 +29,11 @@
         "psr-4": {
             "Modus\\": "src"
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/modusphp/auth"
+        }
+    ]
 }

@@ -2,9 +2,9 @@
 
 namespace Modus\Auth;
 
-use Aura\Auth;
-use Aura\Auth\Service as AuthService;
-use Aura\Auth\Exception;
+use Modus\Auth;
+use Modus\Auth\Service as AuthService;
+use Modus\Auth\Exception;
 
 class Service
 {
