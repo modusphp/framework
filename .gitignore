@@ -10,3 +10,4 @@ config/
 public/
 views/
 migrations/
+composer.lock
