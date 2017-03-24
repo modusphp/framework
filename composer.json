@@ -5,7 +5,7 @@
     "license": "MIT",
     "minimum-stability": "beta",
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=5.5.0",
         "aura/session": "~1.0.1",
         "aura/di": "~2.1",
         "aura/sql" : "~2.0",
@@ -16,13 +16,10 @@
         "aura/web": "~2.0",
         "aura/cli": "~2.0",
         "monolog/monolog": "~1.5",
-        "zendframework/zend-escaper" : "~2.2",
-        "pagerfanta/pagerfanta": "v1.0.1",
         "robmorgan/phinx": "v0.3.2",
         "aura/auth": "2.0.0-beta2",
         "aura/html": "~2.1.0",
         "brandonsavage/booboo": "~0.4",
-        "ircmaxell/password-compat": "~1.0",
         "aura/accept": "~2.0"
     },
     "require-dev": {
