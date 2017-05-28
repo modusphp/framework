@@ -136,7 +136,7 @@ class Bootstrap
         if (!isset($result) || !$result) {
             $result = [];
         }
-        $responder->$components['responderMethod']($result);
+        $responder->{$components['responderMethod']}($result);
         $responder->sendResponse();
     }
 
