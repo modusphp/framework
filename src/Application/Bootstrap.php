@@ -115,7 +115,7 @@ class Bootstrap
         } catch (Exception\ContentTypeNotValidException $e) {
             if (isset($config['error_page']['406'])) {
                 $responder = $this->serviceLocator->newInstance($config['error_page']['406']);
-                $responder->$components['responderMethod']([]);
+                $responder->{$components['responderMethod']}([]);
                 $responder->sendResponse();
                 return;
             }
