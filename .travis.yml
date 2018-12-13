@@ -7,7 +7,7 @@ php:
   - nightly
 script:
   - composer install
-  - phpunit
+  - vendor/bin/phpunit
 after_success:
   - curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
   - php phpcs.phar -n --standard=PSR1,PSR2 src/
