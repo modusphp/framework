@@ -72,12 +72,14 @@ class BootstrapTest extends MockeryTestCase {
         $this->config->shouldReceive('getContainer')->andReturn($this->container);
         $this->config->shouldReceive('getConfig')->andReturn([]);
 
-        $route = new stdClass();
-        $route->params = [
+        $route = new \Aura\Router\Route(new \Aura\Router\Regex(), '/');
+        $route->setValues([
             'action' => 'A\B\C',
             'responder' => 'D\E\F',
             'method' => 'index'
-        ];
+        ]);
+        $route->isMatch('/', []);
+
         $this->router->shouldReceive('determineRouting')->andReturn($route);
 
         $this->bootstrap->execute();
@@ -95,12 +97,14 @@ class BootstrapTest extends MockeryTestCase {
         $this->config->shouldReceive('getContainer')->andReturn($this->container);
         $this->config->shouldReceive('getConfig')->andReturn([]);
 
-        $route = new stdClass();
-        $route->params = [
+        $route = new \Aura\Router\Route(new \Aura\Router\Regex(), '/');
+        $route->setValues([
             'action' => 'A\B\C',
             'responder' => 'D\E\F',
             'method' => 'index'
-        ];
+        ]);
+        $route->isMatch('/', []);
+
         $this->router->shouldReceive('determineRouting')->andReturn($route);
 
         $this->bootstrap->execute();
