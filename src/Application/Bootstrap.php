@@ -3,6 +3,7 @@
 namespace Modus\Application;
 
 use Aura\Di;
+use Aura\Router\Route;
 use Modus\Payload\Payload;
 use Aura\Web;
 
@@ -140,7 +141,7 @@ class Bootstrap
      * @return \Aura\Router\Route
      * @throws NotFoundException
      */
-    protected function evaluateRoute()
+    protected function evaluateRoute() : Route
     {
         $router = $this->router;
         $routepath = $router->determineRouting();
@@ -150,7 +151,11 @@ class Bootstrap
         return $routepath;
     }
 
-    protected function determineRouteComponents(array $components = [])
+    /**
+     * @param array $components
+     * @return array
+     */
+    protected function determineRouteComponents(array $components = []) : array
     {
         if (isset($components['responder'])) {
             if (strpos($components['responder'], ':') !== false) {
