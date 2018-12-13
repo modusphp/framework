@@ -51,7 +51,7 @@ class Manager implements ManagerInterface
     }
 
     /**
-     * @param $bool
+     * @param  $bool
      * @throws \Savage\BooBoo\Exception\NoFormattersRegisteredException
      */
     public function registerErrorHandler($bool)
@@ -72,7 +72,7 @@ class Manager implements ManagerInterface
     }
 
     /**
-     * @param null $loggerName
+     * @param  null $loggerName
      * @return Monolog\Logger;
      * @throws Exception\LoggerNotRegistered
      */

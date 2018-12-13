@@ -23,7 +23,7 @@ class ResponseManager
     protected $contentType;
 
     /**
-     * @param HttpResponse $responseType
+     * @param  HttpResponse $responseType
      * @throws Exception\ContentTypeNotValidException
      */
     public function __construct(

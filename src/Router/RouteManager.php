@@ -71,7 +71,7 @@ class RouteManager
     }
 
     /**
-     * @param string $name
+     * @param  string $name
      * @return RouterAuthInterface
      * @throws \InvalidArgumentException
      */
@@ -185,6 +185,7 @@ class RouteManager
 
     /**
      * Determine if the path in $_SERVER matches a registered route.
+     *
      * @return \Aura\Router\Route|bool
      */
     public function determineRouting()
@@ -247,7 +248,7 @@ class RouteManager
     }
 
     /**
-     * @param $routePathName
+     * @param  $routePathName
      * @return bool
      */
     public function requiresAuth($routePathName)
