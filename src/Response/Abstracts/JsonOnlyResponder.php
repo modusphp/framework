@@ -23,5 +23,4 @@ abstract class HtmlOnlyResponder implements JsonGenerator
     }
 
     abstract public function generateJson(PayloadInterface $payload);
-
 }

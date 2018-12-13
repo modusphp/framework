@@ -23,5 +23,4 @@ class Payload extends AbstractPayload
     const SUCCESS = 'SUCCESS';
     const UPDATED = 'UPDATED';
     const VALID = 'VALID';
-
 }

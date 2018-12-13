@@ -32,5 +32,4 @@ abstract class HtmlOnlyResponder implements HtmlGenerator
     }
 
     abstract public function generateHtml(PayloadInterface $payload);
-
 }
