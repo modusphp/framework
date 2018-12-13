@@ -23,7 +23,7 @@ interface ManagerInterface
      * Return all the error handlers (if one is not specified) or a single
      * error handler (if one is specified).
      *
-     * @param $loggerName
+     * @param  $loggerName
      * @return object|array
      * @throws Exception\LoggerNotRegistered
      */

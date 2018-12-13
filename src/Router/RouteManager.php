@@ -40,9 +40,9 @@ class RouteManager
 
     /**
      * @param Router $router
-     * @param array $routes
-     * @param array $serverVars
-     * @param array $routeAuthServices
+     * @param array  $routes
+     * @param array  $serverVars
+     * @param array  $routeAuthServices
      */
     public function __construct(
         Router $router,
@@ -115,7 +115,7 @@ class RouteManager
      * Process an array of routes, and register them.
      *
      * @param array $routes
-     * @param null $prefix
+     * @param null  $prefix
      */
     protected function processRouteList(array $routes, $prefix = null)
     {
@@ -138,7 +138,7 @@ class RouteManager
      * Register a single route with the router.
      *
      * @param $routeName
-     * @param array $route
+     * @param array     $route
      */
     protected function addRoute($routeName, array $route)
     {
@@ -237,8 +237,8 @@ class RouteManager
     /**
      * Returns a full route path.
      *
-     * @param $name
-     * @param array $args
+     * @param  $name
+     * @param  array $args
      * @return false|string
      */
     public function getRouteForName($name, array $args = array())

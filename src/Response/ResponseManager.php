@@ -37,8 +37,8 @@ class ResponseManager
     /**
      * Processes the results of the Action.
      *
-     * @var $payload PayloadInterface
-     * @var $generator ResponseGenerator
+     * @var    $payload PayloadInterface
+     * @var    $generator ResponseGenerator
      * @throws Exception\ContentTypeNotValidException
      */
     public function process(PayloadInterface $payload, ResponseGenerator $generator)

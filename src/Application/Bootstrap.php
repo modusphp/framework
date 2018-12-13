@@ -54,11 +54,11 @@ class Bootstrap
     protected $responseManager;
 
     /**
-     * @param Config $config
+     * @param Config              $config
      * @param Router\RouteManager $router
-     * @param Auth\Service $authService
-     * @param Log\Manager $handler
-     * @param ResponseManager $responseManager
+     * @param Auth\Service        $authService
+     * @param Log\Manager         $handler
+     * @param ResponseManager     $responseManager
      * @throws Log\Exception\LoggerNotRegistered
      */
     public function __construct(

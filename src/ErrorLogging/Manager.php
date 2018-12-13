@@ -22,7 +22,7 @@ class Manager implements ManagerInterface
 
     /**
      * @param Runner $runner
-     * @param array $loggers
+     * @param array  $loggers
      */
     public function __construct(
         Runner $runner,
