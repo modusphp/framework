@@ -2,9 +2,10 @@
 
 use Aura\Auth;
 use Aura\Auth\Service as AuthService;
+use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Modus\Auth\Service;
 
-class AuthServiceTest extends PHPUnit_Framework_TestCase {
+class AuthServiceTest extends MockeryTestCase {
 
     /**
      * @var Mockery\MockInterface

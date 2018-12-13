@@ -1,6 +1,8 @@
 <?php
 
-class MessagesHelperTest extends PHPUnit_Framework_TestCase {
+use Mockery\Adapter\Phpunit\MockeryTestCase;
+
+class MessagesHelperTest extends MockeryTestCase {
 
     public function testMessagesProcessCorrectly() {
 

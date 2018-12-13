@@ -1,8 +1,9 @@
 <?php
 
+use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Modus\ErrorLogging\Manager;
 
-class ManagerTest extends PHPUnit_Framework_TestCase {
+class ManagerTest extends MockeryTestCase {
 
     public function testRegisterAndDeregister() {
         $runner = Mockery::mock('League\BooBoo\Runner');

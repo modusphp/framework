@@ -1,8 +1,9 @@
 <?php
 
+use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Modus\Auth\Router\StandardAuth;
 
-class StandardTest extends PHPUnit_Framework_TestCase
+class StandardTest extends MockeryTestCase
 {
 
     /**

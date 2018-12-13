@@ -1,6 +1,8 @@
 <?php
 
-class BaseUserTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+
+class BaseUserTest extends TestCase {
 
     protected $userObj;
 

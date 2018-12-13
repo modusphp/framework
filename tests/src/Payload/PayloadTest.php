@@ -1,7 +1,9 @@
 <?php
 namespace Modus\Payload;
 
-class PayloadTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class PayloadTest extends TestCase
 {
     public function test()
     {

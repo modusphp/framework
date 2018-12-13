@@ -1,9 +1,10 @@
 <?php
 
+use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Monolog\Logger;
 use Monolog\Handler\NullHandler;
 
-class BootstrapTest extends PHPUnit_Framework_TestCase {
+class BootstrapTest extends MockeryTestCase {
 
     /**
      * @var \Mockery\MockInterface
