@@ -98,7 +98,6 @@ class Bootstrap
             $params = $route;
             unset($params['action']);
             unset($params['responder']);
-            unset($params['method']);
         } catch (NotFoundException $e) {
             if (isset($config['error_page']['404'])) {
                 $lastRoute = $this->router->getLastRoute();
@@ -120,12 +119,8 @@ class Bootstrap
         if (!is_null($components['actionClass'])) {
             $action = $this->serviceLocator->newInstance($components['actionClass']);
 
-            if (!is_callable([$action, $components['actionMethod']])) {
-                throw new NoValidMethod(sprintf('The method %s does not exist on action %s', $components['actionMethod'], $components['actionClass']));
-            }
-
             // Call the action.
-            $result = call_user_func_array([$action, $components['actionMethod']], $params);
+            $result = call_user_func_array([$action, '__invoke'], $params);
         }
 
         // Let's not leave the response hanging...
@@ -170,22 +165,15 @@ class Bootstrap
         }
 
         if (isset($components['action'])) {
-            if (isset($components['method'])) {
-                $action = $components['action'];
-                $method = $components['method'];
-            } else {
-                list($action, $method) = explode(':', $components['action']);
-            }
+            $action = $components['action'];
         } else {
             $action = null;
-            $method = null;
         }
 
         return [
             'responderClass' => $responder,
             'responderMethod' => $responderMethod,
             'actionClass' => $action,
-            'actionMethod' => $method,
         ];
     }
 }

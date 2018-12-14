@@ -64,7 +64,7 @@ class BootstrapTest extends MockeryTestCase {
         $this->responseManager->shouldReceive('process')->once();
 
 
-        $this->action->shouldReceive('index')->once()->with()->andReturn(new \Modus\Payload\Payload());
+        $this->action->shouldReceive('__invoke')->once()->with()->andReturn(new \Modus\Payload\Payload());
 
         $this->container->shouldReceive('newInstance')->once()->with('D\E\F')->andReturn($this->responder);
         $this->container->shouldReceive('newInstance')->once()->with('A\B\C')->andReturn($this->action);
@@ -76,7 +76,6 @@ class BootstrapTest extends MockeryTestCase {
         $route->setValues([
             'action' => 'A\B\C',
             'responder' => 'D\E\F',
-            'method' => 'index'
         ]);
         $route->isMatch('/', []);
 
@@ -89,7 +88,7 @@ class BootstrapTest extends MockeryTestCase {
         $this->responseManager->shouldReceive('process')->once();
 
 
-        $this->action->shouldReceive('index')->once()->with()->andReturn(null);
+        $this->action->shouldReceive('__invoke')->once()->with()->andReturn(null);
 
         $this->container->shouldReceive('newInstance')->once()->with('D\E\F')->andReturn($this->responder);
         $this->container->shouldReceive('newInstance')->once()->with('A\B\C')->andReturn($this->action);
@@ -101,8 +100,8 @@ class BootstrapTest extends MockeryTestCase {
         $route->setValues([
             'action' => 'A\B\C',
             'responder' => 'D\E\F',
-            'method' => 'index'
         ]);
+
         $route->isMatch('/', []);
 
         $this->router->shouldReceive('determineRouting')->andReturn($route);
