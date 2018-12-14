@@ -4,7 +4,7 @@ namespace Modus\Response\Abstracts;
 
 use Aura\Html\HelperLocator;
 use Aura\View\View;
-use Modus\Payload\PayloadInterface;
+use Aura\Payload_Interface\PayloadInterface;
 use Modus\Response\Interfaces\HtmlGenerator;
 use Modus\Response\Response;
 

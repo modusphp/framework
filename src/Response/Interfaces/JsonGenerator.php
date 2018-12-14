@@ -2,7 +2,7 @@
 
 namespace Modus\Response\Interfaces;
 
-use Modus\Payload\PayloadInterface;
+use Aura\Payload_Interface\PayloadInterface;
 
 interface JsonGenerator extends ResponseGenerator
 {

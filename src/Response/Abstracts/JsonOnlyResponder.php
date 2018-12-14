@@ -2,8 +2,8 @@
 
 namespace Modus\Response\Abstracts;
 
+use Aura\Payload_Interface\PayloadInterface;
 use Aura\View\View;
-use Modus\Payload\PayloadInterface;
 use Modus\Response\Interfaces\JsonGenerator;
 use Modus\Response\Response;
 

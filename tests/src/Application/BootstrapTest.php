@@ -64,7 +64,7 @@ class BootstrapTest extends MockeryTestCase {
         $this->responseManager->shouldReceive('process')->once();
 
 
-        $this->action->shouldReceive('__invoke')->once()->with()->andReturn(new \Modus\Payload\Payload());
+        $this->action->shouldReceive('__invoke')->once()->with()->andReturn(new \Aura\Payload\Payload());
 
         $this->container->shouldReceive('newInstance')->once()->with('D\E\F')->andReturn($this->responder);
         $this->container->shouldReceive('newInstance')->once()->with('A\B\C')->andReturn($this->action);

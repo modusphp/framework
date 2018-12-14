@@ -4,10 +4,7 @@ namespace Modus\Application;
 
 use Aura\Di;
 use Aura\Router\Route;
-use Modus\Payload\Payload;
-use Aura\Web;
-
-use Modus\Application\Exception\NoValidMethod;
+use Aura\Payload\Payload;
 use Modus\Response\ResponseManager;
 use Modus\Router;
 use Modus\ErrorLogging as Log;
