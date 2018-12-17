@@ -3,7 +3,7 @@
 namespace Modus\Template\Helper;
 
 use Aura\Html\Helper\AbstractHelper;
-use Modus\Router\RouteManager;
+use Modus\Route\Manager;
 
 class LinkGenerator extends AbstractHelper
 {
@@ -12,13 +12,13 @@ class LinkGenerator extends AbstractHelper
     protected $router;
     protected $lastRoute;
 
-    public function __construct(RouteManager $standardRouter)
+    public function __construct(Manager $router)
     {
-        $this->router = $standardRouter->getRouter();
+        $this->router = $router;
     }
 
-    public function __invoke($routeName, array $arguments = array())
+    public function __invoke($routeName, array $arguments = [])
     {
-        return $this->router->generate($routeName, $arguments);
+        return $this->router->generatePath($routeName, $arguments);
     }
 }

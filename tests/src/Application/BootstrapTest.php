@@ -46,18 +46,35 @@ class BootstrapTest extends MockeryTestCase {
      */
     protected $responseManager;
 
+    /**
+     * @var \Psr\Http\Message\ServerRequestInterface
+     */
+    protected $serverRequest;
+
     protected function setUp() {
         $this->responder = Mockery::mock('Modus\Response\Interfaces\ResponseGenerator');
         $this->action = Mockery::mock('stdClass');
         $this->container = Mockery::mock('Aura\Di\Container');
         $this->config = Mockery::mock('Modus\Config\Config');
         $this->authService = Mockery::mock('Modus\Auth\Service');
-        $this->router = Mockery::mock('Modus\Router\RouteManager');
+        $this->router = new \Modus\Route\Manager(new \Aura\Router\RouterContainer());
+        $this->serverRequest = new \Zend\Diactoros\ServerRequest([], [], 'http://www.brandonsavage.net/');
+
+        $route = \Modus\Route\Manager::route('example', '/')->extras(['action' => 'A\B\C', 'responder' => 'D\E\F']);
+        $this->router->loadRoutes([$route]);
 
         $this->responseManager = Mockery::mock('Modus\Response\ResponseManager');
 
-        $this->authService->shouldReceive('resume')->once();
-        $this->bootstrap = new \Modus\Application\Bootstrap($this->config, $this->container, $this->router, $this->authService, $this->getErrorHandler(), $this->responseManager);
+        $this->authService->shouldReceive('resume');
+        $this->bootstrap = new \Modus\Application\Bootstrap(
+            $this->config,
+            $this->container,
+            $this->router,
+            $this->serverRequest,
+            $this->authService,
+            $this->getErrorHandler(),
+            $this->responseManager
+        );
     }
 
     public function testRouteRoutedAndLoaded() {
@@ -71,15 +88,6 @@ class BootstrapTest extends MockeryTestCase {
 
         $this->config->shouldReceive('getContainer')->andReturn($this->container);
         $this->config->shouldReceive('getConfig')->andReturn([]);
-
-        $route = new \Aura\Router\Route(new \Aura\Router\Regex(), '/');
-        $route->setValues([
-            'action' => 'A\B\C',
-            'responder' => 'D\E\F',
-        ]);
-        $route->isMatch('/', []);
-
-        $this->router->shouldReceive('determineRouting')->andReturn($route);
 
         $this->bootstrap->execute();
     }
@@ -96,39 +104,49 @@ class BootstrapTest extends MockeryTestCase {
         $this->config->shouldReceive('getContainer')->andReturn($this->container);
         $this->config->shouldReceive('getConfig')->andReturn([]);
 
-        $route = new \Aura\Router\Route(new \Aura\Router\Regex(), '/');
-        $route->setValues([
-            'action' => 'A\B\C',
-            'responder' => 'D\E\F',
-        ]);
-
-        $route->isMatch('/', []);
-
-        $this->router->shouldReceive('determineRouting')->andReturn($route);
-
         $this->bootstrap->execute();
     }
 
     public function testNotFound4040Error() {
-        $this->router->shouldReceive('determineRouting')->once()->andReturn(false);
-        $this->router->shouldIgnoreMissing();
         $this->config->shouldReceive('getConfig')->andReturn(['error_page' => ['404' => 'NotFound\Error404']]);
 
         $this->container->shouldReceive('newInstance')->once()->with('NotFound\Error404')->andReturn($this->responder);
         $this->responseManager->shouldReceive('process')->once();
 
-        $this->bootstrap->execute();
+        $serverRequest = new \Zend\Diactoros\ServerRequest([], [], 'http://www.brandonsavage.net/abc');
+
+        $bootstrap = new \Modus\Application\Bootstrap(
+            $this->config,
+            $this->container,
+            $this->router,
+            $serverRequest,
+            $this->authService,
+            $this->getErrorHandler(),
+            $this->responseManager
+        );
+
+        $bootstrap->execute();
     }
 
     /**
      * @expectedException Modus\Common\Route\Exception\NotFoundException
      */
     public function testNotFoundNoErrorPageThrowsException() {
-        $this->router->shouldReceive('determineRouting')->once()->andReturn(false);
-        $this->router->shouldIgnoreMissing();
         $this->config->shouldReceive('getConfig')->andReturn([]);
 
-        $this->bootstrap->execute();
+        $serverRequest = new \Zend\Diactoros\ServerRequest([], [], 'http://www.brandonsavage.net/abc');
+
+        $bootstrap = new \Modus\Application\Bootstrap(
+            $this->config,
+            $this->container,
+            $this->router,
+            $serverRequest,
+            $this->authService,
+            $this->getErrorHandler(),
+            $this->responseManager
+        );
+
+        $bootstrap->execute();
     }
 
     protected function getErrorHandler() {

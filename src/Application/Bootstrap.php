@@ -3,15 +3,15 @@
 namespace Modus\Application;
 
 use Aura\Di;
-use Aura\Router\Route;
 use Aura\Payload\Payload;
 use Modus\Response\ResponseManager;
-use Modus\Router;
+use Modus\Route;
 use Modus\ErrorLogging as Log;
 use Modus\Common\Route\Exception\NotFoundException;
 use Modus\Auth;
 use Modus\Config\Config;
 use Modus\Response\Exception;
+use Psr\Http\Message\ServerRequestInterface;
 
 class Bootstrap
 {
@@ -22,7 +22,7 @@ class Bootstrap
     protected $config;
 
     /**
-     * @var Router\RouteManager
+     * @var Route\Manager
      */
     protected $router;
 
@@ -52,8 +52,13 @@ class Bootstrap
     protected $responseManager;
 
     /**
+     * @var ServerRequestInterface
+     */
+    protected $serverRequest;
+
+    /**
      * @param  Config              $config
-     * @param  Router\RouteManager $router
+     * @param  Route\Manager       $router
      * @param  Auth\Service        $authService
      * @param  Log\Manager         $handler
      * @param  ResponseManager     $responseManager
@@ -62,7 +67,8 @@ class Bootstrap
     public function __construct(
         Config $config,
         Di\Container $di,
-        Router\RouteManager $router,
+        Route\Manager $router,
+        ServerRequestInterface $serverRequest,
         Auth\Service $authService,
         Log\Manager $handler,
         ResponseManager $responseManager
@@ -74,6 +80,7 @@ class Bootstrap
         $this->errorLog = $handler->getLogger('error');
         $this->eventLog = $handler->getLogger('event');
         $this->responseManager = $responseManager;
+        $this->serverRequest = $serverRequest;
 
         $this->authService->resume();
     }
@@ -90,14 +97,14 @@ class Bootstrap
         // Figure out the route information.
         try {
             $routepath = $this->evaluateRoute();
-            $route = $routepath->params;
+            $route = $routepath->extras;
             $components = $this->determineRouteComponents($route);
             $params = $route;
             unset($params['action']);
             unset($params['responder']);
         } catch (NotFoundException $e) {
             if (isset($config['error_page']['404'])) {
-                $lastRoute = $this->router->getLastRoute();
+                $lastRoute = $this->serverRequest->getUri()->getPath();
                 $this->eventLog->info(sprintf("No route was found that matches '%s'", $lastRoute));
 
                 $responder = $this->serviceLocator->newInstance($config['error_page']['404']);
@@ -133,12 +140,12 @@ class Bootstrap
      * @return \Aura\Router\Route
      * @throws NotFoundException
      */
-    protected function evaluateRoute() : Route
+    protected function evaluateRoute() : \Aura\Router\Route
     {
         $router = $this->router;
-        $routepath = $router->determineRouting();
+        $routepath = $router->matchRoute($this->serverRequest);
         if (!$routepath) {
-            throw new NotFoundException('The route "' . $router->getLastRoute() . '" was not found');
+            throw new NotFoundException('The route "' . $this->serverRequest->getUri()->getPath() . '" was not found');
         }
         return $routepath;
     }
@@ -149,16 +156,10 @@ class Bootstrap
      */
     protected function determineRouteComponents(array $components = []) : array
     {
-        if (isset($components['responder'])) {
-            if (strpos($components['responder'], ':') !== false) {
-                list($responder, $responderMethod) = explode(':', $components['responder']);
-            } else {
-                $responder = $components['responder'];
-                $responderMethod = 'process';
-            }
-        } else {
+        if (!isset($components['responder'])) {
             $responder = 'Modus\Responder\NoContent204Response';
-            $responderMethod = 'process';
+        } else {
+            $responder = $components['responder'];
         }
 
         if (isset($components['action'])) {
@@ -169,7 +170,6 @@ class Bootstrap
 
         return [
             'responderClass' => $responder,
-            'responderMethod' => $responderMethod,
             'actionClass' => $action,
         ];
     }
