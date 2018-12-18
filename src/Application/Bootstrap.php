@@ -37,11 +37,6 @@ class Bootstrap
     protected $eventLog;
 
     /**
-     * @var Auth\Service
-     */
-    protected $authService;
-
-    /**
      * @var Di\Container
      */
     protected $serviceLocator;
@@ -69,20 +64,16 @@ class Bootstrap
         Di\Container $di,
         Route\Manager $router,
         ServerRequestInterface $serverRequest,
-        Auth\Service $authService,
         Log\Manager $handler,
         ResponseManager $responseManager
     ) {
         $this->config = $config;
         $this->serviceLocator = $di;
         $this->router = $router;
-        $this->authService = $authService;
         $this->errorLog = $handler->getLogger('error');
         $this->eventLog = $handler->getLogger('event');
         $this->responseManager = $responseManager;
         $this->serverRequest = $serverRequest;
-
-        $this->authService->resume();
     }
 
     /**

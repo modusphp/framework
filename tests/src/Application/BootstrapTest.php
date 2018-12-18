@@ -29,11 +29,6 @@ class BootstrapTest extends MockeryTestCase {
     /**
      * @var \Mockery\MockInterface
      */
-    protected $authService;
-
-    /**
-     * @var \Mockery\MockInterface
-     */
     protected $router;
 
     /**
@@ -56,7 +51,6 @@ class BootstrapTest extends MockeryTestCase {
         $this->action = Mockery::mock('stdClass');
         $this->container = Mockery::mock('Aura\Di\Container');
         $this->config = Mockery::mock('Modus\Config\Config');
-        $this->authService = Mockery::mock('Modus\Auth\Service');
         $this->router = new \Modus\Route\Manager(new \Aura\Router\RouterContainer());
         $this->serverRequest = new \Zend\Diactoros\ServerRequest([], [], 'http://www.brandonsavage.net/');
 
@@ -65,13 +59,11 @@ class BootstrapTest extends MockeryTestCase {
 
         $this->responseManager = Mockery::mock('Modus\Response\ResponseManager');
 
-        $this->authService->shouldReceive('resume');
         $this->bootstrap = new \Modus\Application\Bootstrap(
             $this->config,
             $this->container,
             $this->router,
             $this->serverRequest,
-            $this->authService,
             $this->getErrorHandler(),
             $this->responseManager
         );
@@ -120,7 +112,6 @@ class BootstrapTest extends MockeryTestCase {
             $this->container,
             $this->router,
             $serverRequest,
-            $this->authService,
             $this->getErrorHandler(),
             $this->responseManager
         );
@@ -141,7 +132,6 @@ class BootstrapTest extends MockeryTestCase {
             $this->container,
             $this->router,
             $serverRequest,
-            $this->authService,
             $this->getErrorHandler(),
             $this->responseManager
         );
