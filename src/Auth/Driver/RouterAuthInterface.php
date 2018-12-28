@@ -1,6 +1,6 @@
 <?php
 
-namespace Modus\Auth\Route;
+namespace Modus\Auth\Driver;
 
 use Aura\Router\Route;
 

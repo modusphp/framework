@@ -1,11 +1,11 @@
 <?php
 
-namespace Modus\Auth\Route;
+namespace Modus\Auth\Driver;
 
 use Aura\Router\Route;
 use Modus\Auth\Service;
 
-class StandardAuthDriver implements RouterAuthInterface
+class StandardAuth implements RouterAuthInterface
 {
     /**
      * @var Route
