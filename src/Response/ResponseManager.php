@@ -7,8 +7,9 @@ use Modus\Response\Exception;
 
 use Aura\Accept;
 use Modus\Response\Interfaces\ResponseGenerator;
-use Modus\Response\Response;
 use Aura\View;
+use Psr\Http\Message\ResponseInterface;
+use Zend\HttpHandlerRunner\Emitter\SapiEmitter;
 
 class ResponseManager
 {
@@ -62,10 +63,11 @@ class ResponseManager
     /**
      * Prepares and sends the HTTP response. Directly outputs to the browser with print.
      */
-    public function sendResponse(Response $response)
+    public function sendResponse(ResponseInterface $response)
     {
-        $response = $response->getResponse();
-        $this->httpResponse->sendResponse($response, $this->contentType);
+        $sapi = new SapiEmitter();
+        $sapi->emit($response);
+
     }
 
     /**
