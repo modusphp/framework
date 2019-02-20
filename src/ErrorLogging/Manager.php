@@ -2,8 +2,8 @@
 
 namespace Modus\ErrorLogging;
 
+use League\BooBoo\BooBoo;
 use Monolog;
-use League\BooBoo\Runner;
 use Aura\Accept\Accept;
 
 class Manager implements ManagerInterface
@@ -15,17 +15,17 @@ class Manager implements ManagerInterface
     protected $loggers;
 
     /**
-     * @var Runner
+     * @var BooBoo
      */
     protected $errorHandler;
 
 
     /**
-     * @param Runner $runner
+     * @param BooBoo $runner
      * @param array  $loggers
      */
     public function __construct(
-        Runner $runner,
+        BooBoo $runner,
         Accept $accept,
         array $loggers = array(),
         array $availableFormatters = array()
@@ -52,7 +52,7 @@ class Manager implements ManagerInterface
 
     /**
      * @param  $bool
-     * @throws \Savage\BooBoo\Exception\NoFormattersRegisteredException
+     * @throws \League\BooBoo\Exception\NoFormattersRegisteredException
      */
     public function registerErrorHandler($bool)
     {
@@ -64,7 +64,7 @@ class Manager implements ManagerInterface
     }
 
     /**
-     * @return Runner
+     * @return BooBoo
      */
     public function getErrorHandler()
     {
@@ -73,7 +73,7 @@ class Manager implements ManagerInterface
 
     /**
      * @param  null $loggerName
-     * @return Monolog\Logger;
+     * @return Monolog\Logger|array;
      * @throws Exception\LoggerNotRegistered
      */
     public function getLogger($loggerName = null)
