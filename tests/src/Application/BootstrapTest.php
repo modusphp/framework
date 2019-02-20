@@ -140,7 +140,7 @@ class BootstrapTest extends MockeryTestCase {
     }
 
     protected function getErrorHandler() {
-        $runner = Mockery::mock('League\BooBoo\Runner');
+        $runner = Mockery::mock('League\BooBoo\BooBoo');
         $accept = Mockery::mock('Aura\Accept\Accept');
 
         $loggers = [

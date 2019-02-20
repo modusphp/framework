@@ -6,7 +6,7 @@ use Modus\ErrorLogging\Manager;
 class ManagerTest extends MockeryTestCase {
 
     public function testRegisterAndDeregister() {
-        $runner = Mockery::mock('League\BooBoo\Runner');
+        $runner = Mockery::mock('League\BooBoo\BooBoo');
         $runner->shouldReceive('register')->once()->andReturn(true);
         $runner->shouldReceive('deregister')->once()->andReturn(true);
 
@@ -19,7 +19,7 @@ class ManagerTest extends MockeryTestCase {
 
     public function testGetErrorHandler() {
         // This function is somewhat useless to test, since we're just evaluating that we got a mock back.
-        $runner = Mockery::mock('League\BooBoo\Runner');
+        $runner = Mockery::mock('League\BooBoo\BooBoo');
         $accept = Mockery::mock('Aura\Accept\Accept');
 
         $manager = new Manager($runner, $accept, []);
@@ -33,7 +33,7 @@ class ManagerTest extends MockeryTestCase {
         ];
 
 
-        $runner = Mockery::mock('League\BooBoo\Runner');
+        $runner = Mockery::mock('League\BooBoo\BooBoo');
         $accept = Mockery::mock('Aura\Accept\Accept');
 
         $manager = new Manager($runner, $accept, $loggers);
@@ -50,7 +50,7 @@ class ManagerTest extends MockeryTestCase {
      * @expectedMessage 'not registered'
      */
     public function testUnregisteredLoggerThrowsException() {
-        $runner = Mockery::mock('League\BooBoo\Runner');
+        $runner = Mockery::mock('League\BooBoo\BooBoo');
         $accept = Mockery::mock('Aura\Accept\Accept');
 
         $manager = new Manager($runner, $accept, []);
