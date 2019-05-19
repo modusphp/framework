@@ -16,7 +16,6 @@
         "aura/web": "~2.0",
         "aura/cli": "~2.0",
         "monolog/monolog": "~1.5",
-        "robmorgan/phinx": "v0.3.2",
         "aura/auth": "~2.0",
         "aura/html": "~2.1.0",
         "brandonsavage/booboo": "~0.4",
