@@ -4,6 +4,7 @@ namespace Modus\Application;
 
 use Aura\Di;
 use Aura\Payload\Payload;
+use Modus\Responder\NoContent204Response;
 use Modus\Response\ResponseManager;
 use Modus\Route;
 use Modus\ErrorLogging as Log;
@@ -148,7 +149,7 @@ class Bootstrap
     protected function determineRouteComponents(array $components = []) : array
     {
         if (!isset($components['responder'])) {
-            $responder = 'Modus\Responder\NoContent204Response';
+            $responder = NoContent204Response::class;
         } else {
             $responder = $components['responder'];
         }
