@@ -12,7 +12,7 @@ class NoContent204Response implements HtmlGenerator
     public function generateHtml(PayloadInterface $payload)
     {
         $out = new HtmlResponse('');
-        $out = $out->withStatus(206);
+        $out = $out->withStatus(204);
         return $out;
     }
 
