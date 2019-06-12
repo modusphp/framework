@@ -46,6 +46,11 @@ class BootstrapTest extends MockeryTestCase {
      */
     protected $serverRequest;
 
+    /**
+     * @var \Modus\Auth\AuthDriver
+     */
+    protected $authDriver;
+
     protected function setUp() {
         $this->responder = Mockery::mock('Modus\Response\Interfaces\ResponseGenerator');
         $this->action = Mockery::mock('stdClass');
@@ -59,13 +64,16 @@ class BootstrapTest extends MockeryTestCase {
 
         $this->responseManager = Mockery::mock('Modus\Response\ResponseManager');
 
+        $this->authDriver = new \Modus\Auth\AuthDriver([]);
+
         $this->bootstrap = new \Modus\Application\Bootstrap(
             $this->config,
             $this->container,
             $this->router,
             $this->serverRequest,
             $this->getErrorHandler(),
-            $this->responseManager
+            $this->responseManager,
+            $this->authDriver
         );
     }
 
@@ -113,7 +121,8 @@ class BootstrapTest extends MockeryTestCase {
             $this->router,
             $serverRequest,
             $this->getErrorHandler(),
-            $this->responseManager
+            $this->responseManager,
+            $this->authDriver
         );
 
         $bootstrap->execute();
@@ -133,7 +142,8 @@ class BootstrapTest extends MockeryTestCase {
             $this->router,
             $serverRequest,
             $this->getErrorHandler(),
-            $this->responseManager
+            $this->responseManager,
+            $this->authDriver
         );
 
         $bootstrap->execute();

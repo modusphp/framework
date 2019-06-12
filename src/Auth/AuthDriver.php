@@ -22,7 +22,7 @@ class AuthDriver
      * @param array $drivers
      * @param RouterAuthInterface|null $default
      */
-    public function __construct(array $drivers, ?RouterAuthInterface $default)
+    public function __construct(array $drivers, ?RouterAuthInterface $default = null)
     {
         foreach ($drivers as $driver) {
             $this->addDriver($driver);

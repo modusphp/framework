@@ -53,6 +53,11 @@ class Bootstrap
     protected $serverRequest;
 
     /**
+     * @var Auth\AuthDriver
+     */
+    protected $authDriver;
+
+    /**
      * @param  Config              $config
      * @param  Route\Manager       $router
      * @param  Auth\Service        $authService
@@ -66,7 +71,8 @@ class Bootstrap
         Route\Manager $router,
         ServerRequestInterface $serverRequest,
         Log\Manager $handler,
-        ResponseManager $responseManager
+        ResponseManager $responseManager,
+        Auth\AuthDriver $authDriver
     ) {
         $this->config = $config;
         $this->serviceLocator = $di;
@@ -75,6 +81,7 @@ class Bootstrap
         $this->eventLog = $handler->getLogger('event');
         $this->responseManager = $responseManager;
         $this->serverRequest = $serverRequest;
+        $this->authDriver = $authDriver;
     }
 
     /**
@@ -139,6 +146,9 @@ class Bootstrap
         if (!$routepath) {
             throw new NotFoundException('The route "' . $this->serverRequest->getUri()->getPath() . '" was not found');
         }
+
+        $routepath = $this->authDriver->checkAuth($routepath);
+
         return $routepath;
     }
 
