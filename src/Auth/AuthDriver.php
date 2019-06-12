@@ -5,7 +5,7 @@ namespace Modus\Auth;
 use Aura\Router\Route;
 use Modus\Auth\Driver\RouterAuthInterface;
 
-class DriverManager
+class AuthDriver
 {
     /**
      * @var array
@@ -18,7 +18,7 @@ class DriverManager
     protected $default;
 
     /**
-     * DriverManager constructor.
+     * AuthDriver constructor.
      * @param array $drivers
      * @param RouterAuthInterface|null $default
      */

@@ -6,7 +6,7 @@ use Aura\Router\Route;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
 use Modus\Auth\Driver\RouterAuthInterface;
 use Modus\Auth\Driver\StandardAuth;
-use Modus\Auth\DriverManager;
+use Modus\Auth\AuthDriver;
 use Modus\Auth\Service;
 use Modus\Route\Manager;
 
@@ -23,7 +23,7 @@ class DriverManagerTest extends MockeryTestCase
     protected $driver;
 
     /**
-     * @var DriverManager
+     * @var AuthDriver
      */
     protected $driverManager;
 
@@ -40,7 +40,7 @@ class DriverManagerTest extends MockeryTestCase
         $this->driver = new StandardAuth($this->authService, $redirect);
 
         $this->default = \Mockery::mock(RouterAuthInterface::class);
-        $this->driverManager = new DriverManager([$this->driver], $this->default);
+        $this->driverManager = new AuthDriver([$this->driver], $this->default);
     }
 
     public function testDefaultUsedWhenNoDriverMatches()
