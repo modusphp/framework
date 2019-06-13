@@ -64,15 +64,4 @@ class AuthServiceTest extends MockeryTestCase {
         $this->assertInstanceOf('Aura\Auth\Auth', $user);
     }
 
-    public function testExceptionHandlerPopulatesErrorMessage()
-    {
-        $this->login->shouldReceive('login')->andThrow('Aura\Auth\Exception\MultipleMatches');
-
-        $this->service->authenticate();
-
-        $this->assertTrue($this->service->hasError());
-        $this->assertEquals('There were multiple matches for your credentials in the database.', $this->service->getError(true));
-        $this->assertEquals(['message', 'exception'], array_keys($this->service->getError()));
-    }
-
 }
