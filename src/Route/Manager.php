@@ -43,7 +43,7 @@ class Manager
         return $route;
     }
 
-    public function generatePath($name, $args)
+    public function generatePath($name, array $args = [])
     {
         $generator = $this->container->getGenerator();
         return $generator->generate($name, $args);
