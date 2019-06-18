@@ -96,11 +96,9 @@ class Bootstrap
         // Figure out the route information.
         try {
             $routepath = $this->evaluateRoute();
-            $route = $routepath->extras;
-            $components = $this->determineRouteComponents($route);
-            $params = $route;
-            unset($params['action']);
-            unset($params['responder']);
+            $actionResponderArray = $routepath->extras;
+            $components = $this->determineRouteComponents($actionResponderArray);
+            $params = $routepath->attributes;
         } catch (NotFoundException $e) {
             if (isset($config['error_page']['404'])) {
                 $lastRoute = $this->serverRequest->getUri()->getPath();
