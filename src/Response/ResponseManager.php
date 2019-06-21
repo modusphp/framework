@@ -38,23 +38,36 @@ class ResponseManager
      * Processes the results of the Action.
      *
      * @var    $payload PayloadInterface
-     * @var    $generator ResponseGenerator
+     * @var    $generator object The response
      * @throws Exception\ContentTypeNotValidException
      */
-    public function process(PayloadInterface $payload, ResponseGenerator $generator)
+    public function process(PayloadInterface $payload, $generator)
     {
-        $typeMap = $generator->checkContentResponseType();
+        if ($generator instanceof ResponseGenerator) {
+            $typeMap = $generator->checkContentResponseType();
+
+        } else {
+            $typeMap = [
+                'text/html' => 'html',
+                'application/json' => 'json',
+            ];
+        }
 
         $availableTypes = array_keys($typeMap);
 
         $type = $this->determineResponseType($availableTypes);
 
-        // If we don't get a valid type back, let's force one, per the HTTP 1.1 spec.
+            // If we don't get a valid type back, let's force one, per the HTTP 1.1 spec.
         if (!$type) {
             $type = array_shift($availableTypes);
         }
 
         $methodToCall = $typeMap[$type];
+
+        if (!method_exists($generator, $methodToCall)) {
+            throw new \InvalidArgumentException('Method ' . $methodToCall . ' doesn\'t exist on the responder.');
+        }
+
         $response = $generator->$methodToCall($payload);
         $this->sendResponse($response);
     }
