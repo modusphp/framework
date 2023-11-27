@@ -5,10 +5,10 @@
     "license": "MIT",
     "minimum-stability": "stable",
     "require": {
-        "php": ">=7.1.0",
+        "php": "^8.2",
         "aura/session": "~1.0.1",
         "aura/di": "~2.1",
-        "aura/sql" : "~2.0",
+        "aura/sql" : "~5.0",
         "aura/sqlquery": "~2.0",
         "aura/router": "~3.0",
         "aura/view": "~2.0.0",
