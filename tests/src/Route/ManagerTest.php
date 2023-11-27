@@ -6,8 +6,8 @@ use Aura\Router\Route;
 use Aura\Router\RouterContainer;
 use Modus\Route\Manager;
 use PHPUnit\Framework\TestCase;
-use Zend\Diactoros\ServerRequest;
-use Zend\Diactoros\ServerRequestFactory;
+use Laminas\Diactoros\ServerRequest;
+use Laminas\Diactoros\ServerRequestFactory;
 
 class ManagerTest extends TestCase
 {

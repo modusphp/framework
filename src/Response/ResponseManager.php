@@ -8,7 +8,7 @@ use Modus\Response\Exception;
 use Aura\Accept;
 use Modus\Response\Interfaces\ResponseGenerator;
 use Psr\Http\Message\ResponseInterface;
-use Zend\HttpHandlerRunner\Emitter\SapiEmitter;
+use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
 
 class ResponseManager
 {

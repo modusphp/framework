@@ -57,7 +57,7 @@ class BootstrapTest extends MockeryTestCase {
         $this->container = Mockery::mock('Aura\Di\Container');
         $this->config = Mockery::mock('Modus\Config\Config');
         $this->router = new \Modus\Route\Manager(new \Aura\Router\RouterContainer());
-        $this->serverRequest = new \Zend\Diactoros\ServerRequest([], [], 'http://www.brandonsavage.net/');
+        $this->serverRequest = new \Laminas\Diactoros\ServerRequest([], [], 'http://www.brandonsavage.net/');
 
         $route = \Modus\Route\Manager::route('example', '/')->extras(['action' => 'A\B\C', 'responder' => 'D\E\F']);
         $this->router->loadRoutes([$route]);
@@ -113,7 +113,7 @@ class BootstrapTest extends MockeryTestCase {
         $this->container->shouldReceive('newInstance')->once()->with('NotFound\Error404')->andReturn($this->responder);
         $this->responseManager->shouldReceive('process')->once();
 
-        $serverRequest = new \Zend\Diactoros\ServerRequest([], [], 'http://www.brandonsavage.net/abc');
+        $serverRequest = new \Laminas\Diactoros\ServerRequest([], [], 'http://www.brandonsavage.net/abc');
 
         $bootstrap = new \Modus\Application\Bootstrap(
             $this->config,
@@ -134,7 +134,7 @@ class BootstrapTest extends MockeryTestCase {
     public function testNotFoundNoErrorPageThrowsException() {
         $this->config->shouldReceive('getConfig')->andReturn([]);
 
-        $serverRequest = new \Zend\Diactoros\ServerRequest([], [], 'http://www.brandonsavage.net/abc');
+        $serverRequest = new \Laminas\Diactoros\ServerRequest([], [], 'http://www.brandonsavage.net/abc');
 
         $bootstrap = new \Modus\Application\Bootstrap(
             $this->config,

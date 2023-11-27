@@ -4,7 +4,7 @@ namespace Modus\Responder;
 
 use Aura\Payload_Interface\PayloadInterface;
 use Modus\Response\Interfaces\HtmlGenerator;
-use Zend\Diactoros\Response\HtmlResponse;
+use Laminas\Diactoros\Response\HtmlResponse;
 
 class NoContent204Response implements HtmlGenerator
 {
