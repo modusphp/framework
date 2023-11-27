@@ -20,7 +20,7 @@
         "aura/accept": "~2.0",
         "modus/config": "~1.0",
         "aura/payload": "^3.0",
-        "zendframework/zend-diactoros": "^2.0",
+        "laminas/laminas-diactoros": "^3.0",
         "zendframework/zend-httphandlerrunner": "^1.1"
     },
     "require-dev": {
