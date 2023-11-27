@@ -13,7 +13,7 @@
         "aura/router": "~3.0",
         "aura/view": "~2.0.0",
         "monolog/monolog": "~1.5",
-        "pagerfanta/pagerfanta": "~v2.1.2",
+        "pagerfanta/pagerfanta": "~v2.7.3",
         "aura/auth": "~2.0",
         "aura/html": "~2.1.0",
         "league/booboo": "~2.0",
